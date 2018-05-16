@@ -36,7 +36,7 @@ function setupInjection () {
     // append as first child
     container.insertBefore(scriptTag, container.children[0])
   } catch (e) {
-    console.error('Metamask injection failed.', e)
+    console.error('MetamaskII injection failed.', e)
   }
 }
 
@@ -47,8 +47,8 @@ function setupInjection () {
 function setupStreams () {
   // setup communication to page and plugin
   const pageStream = new LocalMessageDuplexStream({
-    name: 'contentscript',
-    target: 'inpage',
+    name: 'contentscriptixo',
+    target: 'inpageixo',
   })
   const pluginPort = extension.runtime.connect({ name: 'contentscript' })
   const pluginStream = new PortStream(pluginPort)
@@ -58,7 +58,7 @@ function setupStreams () {
     pageStream,
     pluginStream,
     pageStream,
-    (err) => logStreamDisconnectWarning('MetaMask Contentscript Forwarding', err)
+    (err) => logStreamDisconnectWarning('MetaMaskII Contentscript Forwarding', err)
   )
 
   // setup local multistream channels
@@ -69,13 +69,13 @@ function setupStreams () {
     mux,
     pageStream,
     mux,
-    (err) => logStreamDisconnectWarning('MetaMask Inpage', err)
+    (err) => logStreamDisconnectWarning('MetaMaskII Inpage', err)
   )
   pump(
     mux,
     pluginStream,
     mux,
-    (err) => logStreamDisconnectWarning('MetaMask Background', err)
+    (err) => logStreamDisconnectWarning('MetaMaskII Background', err)
   )
 
   // connect ping stream
@@ -84,7 +84,7 @@ function setupStreams () {
     mux,
     pongStream,
     mux,
-    (err) => logStreamDisconnectWarning('MetaMask PingPongStream', err)
+    (err) => logStreamDisconnectWarning('MetaMaskII PingPongStream', err)
   )
 
   // connect phishing warning stream
@@ -104,7 +104,7 @@ function setupStreams () {
  * @param {Error} err Stream connection error
  */
 function logStreamDisconnectWarning (remoteLabel, err) {
-  let warningMsg = `MetamaskContentscript - lost connection to ${remoteLabel}`
+  let warningMsg = `MetamaskIIContentscript - lost connection to ${remoteLabel}`
   if (err) warningMsg += '\n' + err.stack
   console.warn(warningMsg)
 }
@@ -192,6 +192,6 @@ function blacklistedDomainCheck () {
  * Redirects the current page to a phishing information page
  */
 function redirectToPhishingWarning () {
-  console.log('MetaMask - redirecting to phishing warning')
+  console.log('MetaMaskII - redirecting to phishing warning')
   window.location.href = 'https://metamask.io/phishing.html'
 }
