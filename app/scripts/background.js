@@ -414,6 +414,7 @@ function setupController (initState, initLangCode) {
  * Opens the browser popup for user confirmation
  */
 function triggerUi () {
+  console.log('Triggering UI');
   extension.tabs.query({ active: true }, tabs => {
     const currentlyActiveMetamaskTab = Boolean(tabs.find(tab => openMetamaskTabsIDs[tab.id]))
     if (!popupIsOpen && !currentlyActiveMetamaskTab && !notificationIsOpen) {
