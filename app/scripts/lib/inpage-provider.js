@@ -6,9 +6,9 @@ const LocalStorageStore = require('obs-store')
 const asStream = require('obs-store/lib/asStream')
 const ObjectMultiplex = require('obj-multiplex')
 
-module.exports = MetamaskInpageProvider
+module.exports = Metamask2InpageProvider
 
-function MetamaskInpageProvider (connectionStream) {
+function Metamask2InpageProvider (connectionStream) {
   const self = this
 
   // setup connectionStream multiplexing
@@ -50,13 +50,13 @@ function MetamaskInpageProvider (connectionStream) {
 
 // handle sendAsync requests via asyncProvider
 // also remap ids inbound and outbound
-MetamaskInpageProvider.prototype.sendAsync = function (payload, cb) {
+Metamask2InpageProvider.prototype.sendAsync = function (payload, cb) {
   const self = this
   self.rpcEngine.handle(payload, cb)
 }
 
 
-MetamaskInpageProvider.prototype.send = function (payload) {
+Metamask2InpageProvider.prototype.send = function (payload) {
   const self = this
 
   let selectedAddress
@@ -101,16 +101,16 @@ MetamaskInpageProvider.prototype.send = function (payload) {
   }
 }
 
-MetamaskInpageProvider.prototype.isConnected = function () {
+Metamask2InpageProvider.prototype.isConnected = function () {
   return true
 }
 
-MetamaskInpageProvider.prototype.isMetaMask = true
+Metamask2InpageProvider.prototype.isMetaMask = false
 
 // util
 
 function logStreamDisconnectWarning (remoteLabel, err) {
-  let warningMsg = `MetamaskInpageProvider - lost connection to ${remoteLabel}`
+  let warningMsg = `Metamask2InpageProvider - lost connection to ${remoteLabel}`
   if (err) warningMsg += '\n' + err.stack
   console.warn(warningMsg)
 }

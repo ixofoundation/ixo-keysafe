@@ -4,7 +4,7 @@ require('web3/dist/web3.min.js')
 const log = require('loglevel')
 const LocalMessageDuplexStream = require('post-message-stream')
 const setupDappAutoReload = require('./lib/auto-reload.js')
-const MetamaskInpageProvider = require('./lib/inpage-provider.js')
+const Metamask2InpageProvider = require('./lib/inpage-provider.js')
 restoreContextAfterImports()
 
 log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
@@ -20,15 +20,15 @@ var metamaskStream = new LocalMessageDuplexStream({
 })
 
 // compose the inpage provider
-var inpageProvider = new MetamaskInpageProvider(metamaskStream)
+var inpageProvider = new Metamask2InpageProvider(metamaskStream)
 
 //
 // setup web3
 //
 
-if (typeof window.web3 !== 'undefined') {
-  throw new Error(`MetaMask detected another web3.
-     MetaMask will not work reliably with another web3 extension.
+if (typeof window.web3Ixo !== 'undefined') {
+  throw new Error(`MetaMask II detected another web3.
+     MetaMask II will not work reliably with another web3 extension.
      This usually happens if you have two MetaMasks installed,
      or MetaMask and another web3 extension. Please remove one
      and try again.`)
