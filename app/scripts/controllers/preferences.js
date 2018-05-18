@@ -25,7 +25,7 @@ class PreferencesController {
       currentAccountTab: 'history',
       tokens: [],
       useBlockie: false,
-      featureFlags: {},
+      featureFlags: {betaUI: true},
       currentLocale: opts.initLangCode,
     }, opts.initState)
     this.store = new ObservableStore(initState)
