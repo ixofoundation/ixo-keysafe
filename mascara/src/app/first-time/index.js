@@ -69,11 +69,7 @@ class FirstTimeFlow extends Component {
         <div className="first-time-flow">
           <Switch>
             <Route exact path={INITIALIZE_IMPORT_ACCOUNT_ROUTE} component={ImportAccountScreen} />
-            <Route
-              exact
-              path={INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE}
-              component={ImportSeedPhraseScreen}
-            />
+            <Route exact path={INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE} component={ImportSeedPhraseScreen} />
             <Route exact path={INITIALIZE_UNIQUE_IMAGE_ROUTE} component={UniqueImageScreen} />
             <Route exact path={INITIALIZE_NOTICE_ROUTE} component={NoticeScreen} />
             <Route exact path={INITIALIZE_BACKUP_PHRASE_ROUTE} component={BackupPhraseScreen} />
