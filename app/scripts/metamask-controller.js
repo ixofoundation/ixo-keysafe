@@ -20,6 +20,8 @@ const createLoggerMiddleware = require('./lib/createLoggerMiddleware')
 const createProviderMiddleware = require('./lib/createProviderMiddleware')
 const setupMultiplex = require('./lib/stream-utils.js').setupMultiplex
 const KeyringController = require('eth-keyring-controller')
+const SovrinKeyringController = require('./lib/sovrin/sovrin-keyring-controller')
+const SovrinKeyring = require('./lib/sovrin/sovrin-keyring')
 const NetworkController = require('./controllers/network')
 const PreferencesController = require('./controllers/preferences')
 const CurrencyController = require('./controllers/currency')
@@ -123,11 +125,17 @@ module.exports = class MetamaskController extends EventEmitter {
     })
 
     // key mgmt
-    this.keyringController = new KeyringController({
+    this.keyringController = new SovrinKeyringController({
       initState: initState.KeyringController,
       getNetwork: this.networkController.getNetworkState.bind(this.networkController),
       encryptor: opts.encryptor || undefined,
     })
+
+    //TODO: ADDED by cedric
+    this.keyringController.keyringTypes.push(SovrinKeyring)
+    const keyringTypes = this.keyringController.memStore.getState().keyringTypes
+    console.log(this.keyringController.memStore.getState())
+    this.keyringController.memStore.updateState({ keyringTypes: keyringTypes.push(SovrinKeyring.type) })
 
     // If only one account exists, make sure it is selected.
     this.keyringController.memStore.subscribe((state) => {
@@ -228,6 +236,7 @@ module.exports = class MetamaskController extends EventEmitter {
    * Constructor helper: initialize a provider.
    */
   initializeProvider () {
+    //TODO: What should go here
     const providerOpts = {
       static: {
         eth_syncing: false,
@@ -492,9 +501,9 @@ module.exports = class MetamaskController extends EventEmitter {
    * @returns {} keyState
    */
   async addNewAccount () {
-    const primaryKeyring = this.keyringController.getKeyringsByType('HD Key Tree')[0]
+    const primaryKeyring = this.keyringController.getKeyringsByType('sovrin')[0]
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found')
+      throw new Error('MetamaskController - No Sovrin found')
     }
     const keyringController = this.keyringController
     const oldAccounts = await keyringController.getAccounts()
@@ -543,9 +552,9 @@ module.exports = class MetamaskController extends EventEmitter {
    */
   async verifySeedPhrase () {
 
-    const primaryKeyring = this.keyringController.getKeyringsByType('HD Key Tree')[0]
+    const primaryKeyring = this.keyringController.getKeyringsByType('sovrin')[0]
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found')
+      throw new Error('MetamaskController - No Sovrin found')
     }
 
     const serialized = await primaryKeyring.serialize()
