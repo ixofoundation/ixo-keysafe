@@ -9,7 +9,7 @@ const hdkey = require('ethereumjs-wallet/hdkey')
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
 const type = 'sovrin'
-const SOV_DID_PREFIX = 'did:sov:'
+const SOV_DID_PREFIX = 'did:ixo:'
 
 class SovrinKeyring extends EventEmitter {
 
