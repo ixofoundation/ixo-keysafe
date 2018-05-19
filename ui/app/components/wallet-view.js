@@ -117,7 +117,7 @@ WalletView.prototype.render = function () {
   })
 
   const type = keyring.type
-  const isLoose = type !== 'HD Key Tree'
+  const isLoose = type !== 'sovrin'
 
   return h('div.wallet-view.flex-column' + (responsiveDisplayClassname || ''), {
     style: {},
