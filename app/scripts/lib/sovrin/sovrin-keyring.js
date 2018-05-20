@@ -71,7 +71,7 @@ class SovrinKeyring extends EventEmitter {
   }
 
   //TODO: Generate new Sovrin did based off index and seed
-  deriveSovrinDid(seed, i){
+  deriveSovrinDid (seed, i) {
     // Create the Sovrin DID
     return sovrin.fromSeed(seed);
   }
