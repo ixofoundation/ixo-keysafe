@@ -527,6 +527,9 @@
   "newContract": {
     "message": "New Contract"
   },
+  "createUsername": {
+    "message": "Username (min 8 chars)"
+  },
   "newPassword": {
     "message": "New Password (min 8 chars)"
   },

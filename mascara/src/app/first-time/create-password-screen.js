@@ -76,6 +76,9 @@ class CreatePasswordScreen extends Component {
       .then(() => history.push(INITIALIZE_UNIQUE_IMAGE_ROUTE))
   }
 
+  handleUsernameChange (username) {
+  }
+
   handlePasswordChange (password) {
     const { confirmPassword } = this.state
     let confirmPasswordError = null
@@ -105,7 +108,7 @@ class CreatePasswordScreen extends Component {
 
   render () {
     const { history, isMascara } = this.props
-    const { passwordError, confirmPasswordError } = this.state
+    const { usernameError, passwordError, confirmPasswordError } = this.state
     const { t } = this.context
 
     return (
@@ -132,6 +135,18 @@ class CreatePasswordScreen extends Component {
               Create Password
             </div>
             <TextField
+              id="create-username"
+              label={t('createUsername')}
+              type="text"
+              className="first-time-flow__input"
+              value={this.state.username}
+              onChange={event => this.handleUsernameChange(event.target.value)}
+              error={usernameError}
+              autoFocus
+              margin="normal"
+              fullWidth
+            />
+            <TextField
               id="create-password"
               label={t('newPassword')}
               type="password"
@@ -139,7 +154,6 @@ class CreatePasswordScreen extends Component {
               value={this.state.password}
               onChange={event => this.handlePasswordChange(event.target.value)}
               error={passwordError}
-              autoFocus
               autoComplete="new-password"
               margin="normal"
               fullWidth
