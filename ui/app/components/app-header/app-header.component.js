@@ -87,14 +87,6 @@ class AppHeader extends Component {
             </div>
           </div>
           <div className="app-header__account-menu-container">
-            <div className="network-component-wrapper">
-              <NetworkIndicator
-                network={network}
-                provider={provider}
-                onClick={event => this.handleNetworkIndicatorClick(event)}
-                disabled={location.pathname === CONFIRM_TRANSACTION_ROUTE}
-              />
-            </div>
             { this.renderAccountMenu() }
           </div>
         </div>
