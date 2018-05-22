@@ -14,6 +14,7 @@ const DepositEtherModal = require('./deposit-ether-modal')
 const AccountDetailsModal = require('./account-details-modal')
 const EditAccountNameModal = require('./edit-account-name-modal')
 const ExportPrivateKeyModal = require('./export-private-key-modal')
+const RevealSeedWordsModal = require('./reveal-seed-words-modal')
 const NewAccountModal = require('./new-account-modal')
 const ShapeshiftDepositTxModal = require('./shapeshift-deposit-tx-modal.js')
 const HideTokenConfirmationModal = require('./hide-token-confirmation-modal')
@@ -146,6 +147,13 @@ const MODALS = {
   EXPORT_PRIVATE_KEY: {
     contents: [
       h(ExportPrivateKeyModal, {}, []),
+    ],
+    ...accountModalStyle,
+  },
+
+  REVEAL_SEED_CONFIRMATION: {
+    contents: [
+      h(RevealSeedWordsModal, {}, []),
     ],
     ...accountModalStyle,
   },

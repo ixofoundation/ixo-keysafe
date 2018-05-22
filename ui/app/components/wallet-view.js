@@ -6,7 +6,6 @@ const { withRouter } = require('react-router-dom')
 const { compose } = require('recompose')
 const inherits = require('util').inherits
 const classnames = require('classnames')
-const { checksumAddress } = require('../util')
 const Identicon = require('./identicon')
 // const AccountDropdowns = require('./dropdowns/index.js').AccountDropdowns
 const Tooltip = require('./tooltip-v2.js')
@@ -16,6 +15,7 @@ const BalanceComponent = require('./balance-component')
 const TokenList = require('./token-list')
 const selectors = require('../selectors')
 const { ADD_TOKEN_ROUTE } = require('../routes')
+const QrView = require('./qr-code')
 
 module.exports = compose(
   withRouter,
@@ -63,38 +63,6 @@ function WalletView () {
   }
 }
 
-WalletView.prototype.renderWalletBalance = function () {
-  const {
-    selectedTokenAddress,
-    selectedAccount,
-    unsetSelectedToken,
-    hideSidebar,
-    sidebarOpen,
-  } = this.props
-
-  const selectedClass = selectedTokenAddress
-    ? ''
-    : 'wallet-balance-wrapper--active'
-  const className = `flex-column wallet-balance-wrapper ${selectedClass}`
-
-  return h('div', { className }, [
-    h('div.wallet-balance',
-      {
-        onClick: () => {
-          unsetSelectedToken()
-          selectedTokenAddress && sidebarOpen && hideSidebar()
-        },
-      },
-      [
-        h(BalanceComponent, {
-          balanceValue: selectedAccount ? selectedAccount.balance : '',
-          style: {},
-        }),
-      ]
-    ),
-  ])
-}
-
 WalletView.prototype.render = function () {
   const {
     responsiveDisplayClassname,
@@ -102,14 +70,7 @@ WalletView.prototype.render = function () {
     selectedIdentity,
     keyrings,
     showAccountDetailModal,
-    sidebarOpen,
-    hideSidebar,
-    history,
   } = this.props
-  // temporary logs + fake extra wallets
-  // console.log('walletview, selectedAccount:', selectedAccount)
-
-  const checksummedAddress = checksumAddress(selectedAddress)
 
   const keyring = keyrings.find((kr) => {
     return kr.accounts.includes(selectedAddress) ||
@@ -127,10 +88,6 @@ WalletView.prototype.render = function () {
     h('div.flex-column.wallet-view-account-details', {
       style: {},
     }, [
-      h('div.wallet-view__sidebar-close', {
-        onClick: hideSidebar,
-      }),
-
       h('div.wallet-view__keyring-label.allcaps', isLoose ? this.context.t('imported') : ''),
 
       h('div.flex-column.flex-center.wallet-view__name-container', {
@@ -139,7 +96,7 @@ WalletView.prototype.render = function () {
       }, [
         h(Identicon, {
           diameter: 54,
-          address: checksummedAddress,
+          address: selectedAddress,
         }),
 
         h('span.account-name', {
@@ -152,6 +109,12 @@ WalletView.prototype.render = function () {
       ]),
     ]),
 
+    h(QrView, {
+      Qr: {
+        data: selectedAddress,
+      },
+    }),
+
     h(Tooltip, {
       position: 'bottom',
       title: this.state.hasCopied ? this.context.t('copiedExclamation') : this.context.t('copyToClipboard'),
@@ -162,7 +125,7 @@ WalletView.prototype.render = function () {
           'wallet-view__address__pressed': this.state.copyToClipboardPressed,
         }),
         onClick: () => {
-          copyToClipboard(checksummedAddress)
+          copyToClipboard(selectedAddress)
           this.setState({ hasCopied: true })
           setTimeout(() => this.setState({ hasCopied: false }), 3000)
         },
@@ -173,30 +136,10 @@ WalletView.prototype.render = function () {
           this.setState({ copyToClipboardPressed: false })
         },
       }, [
-        `${checksummedAddress.slice(0, 4)}...${checksummedAddress.slice(-4)}`,
+        "Copy DID",
         h('i.fa.fa-clipboard', { style: { marginLeft: '8px' } }),
       ]),
     ]),
 
-    this.renderWalletBalance(),
-
-    h(TokenList),
-
-    h('button.btn-primary.wallet-view__add-token-button', {
-      onClick: () => {
-        history.push(ADD_TOKEN_ROUTE)
-        sidebarOpen && hideSidebar()
-      },
-    }, this.context.t('addToken')),
   ])
 }
-
-// TODO: Extra wallets, for dev testing. Remove when PRing to master.
-// const extraWallet = h('div.flex-column.wallet-balance-wrapper', {}, [
-//     h('div.wallet-balance', {}, [
-//       h(BalanceComponent, {
-//         balanceValue: selectedAccount.balance,
-//         style: {},
-//       }),
-//     ]),
-// ])

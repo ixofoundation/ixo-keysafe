@@ -58,6 +58,7 @@ module.exports = {
   allNull,
   getTokenAddressFromTokenObject,
   checksumAddress,
+  nonNullAddress,
 }
 
 function valuesFor (obj) {
@@ -298,3 +299,14 @@ function getTokenAddressFromTokenObject (token) {
 function checksumAddress (address) {
   return address ? ethUtil.toChecksumAddress(address) : ''
 }
+
+/**
+ * Safely checks for a potentially-null address
+ * 
+ * @param {String} [address] - address to check
+ * @returns {String} - checked address (either the non null address or "")
+ */
+function nonNullAddress (address) {
+  return address ? address : ''
+}
+

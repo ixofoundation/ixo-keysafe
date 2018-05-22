@@ -45,9 +45,10 @@ class WelcomeScreen extends Component {
             height: '225',
           }),
 
-          h('div.welcome-screen__info__header', 'Welcome to MetaMask Beta'),
+          h('div.welcome-screen__info__header', 'Welcome to the'),
+          h('div.welcome-screen__info__header', 'ixo credential Manager'),
 
-          h('div.welcome-screen__info__copy', 'MetaMask is a secure identity vault for Ethereum.'),
+          h('div.welcome-screen__info__copy', 'The ixo Credential Manager securely stores your digital identity in a vault for signing ixo network requests.'),
 
           h('div.welcome-screen__info__copy', `It allows you to hold ether & tokens,
             and serves as your bridge to decentralized applications.`),

@@ -97,6 +97,7 @@ class ImportSeedPhraseScreen extends Component {
       password,
       confirmPassword,
       seedPhraseError,
+      usernameError,
       passwordError,
       confirmPasswordError,
     } = this.state
@@ -136,6 +137,17 @@ class ImportSeedPhraseScreen extends Component {
             <span className="error">
               { seedPhraseError }
             </span>
+            <TextField
+              id="create-username"
+              label={t('createUsername')}
+              type="text"
+              className="first-time-flow__input"
+              value={this.state.username}
+              onChange={event => this.handleUsernameChange(event.target.value)}
+              error={usernameError}
+              margin="normal"
+              fullWidth
+            />
             <TextField
               id="password"
               label={t('newPassword')}

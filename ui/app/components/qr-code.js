@@ -5,7 +5,7 @@ const inherits = require('util').inherits
 const connect = require('react-redux').connect
 const { isHexPrefixed } = require('ethereumjs-util')
 const ReadOnlyInput = require('./readonly-input')
-const { checksumAddress } = require('../util')
+const { nonNullAddress } = require('../util')
 
 module.exports = connect(mapStateToProps)(QrCodeView)
 
@@ -51,7 +51,7 @@ QrCodeView.prototype.render = function () {
     h(ReadOnlyInput, {
       wrapperClass: 'ellip-address-wrapper',
       inputClass: 'qr-ellip-address',
-      value: checksumAddress(data),
+      value: nonNullAddress(data),
     }),
   ])
 }

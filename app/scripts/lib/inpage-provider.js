@@ -81,8 +81,10 @@ Metamask2InpageProvider.prototype.send = function (payload) {
       break
 
     case 'net_version':
-      const networkVersion = self.publicConfigStore.getState().networkVersion
-      result = networkVersion || null
+      //TODO: FIX for SOVRIN
+      // const networkVersion = self.publicConfigStore.getState().networkVersion
+      // result = networkVersion || null
+      return null
       break
 
     // throw not-supported Error

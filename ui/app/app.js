@@ -15,7 +15,7 @@ const SendTransactionScreen2 = require('./components/send/send-v2-container')
 const ConfirmTxScreen = require('./conf-tx')
 
 // slideout menu
-const WalletView = require('./components/wallet-view')
+// const WalletView = require('./components/wallet-view')
 
 // other views
 const Home = require('./components/pages/home')
@@ -32,7 +32,7 @@ const NoticeScreen = require('./components/pages/notice')
 const Loading = require('./components/loading-screen')
 const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 const NetworkDropdown = require('./components/dropdowns/network-dropdown')
-const AccountMenu = require('./components/account-menu')
+// const AccountMenu = require('./components/account-menu')
 
 // Global Modals
 const Modal = require('./components/modals/index').Modal
@@ -55,13 +55,13 @@ const {
 } = require('./routes')
 
 class App extends Component {
-  componentWillMount () {
-    const { currentCurrency, setCurrentCurrencyToUSD } = this.props
+  // componentWillMount () {
+  //   const { currentCurrency, setCurrentCurrencyToUSD } = this.props
 
-    if (!currentCurrency) {
-      setCurrentCurrencyToUSD()
-    }
-  }
+  //   if (!currentCurrency) {
+  //     setCurrentCurrencyToUSD()
+  //   }
+  // }
 
   renderRoutes () {
     const exact = true
@@ -103,9 +103,9 @@ class App extends Component {
       currentView,
       setMouseUserState,
     } = this.props
-    const isLoadingNetwork = network === 'loading' && currentView.name !== 'config'
-    const loadMessage = loadingMessage || isLoadingNetwork ?
-      this.getConnectingLabel() : null
+    // const isLoadingNetwork = network === 'loading' && currentView.name !== 'config'
+    // const loadMessage = loadingMessage || isLoadingNetwork ?
+    //   this.getConnectingLabel() : null
     log.debug('Main ui render function')
 
     return (
@@ -130,15 +130,15 @@ class App extends Component {
 
         this.renderAppHeader(),
 
-        // sidebar
-        this.renderSidebar(),
+        // // sidebar
+        // this.renderSidebar(),
 
-        h(AccountMenu),
+        // h(AccountMenu),
 
-        (isLoading || isLoadingNetwork) && h(Loading, {
-          loadingMessage: loadMessage,
-          fullScreen: true,
-        }),
+        // (isLoading || isLoadingNetwork) && h(Loading, {
+        //   loadingMessage: loadMessage,
+        //   fullScreen: true,
+        // }),
 
         // content
         this.renderRoutes(),
@@ -154,50 +154,50 @@ class App extends Component {
     ])
   }
 
-  renderSidebar () {
-    return h('div', [
-      h('style', `
-        .sidebar-enter {
-          transition: transform 300ms ease-in-out;
-          transform: translateX(-100%);
-        }
-        .sidebar-enter.sidebar-enter-active {
-          transition: transform 300ms ease-in-out;
-          transform: translateX(0%);
-        }
-        .sidebar-leave {
-          transition: transform 200ms ease-out;
-          transform: translateX(0%);
-        }
-        .sidebar-leave.sidebar-leave-active {
-          transition: transform 200ms ease-out;
-          transform: translateX(-100%);
-        }
-      `),
+  // renderSidebar () {
+  //   return h('div', [
+  //     h('style', `
+  //       .sidebar-enter {
+  //         transition: transform 300ms ease-in-out;
+  //         transform: translateX(-100%);
+  //       }
+  //       .sidebar-enter.sidebar-enter-active {
+  //         transition: transform 300ms ease-in-out;
+  //         transform: translateX(0%);
+  //       }
+  //       .sidebar-leave {
+  //         transition: transform 200ms ease-out;
+  //         transform: translateX(0%);
+  //       }
+  //       .sidebar-leave.sidebar-leave-active {
+  //         transition: transform 200ms ease-out;
+  //         transform: translateX(-100%);
+  //       }
+  //     `),
 
-      h(ReactCSSTransitionGroup, {
-        transitionName: 'sidebar',
-        transitionEnterTimeout: 300,
-        transitionLeaveTimeout: 200,
-      }, [
-        // A second instance of Walletview is used for non-mobile viewports
-        this.props.sidebarOpen ? h(WalletView, {
-          responsiveDisplayClassname: '.sidebar',
-          style: {},
-        }) : undefined,
+  //     h(ReactCSSTransitionGroup, {
+  //       transitionName: 'sidebar',
+  //       transitionEnterTimeout: 300,
+  //       transitionLeaveTimeout: 200,
+  //     }, [
+  //       // A second instance of Walletview is used for non-mobile viewports
+  //       this.props.sidebarOpen ? h(WalletView, {
+  //         responsiveDisplayClassname: '.sidebar',
+  //         style: {},
+  //       }) : undefined,
 
-      ]),
+  //     ]),
 
-      // overlay
-      // TODO: add onClick for overlay to close sidebar
-      this.props.sidebarOpen ? h('div.sidebar-overlay', {
-        style: {},
-        onClick: () => {
-          this.props.hideSidebar()
-        },
-      }, []) : undefined,
-    ])
-  }
+  //     // overlay
+  //     // TODO: add onClick for overlay to close sidebar
+  //     this.props.sidebarOpen ? h('div.sidebar-overlay', {
+  //       style: {},
+  //       onClick: () => {
+  //         this.props.hideSidebar()
+  //       },
+  //     }, []) : undefined,
+  //   ])
+  // }
 
   toggleMetamaskActive () {
     if (!this.props.isUnlocked) {
