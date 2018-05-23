@@ -285,6 +285,11 @@
   font-size: 18px;
 }
 
+.account-modal-container .modal-body-qrcode {
+  display: flex;
+  justify-content: center;
+}
+
 .account-modal__name {
   margin-top: 9px;
   font-size: 20px;
@@ -367,7 +372,7 @@
   overflow: hidden;
   resize: none;
   padding: 9px 13px 8px;
-  text-transform: uppercase;
+  font-weight: 300;
 }
 
 
@@ -795,6 +800,7 @@
   .simple-dropdown {
     color: #5B5D67;
     font-size: 16px;
+    font-weight: 300;
     line-height: 21px;
     border: 1px solid #D8D8D8;
     background-color: #FFFFFF;

@@ -152,6 +152,9 @@
   "copyPrivateKey": {
     "message": "This is your private key (click to copy)"
   },
+  "copySeedWords": {
+    "message": "These are your seed words (click to copy)"
+  },
   "create": {
     "message": "Create"
   },
@@ -528,7 +531,7 @@
     "message": "New Contract"
   },
   "createUsername": {
-    "message": "Username (min 8 chars)"
+    "message": "Username"
   },
   "newPassword": {
     "message": "New Password (min 8 chars)"
