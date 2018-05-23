@@ -36,11 +36,11 @@ QrCodeView.prototype.render = function () {
       ? h('.message-container', this.renderMultiMessage())
       : message && h('.qr-header', message),
 
-    this.props.warning ? this.props.warning && h('span.error.flex-center', {
-      style: {
-      },
-    },
-    this.props.warning) : null,
+    // this.props.warning ? this.props.warning && h('span.error.flex-center', {
+    //   style: {
+    //   },
+    // },
+    // this.props.warning) : null,
 
     h('.div.qr-wrapper', {
       style: {},
