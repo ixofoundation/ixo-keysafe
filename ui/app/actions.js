@@ -395,13 +395,13 @@ function createNewVaultAndRestore (password, seed) {
   }
 }
 
-function createNewVaultAndKeychain (password) {
+function createNewVaultAndKeychain (accountName, password) {
   return dispatch => {
     dispatch(actions.showLoadingIndication())
     log.debug(`background.createNewVaultAndKeychain`)
 
     return new Promise((resolve, reject) => {
-      background.createNewVaultAndKeychain(password, err => {
+      background.createNewVaultAndKeychain(accountName, password, err => {
         if (err) {
           dispatch(actions.displayWarning(err.message))
           return reject(err)

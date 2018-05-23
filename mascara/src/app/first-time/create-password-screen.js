@@ -30,6 +30,7 @@ class CreatePasswordScreen extends Component {
   }
 
   state = {
+    username: '',
     password: '',
     confirmPassword: '',
     passwordError: null,
@@ -68,15 +69,16 @@ class CreatePasswordScreen extends Component {
       return
     }
 
-    const { password } = this.state
+    const { username, password } = this.state
     const { createAccount, history } = this.props
 
     this.setState({ isLoading: true })
-    createAccount(password)
+    createAccount(username, password)
       .then(() => history.push(INITIALIZE_UNIQUE_IMAGE_ROUTE))
   }
 
   handleUsernameChange (username) {
+    this.setState({ username })
   }
 
   handlePasswordChange (password) {
@@ -225,7 +227,7 @@ export default compose(
   connect(
     mapStateToProps,
     dispatch => ({
-      createAccount: password => dispatch(createNewVaultAndKeychain(password)),
+      createAccount: (username, password) => dispatch(createNewVaultAndKeychain(username, password)),
     })
   )
 )(CreatePasswordScreen)

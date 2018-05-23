@@ -6,10 +6,11 @@ const ObservableStore = require('obs-store')
 const filter = require('promise-filter')
 const encryptor = require('browser-passworder')
 const sigUtil = require('eth-sig-util')
-const normalizeAddress = function(address){
+const stripHexPrefixFromAddress = function (address) {
   var newAddress = address
-  if(newAddress.startsWith('0x')) 
+  if (newAddress.startsWith('0x')) {
     newAddress = newAddress.substring(2)
+  }
   return newAddress
 }
 // Keyrings:
@@ -69,9 +70,9 @@ class SovrinKeyringController extends EventEmitter {
   // creates a new encrypted store with the given password,
   // randomly creates a new HD wallet with 1 account,
   // faucets that account on the testnet.
-  createNewVaultAndKeychain (password) {
+  createNewVaultAndKeychain (accountName, password) {
     return this.persistAllKeyrings(password)
-      .then(this.createFirstKeyTree.bind(this))
+      .then(this.createFirstKeyTree.bind(this, accountName, password))
       .then(this.fullUpdate.bind(this))
   }
 
@@ -169,7 +170,7 @@ class SovrinKeyringController extends EventEmitter {
     })
     .then((checkedAccounts) => {
       this.keyrings.push(keyring)
-      return this.setupAccounts(checkedAccounts)
+      return this.setupAccounts(checkedAccounts, opts.accountName)
     })
     .then(() => this.persistAllKeyrings())
     .then(() => this._updateMemStoreKeyrings())
@@ -228,7 +229,7 @@ class SovrinKeyringController extends EventEmitter {
   // Persists a nickname equal to `label` for the specified account.
   saveAccountLabel (account, label) {
     try {
-      const hexAddress = normalizeAddress(account)
+      const hexAddress = stripHexPrefixFromAddress(account)
       // update state on diskStore
       const state = this.store.getState()
       const walletNicknames = state.walletNicknames || {}
@@ -257,7 +258,7 @@ class SovrinKeyringController extends EventEmitter {
     try {
       return this.getKeyringForAccount(address)
       .then((keyring) => {
-        return keyring.exportAccount(normalizeAddress(address))
+        return keyring.exportAccount(stripHexPrefixFromAddress(address))
       })
     } catch (e) {
       return Promise.reject(e)
@@ -271,7 +272,7 @@ class SovrinKeyringController extends EventEmitter {
   // TX Manager to update the state after signing
 
   signTransaction (ethTx, _fromAddress) {
-    const fromAddress = normalizeAddress(_fromAddress)
+    const fromAddress = stripHexPrefixFromAddress(_fromAddress)
     return this.getKeyringForAccount(fromAddress)
     .then((keyring) => {
       return keyring.signTransaction(fromAddress, ethTx)
@@ -285,7 +286,7 @@ class SovrinKeyringController extends EventEmitter {
   //
   // Attempts to sign the provided @object msgParams.
   signMessage (msgParams) {
-    const address = normalizeAddress(msgParams.from)
+    const address = stripHexPrefixFromAddress(msgParams.from)
     return this.getKeyringForAccount(address)
     .then((keyring) => {
       return keyring.signMessage(address, msgParams.data)
@@ -300,7 +301,7 @@ class SovrinKeyringController extends EventEmitter {
   // Attempts to sign the provided @object msgParams.
   // Prefixes the hash before signing as per the new geth behavior.
   signPersonalMessage (msgParams) {
-    const address = normalizeAddress(msgParams.from)
+    const address = stripHexPrefixFromAddress(msgParams.from)
     return this.getKeyringForAccount(address)
     .then((keyring) => {
       return keyring.signPersonalMessage(address, msgParams.data)
@@ -309,7 +310,7 @@ class SovrinKeyringController extends EventEmitter {
 
   // Sign Typed Message (EIP712 https://github.com/ethereum/EIPs/pull/712#issuecomment-329988454)
   signTypedMessage (msgParams) {
-    const address = normalizeAddress(msgParams.from)
+    const address = stripHexPrefixFromAddress(msgParams.from)
     return this.getKeyringForAccount(address)
       .then((keyring) => {
       return keyring.signTypedData(address, msgParams.data)
@@ -330,18 +331,18 @@ class SovrinKeyringController extends EventEmitter {
   // makes that account the selected account,
   // faucets that account on testnet,
   // puts the current seed words into the state tree.
-  createFirstKeyTree () {
+  createFirstKeyTree (accountName, password) {
     this.clearKeyrings()
-    return this.addNewKeyring('sovrin', { numberOfAccounts: 1 })
+    return this.addNewKeyring('sovrin', { numberOfAccounts: 1, accountName})
     .then((keyring) => {
       return keyring.getAccounts()
     })
     .then((accounts) => {
       const firstAccount = accounts[0]
       if (!firstAccount) throw new Error('KeyringController - No account found on keychain.')
-      const hexAccount = normalizeAddress(firstAccount)
+      const hexAccount = stripHexPrefixFromAddress(firstAccount)
       this.emit('newVault', hexAccount)
-      return this.setupAccounts(accounts)
+      return this.setupAccounts(accounts, accountName)
     })
     .then(this.persistAllKeyrings.bind(this))
   }
@@ -353,12 +354,12 @@ class SovrinKeyringController extends EventEmitter {
   //
   // Initializes the provided account array
   // Gives them numerically incremented nicknames,
-  setupAccounts (accounts) {
+  setupAccounts (accounts, accountName) {
     return this.getAccounts()
     .then((loadedAccounts) => {
       const arr = accounts || loadedAccounts
       return Promise.all(arr.map((account) => {
-        return this.getBalanceAndNickname(account)
+        return this.getBalanceAndNickname(account, accountName)
       }))
     })
   }
@@ -370,12 +371,12 @@ class SovrinKeyringController extends EventEmitter {
   //
   // Takes an account address and an iterator representing
   // the current number of named accounts.
-  getBalanceAndNickname (account) {
+  getBalanceAndNickname (account, accountName) {
     if (!account) {
       throw new Error('Problem loading account.')
     }
-    const address = normalizeAddress(account)
-    return this.createNickname(address)
+    const address = stripHexPrefixFromAddress(account)
+    return this.createNickname(address, accountName)
   }
 
   // Create Nickname
@@ -384,13 +385,13 @@ class SovrinKeyringController extends EventEmitter {
   // returns Promise( @string label )
   //
   // Takes an address, and assigns it an incremented nickname, persisting it.
-  createNickname (address) {
-    const hexAddress = normalizeAddress(address)
+  createNickname (address, accountName) {
+    const hexAddress = stripHexPrefixFromAddress(address)
     const identities = this.memStore.getState().identities
     const currentIdentityCount = Object.keys(identities).length + 1
     const nicknames = this.store.getState().walletNicknames || {}
     const existingNickname = nicknames[hexAddress]
-    const name = existingNickname || `Account ${currentIdentityCount}`
+    const name = existingNickname || accountName || `Account ${currentIdentityCount}`
     identities[hexAddress] = {
       address: hexAddress,
       name,
@@ -512,7 +513,7 @@ class SovrinKeyringController extends EventEmitter {
         return res.concat(arr)
       }, [])
     })
-    return addrs.map(normalizeAddress)
+    return addrs.map(stripHexPrefixFromAddress)
   }
 
   // Get Keyring For Account
@@ -523,7 +524,7 @@ class SovrinKeyringController extends EventEmitter {
   // Returns the currently initialized keyring that manages
   // the specified `address` if one exists.
   getKeyringForAccount (address) {
-    const hexed = normalizeAddress(address)
+    const hexed = stripHexPrefixFromAddress(address)
     log.debug(`KeyringController - getKeyringForAccount: ${hexed}`)
 
     return Promise.all(this.keyrings.map((keyring) => {
@@ -533,7 +534,7 @@ class SovrinKeyringController extends EventEmitter {
       ])
     }))
     .then(filter((candidate) => {
-      const accounts = candidate[1].map(normalizeAddress)
+      const accounts = candidate[1].map(stripHexPrefixFromAddress)
       return accounts.includes(hexed)
     }))
     .then((winners) => {
@@ -556,7 +557,7 @@ class SovrinKeyringController extends EventEmitter {
     .then((accounts) => {
       return {
         type: keyring.type,
-        accounts: accounts.map(normalizeAddress),
+        accounts: accounts.map(stripHexPrefixFromAddress),
       }
     })
   }
