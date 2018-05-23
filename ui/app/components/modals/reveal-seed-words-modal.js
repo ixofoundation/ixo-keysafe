@@ -28,8 +28,11 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     exportAccount: (password, address) => dispatch(actions.requestRevealSeedWords(password)),
-    showAccountDetailModal: () => dispatch(actions.showModal({ name: 'ACCOUNT_DETAILS' })),
-    hideModal: () => dispatch(actions.hideModal()),
+    showAccountDetailModal: () => {
+      dispatch(actions.hideWarning())
+      dispatch(actions.showModal({ name: 'ACCOUNT_DETAILS' }))
+    },
+    dismissModal: () => dispatch(actions.hideModal()),
   }
 }
 
@@ -103,16 +106,16 @@ RevealSeedWordsModal.prototype.renderButton = function (className, onClick, labe
   }, label)
 }
 
-RevealSeedWordsModal.prototype.renderButtons = function (mnemonic, password, address, hideModal) {
+RevealSeedWordsModal.prototype.renderButtons = function (mnemonic, password, address, dismissAction) {
   return h('div.export-private-key-buttons', {}, [
     !mnemonic && this.renderButton(
       'btn-secondary--lg export-private-key__button export-private-key__button--cancel',
-      () => hideModal(),
+      () => dismissAction(),
       'Cancel'
     ),
 
     (mnemonic
-      ? this.renderButton('btn-primary--lg export-private-key__button', () => hideModal(), this.context.t('done'))
+      ? this.renderButton('btn-primary--lg export-private-key__button', () => dismissAction(), this.context.t('done'))
       : this.renderButton('btn-primary--lg export-private-key__button', () => this.exportAccountAndRevealSeedWords(this.state.password, address), this.context.t('confirm'))
     ),
 
@@ -124,7 +127,7 @@ RevealSeedWordsModal.prototype.render = function () {
     selectedIdentity,
     warning,
     showAccountDetailModal,
-    hideModal,
+    dismissModal,
     previousModalState,
   } = this.props
   const { name, address } = selectedIdentity
@@ -160,7 +163,7 @@ RevealSeedWordsModal.prototype.render = function () {
 
       h('div.private-key-password-warning', this.context.t('revealSeedWordsWarning')),
 
-      this.renderButtons(mnemonic, this.state.password, address, hideModal),
+      this.renderButtons(mnemonic, this.state.password, address, dismissModal),
 
   ])
 }

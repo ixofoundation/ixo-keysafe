@@ -294,6 +294,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     hideModal: () => {
+      dispatch(actions.hideWarning())
       dispatch(actions.hideModal())
     },
     hideWarning: () => {
