@@ -3,13 +3,11 @@ const PropTypes = require('prop-types')
 const h = require('react-hyperscript')
 const inherits = require('util').inherits
 const connect = require('react-redux').connect
-const ethUtil = require('ethereumjs-util')
 const actions = require('../../actions')
 const AccountModalContainer = require('./account-modal-container')
 const { getSelectedIdentity } = require('../../selectors')
 const ReadOnlyInput = require('../readonly-input')
 const copyToClipboard = require('copy-to-clipboard')
-const QrView = require('../qr-code')
 const qrCode = require('qrcode-npm').qrcode
 
 
@@ -43,7 +41,7 @@ function RevealSeedWordsModal () {
   this.state = {
     password: '',
     privateKey: null,
-    mnemonic: ''
+    mnemonic: null,
   }
 }
 
@@ -70,7 +68,8 @@ RevealSeedWordsModal.prototype.renderPasswordLabel = function (mnemonic) {
 RevealSeedWordsModal.prototype.renderQRCode = function (mnemonic) {
   if (mnemonic) {
     const qrImage = qrCode(7, 'M')
-    qrImage.addData(mnemonic)
+    const qrData = JSON.stringify({mnemonic, name})
+    qrImage.addData(qrData)
     qrImage.make()
     return h('div.modal-body-qrcode', {
       style: {},
@@ -153,11 +152,8 @@ RevealSeedWordsModal.prototype.render = function () {
 
       h('div.private-key-password', {}, [
         this.renderQRCode(mnemonic),
-
         this.renderPasswordLabel(mnemonic),
-
         this.renderPasswordInput(mnemonic),
-
         !warning ? null : h('span.private-key-password-error', warning),
       ]),
 

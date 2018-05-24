@@ -6,7 +6,6 @@ const connect = require('react-redux').connect
 const actions = require('../../actions')
 const AccountModalContainer = require('./account-modal-container')
 const { getSelectedIdentity } = require('../../selectors')
-const genAccountLink = require('../../../lib/account-link.js')
 const QrView = require('../qr-code')
 const EditableLabel = require('../editable-label')
 
@@ -50,9 +49,7 @@ module.exports = connect(mapStateToProps, mapDispatchToProps)(AccountDetailsModa
 AccountDetailsModal.prototype.render = function () {
   const {
     selectedIdentity,
-    network,
     revealSeedWords,
-    showExportPrivateKeyModal,
     saveAccountLabel,
   } = this.props
   const { name, address } = selectedIdentity
