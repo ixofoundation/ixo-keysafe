@@ -195,3 +195,17 @@ function redirectToPhishingWarning () {
   console.log('MetaMaskII - redirecting to phishing warning')
   window.location.href = 'https://metamask.io/phishing.html'
 }
+
+/*
+Listen for messages from the page.
+If the message was from the page script, forward it to background.js.
+*/
+window.addEventListener("message", (event) => {
+  if (event.source == window &&
+      event.data &&
+      event.data.direction == "from-page-script") {
+    // alert("Contentscript received message: \"" + event.data.message + "\"");
+
+    extension.runtime.sendMessage(event.data.message);
+  }
+});

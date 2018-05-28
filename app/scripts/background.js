@@ -429,3 +429,9 @@ extension.runtime.onInstalled.addListener(function (details) {
     extension.tabs.create({url: 'https://metamask.io/#how-it-works'})
   }
 })
+
+// Listen for messages from contentscript.js
+extension.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+  //alert(`message received: ${message}`);
+  triggerUi()
+});
