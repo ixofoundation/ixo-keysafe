@@ -432,6 +432,6 @@ extension.runtime.onInstalled.addListener(function (details) {
 
 // Listen for messages from contentscript.js
 extension.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-  alert(`message received: ${JSON.stringify(message)}`);
-  // triggerUi()
+  // alert(`message received: ${JSON.stringify(message)}`);
+  triggerUi()
 });
