@@ -203,9 +203,9 @@ If the message was from the page script, forward it to background.js.
 window.addEventListener("message", (event) => {
   if (event.source == window &&
       event.data &&
-      event.data.direction == "from-page-script") {
+      event.data.origin == 'dapp') {
     // alert("Contentscript received message: \"" + event.data.message + "\"");
 
-    extension.runtime.sendMessage(event.data.message);
+    extension.runtime.sendMessage(event.data.payload);
   }
 });
