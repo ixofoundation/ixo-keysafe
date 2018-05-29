@@ -99,14 +99,14 @@ class SovrinKeyring extends EventEmitter {
     return Promise.resolve(signature)
   }
 
-  // For personal_sign, we need to prefix the message:
-  signPersonalMessage (withAccount, msgHex) {
+  // For ixo_sign, we need to prefix the message:
+  signIxoMessage (withAccount, msgHex) {
     const sdid = this._getWalletForAccount(withAccount)
     const signature = base58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))
     return Promise.resolve(signature)
   }
 
-  // personal_signTypedData, signs data along with the schema
+  // eth_signTypedData, signs data along with the schema
   signTypedData (withAccount, typedData) {
     const sdid = this._getWalletForAccount(withAccount)
     const signature = base58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))

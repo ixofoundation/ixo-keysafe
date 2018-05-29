@@ -120,8 +120,8 @@ setupMetamaskMeshMetrics()
  * @property {TransactionMeta[]} selectedAddressTxList - An array of transactions associated with the currently selected account.
  * @property {Object} unapprovedMsgs - An object of messages associated with the currently selected account, mapping a unique ID to the options.
  * @property {number} unapprovedMsgCount - The number of messages in unapprovedMsgs.
- * @property {Object} unapprovedPersonalMsgs - An object of messages associated with the currently selected account, mapping a unique ID to the options.
- * @property {number} unapprovedPersonalMsgCount - The number of messages in unapprovedPersonalMsgs.
+ * @property {Object} unapprovedIxoMsgs - An object of messages associated with the currently selected account, mapping a unique ID to the options.
+ * @property {number} unapprovedIxoMsgCount - The number of messages in unapprovedIxoMsgs.
  * @property {Object} unapprovedTypedMsgs - An object of messages associated with the currently selected account, mapping a unique ID to the options.
  * @property {number} unapprovedTypedMsgCount - The number of messages in unapprovedTypedMsgs.
  * @property {string[]} keyringTypes - An array of unique keyring identifying strings, representing available strategies for creating accounts.
@@ -383,7 +383,7 @@ function setupController (initState, initLangCode) {
   updateBadge()
   controller.txController.on('update:badge', updateBadge)
   controller.messageManager.on('updateBadge', updateBadge)
-  controller.personalMessageManager.on('updateBadge', updateBadge)
+  controller.ixoMessageManager.on('updateBadge', updateBadge)
 
   /**
    * Updates the Web Extension's "badge" number, on the little fox in the toolbar.
@@ -393,9 +393,9 @@ function setupController (initState, initLangCode) {
     var label = ''
     var unapprovedTxCount = controller.txController.getUnapprovedTxCount()
     var unapprovedMsgCount = controller.messageManager.unapprovedMsgCount
-    var unapprovedPersonalMsgs = controller.personalMessageManager.unapprovedPersonalMsgCount
+    var unapprovedIxoMsgs = controller.ixoMessageManager.unapprovedIxoMsgCount
     var unapprovedTypedMsgs = controller.typedMessageManager.unapprovedTypedMessagesCount
-    var count = unapprovedTxCount + unapprovedMsgCount + unapprovedPersonalMsgs + unapprovedTypedMsgs
+    var count = unapprovedTxCount + unapprovedMsgCount + unapprovedIxoMsgs + unapprovedTypedMsgs
     if (count) {
       label = String(count)
     }
@@ -433,5 +433,20 @@ extension.runtime.onInstalled.addListener(function (details) {
 // Listen for messages from contentscript.js
 extension.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   // alert(`message received: ${JSON.stringify(message)}`);
-  triggerUi()
+
+  debugger
+  switch (message.method) {
+    case 'ixo_sign':
+      global.metamaskController.newUnsignedIxoMessage(message, response=>{
+        console.log(`\n---\n---response: ${response}`)
+      })
+      return
+    case 'ixo_did':
+      const did = global.metamaskController.preferencesController.getSelectedAddress()
+      sendResponse({did})
+    return
+    default:
+      // get DID?
+      return
+  }
 });

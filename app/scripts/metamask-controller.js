@@ -32,7 +32,7 @@ const InfuraController = require('./controllers/infura')
 const BlacklistController = require('./controllers/blacklist')
 const RecentBlocksController = require('./controllers/recent-blocks')
 const MessageManager = require('./lib/message-manager')
-const PersonalMessageManager = require('./lib/personal-message-manager')
+const IxoMessageManager = require('./lib/ixo-message-manager')
 const TypedMessageManager = require('./lib/typed-message-manager')
 const TransactionController = require('./controllers/transactions')
 const BalancesController = require('./controllers/computed-balances')
@@ -194,9 +194,11 @@ module.exports = class MetamaskController extends EventEmitter {
     })
 
     this.networkController.lookupNetwork()
+// ->     
     this.messageManager = new MessageManager()
-    this.personalMessageManager = new PersonalMessageManager()
+    this.ixoMessageManager = new IxoMessageManager()
     this.typedMessageManager = new TypedMessageManager()
+// <-
     this.publicConfigStore = this.initPublicConfigStore()
 
     this.store.updateStructure({
@@ -218,7 +220,7 @@ module.exports = class MetamaskController extends EventEmitter {
       BalancesController: this.balancesController.store,
       TokenRatesController: this.tokenRatesController.store,
       MessageManager: this.messageManager.memStore,
-      PersonalMessageManager: this.personalMessageManager.memStore,
+      IxoMessageManager: this.ixoMessageManager.memStore,
       TypesMessageManager: this.typedMessageManager.memStore,
       KeyringController: this.keyringController.memStore,
       PreferencesController: this.preferencesController.store,
@@ -262,8 +264,8 @@ module.exports = class MetamaskController extends EventEmitter {
       // tx signing
       // old style msg signing
       processMessage: this.newUnsignedMessage.bind(this),
-      // personal_sign msg signing
-      processPersonalMessage: this.newUnsignedPersonalMessage.bind(this),
+      // ixo_sign msg signing
+      processIxoMessage: this.newUnsignedIxoMessage.bind(this),
       processTypedMessage: this.newUnsignedTypedMessage.bind(this),
     }
     const providerProxy = this.networkController.initializeProvider(providerOpts)
@@ -397,11 +399,11 @@ module.exports = class MetamaskController extends EventEmitter {
       signMessage: nodeify(this.signMessage, this),
       cancelMessage: this.cancelMessage.bind(this),
 
-      // personalMessageManager
-      signPersonalMessage: nodeify(this.signPersonalMessage, this),
-      cancelPersonalMessage: this.cancelPersonalMessage.bind(this),
+      // ixoMessageManager
+      signIxoMessage: nodeify(this.signIxoMessage, this),
+      cancelIxoMessage: this.cancelIxoMessage.bind(this),
 
-      // personalMessageManager
+      // typedMessageManager
       signTypedMessage: nodeify(this.signTypedMessage, this),
       cancelTypedMessage: this.cancelTypedMessage.bind(this),
 
@@ -692,28 +694,26 @@ module.exports = class MetamaskController extends EventEmitter {
     }
   }
 
-  // personal_sign methods:
+  // ixo_sign methods:
 
   /**
-   * Called when a dapp uses the personal_sign method.
-   * This is identical to the Geth eth_sign method, and may eventually replace
-   * eth_sign.
+   * Called when a dapp uses the ixo_sign method.
    *
-   * We currently define our eth_sign and personal_sign mostly for legacy Dapps.
+   * We currently define our eth_sign and ixo_sign mostly for legacy Dapps.
    *
    * @param {Object} msgParams - The params of the message to sign & return to the Dapp.
    * @param {Function} cb - The callback function called with the signature.
    * Passed back to the requesting Dapp.
    */
-  newUnsignedPersonalMessage (msgParams, cb) {
+  newUnsignedIxoMessage (msgParams, cb) {
     if (!msgParams.from) {
-      return cb(new Error('MetaMask Message Signature: from field is required.'))
+      return cb(new Error('IxoCM Message Signature: from field is required.'))
     }
 
-    const msgId = this.personalMessageManager.addUnapprovedMessage(msgParams)
+    const msgId = this.ixoMessageManager.addUnapprovedMessage(msgParams)
     this.sendUpdate()
     this.opts.showUnconfirmedMessage()
-    this.personalMessageManager.once(`${msgId}:finished`, (data) => {
+    this.ixoMessageManager.once(`${msgId}:finished`, (data) => {
       switch (data.status) {
         case 'signed':
           return cb(null, data.rawSig)
@@ -726,37 +726,37 @@ module.exports = class MetamaskController extends EventEmitter {
   }
 
   /**
-   * Signifies a user's approval to sign a personal_sign message in queue.
-   * Triggers signing, and the callback function from newUnsignedPersonalMessage.
+   * Signifies a user's approval to sign a ixo_sign message in queue.
+   * Triggers signing, and the callback function from newUnsignedIxoMessage.
    *
    * @param {Object} msgParams - The params of the message to sign & return to the Dapp.
    * @returns {Promise<Object>} - A full state update.
    */
-  signPersonalMessage (msgParams) {
-    log.info('MetaMaskController - signPersonalMessage')
+  signIxoMessage (msgParams) {
+    log.info('MetaMaskController - signIxoMessage')
     const msgId = msgParams.metamaskId
     // sets the status op the message to 'approved'
     // and removes the metamaskId for signing
-    return this.personalMessageManager.approveMessage(msgParams)
+    return this.ixoMessageManager.approveMessage(msgParams)
     .then((cleanMsgParams) => {
       // signs the message
-      return this.keyringController.signPersonalMessage(cleanMsgParams)
+      return this.keyringController.signIxoMessage(cleanMsgParams)
     })
     .then((rawSig) => {
       // tells the listener that the message has been signed
       // and can be returned to the dapp
-      this.personalMessageManager.setMsgStatusSigned(msgId, rawSig)
+      this.ixoMessageManager.setMsgStatusSigned(msgId, rawSig)
       return this.getState()
     })
   }
 
   /**
-   * Used to cancel a personal_sign type message.
+   * Used to cancel a ixo_sign type message.
    * @param {string} msgId - The ID of the message to cancel.
    * @param {Function} cb - The callback function called with a full state update.
    */
-  cancelPersonalMessage (msgId, cb) {
-    const messageManager = this.personalMessageManager
+  cancelIxoMessage (msgId, cb) {
+    const messageManager = this.ixoMessageManager
     messageManager.rejectMsg(msgId)
     if (cb && typeof cb === 'function') {
       cb(null, this.getState())

@@ -50,7 +50,7 @@ function setupStreams () {
     name: 'contentscriptixo',
     target: 'inpageixo',
   })
-  const pluginPort = extension.runtime.connect({ name: 'contentscript' })
+  const pluginPort = extension.runtime.connect({ name: 'contentscriptixo' })
   const pluginStream = new PortStream(pluginPort)
 
   // forward communication plugin->inpage
@@ -204,8 +204,9 @@ window.addEventListener("message", (event) => {
   if (event.source == window &&
       event.data &&
       event.data.origin == 'dapp') {
-    // alert("Contentscript received message: \"" + event.data.message + "\"");
 
-    extension.runtime.sendMessage(event.data.payload);
+    extension.runtime.sendMessage(event.data.message, function(response) {
+      console.log(`!!! received did ${response.did}`);
+    });
   }
 });

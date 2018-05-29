@@ -135,8 +135,8 @@ var actions = {
   EDIT_TX: 'EDIT_TX',
   signMsg: signMsg,
   cancelMsg: cancelMsg,
-  signPersonalMsg,
-  cancelPersonalMsg,
+  signIxoMsg,
+  cancelIxoMsg,
   signTypedMsg,
   cancelTypedMsg,
   sendTx: sendTx,
@@ -631,15 +631,15 @@ function signMsg (msgData) {
   }
 }
 
-function signPersonalMsg (msgData) {
-  log.debug('action - signPersonalMsg')
+function signIxoMsg (msgData) {
+  log.debug('action - signIxoMsg')
   return dispatch => {
     dispatch(actions.showLoadingIndication())
 
     return new Promise((resolve, reject) => {
-      log.debug(`actions calling background.signPersonalMessage`)
-      background.signPersonalMessage(msgData, (err, newState) => {
-        log.debug('signPersonalMessage called back')
+      log.debug(`actions calling background.signIxoMessage`)
+      background.signIxoMessage(msgData, (err, newState) => {
+        log.debug('signIxoMessage called back')
         dispatch(actions.updateMetamaskState(newState))
         dispatch(actions.hideLoadingIndication())
 
@@ -921,13 +921,13 @@ function cancelMsg (msgData) {
   }
 }
 
-function cancelPersonalMsg (msgData) {
+function cancelIxoMsg (msgData) {
   return dispatch => {
     dispatch(actions.showLoadingIndication())
 
     return new Promise((resolve, reject) => {
       const id = msgData.id
-      background.cancelPersonalMessage(id, (err, newState) => {
+      background.cancelIxoMessage(id, (err, newState) => {
         dispatch(actions.updateMetamaskState(newState))
         dispatch(actions.hideLoadingIndication())
 
