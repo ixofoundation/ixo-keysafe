@@ -284,7 +284,7 @@ App.propTypes = {
   unapprovedTxs: PropTypes.object,
   seedWords: PropTypes.string,
   unapprovedMsgCount: PropTypes.number,
-  unapprovedPersonalMsgCount: PropTypes.number,
+  unapprovedIxoMsgCount: PropTypes.number,
   unapprovedTypedMessagesCount: PropTypes.number,
   welcomeScreenSeen: PropTypes.bool,
   isPopup: PropTypes.bool,
@@ -315,7 +315,7 @@ function mapStateToProps (state) {
     lastUnreadNotice,
     lostAccounts,
     unapprovedMsgCount,
-    unapprovedPersonalMsgCount,
+    unapprovedIxoMsgCount,
     unapprovedTypedMessagesCount,
   } = metamask
   const selected = address || Object.keys(accounts)[0]
@@ -340,7 +340,7 @@ function mapStateToProps (state) {
     unapprovedTxs,
     unapprovedMsgs: state.metamask.unapprovedMsgs,
     unapprovedMsgCount,
-    unapprovedPersonalMsgCount,
+    unapprovedIxoMsgCount,
     unapprovedTypedMessagesCount,
     menuOpen: state.appState.menuOpen,
     network: state.metamask.network,

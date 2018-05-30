@@ -65,7 +65,7 @@ RevealSeedWordsModal.prototype.renderPasswordLabel = function (mnemonic) {
     : this.context.t('typePassword')
   )
 }
-RevealSeedWordsModal.prototype.renderQRCode = function (mnemonic) {
+RevealSeedWordsModal.prototype.renderQRCode = function (mnemonic, name) {
   if (mnemonic) {
     const qrImage = qrCode(7, 'M')
     const qrData = JSON.stringify({mnemonic, name})
@@ -151,7 +151,7 @@ RevealSeedWordsModal.prototype.render = function () {
       h('span.modal-body-title', this.context.t('revealSeedWords')),
 
       h('div.private-key-password', {}, [
-        this.renderQRCode(mnemonic),
+        this.renderQRCode(mnemonic, name),
         this.renderPasswordLabel(mnemonic),
         this.renderPasswordInput(mnemonic),
         !warning ? null : h('span.private-key-password-error', warning),

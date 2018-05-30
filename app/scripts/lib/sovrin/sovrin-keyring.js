@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const ethUtil = require('ethereumjs-util')
 const sigUtil = require('eth-sig-util')
 const hdkey = require('ethereumjs-wallet/hdkey')
+const bs58 = require("bs58")
 
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
@@ -95,21 +96,23 @@ class SovrinKeyring extends EventEmitter {
   // hd
   signMessage (withAccount, data) {
     const sdid = this._getWalletForAccount(withAccount)
-    const signature = base58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))
+    const signature = bs58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))
     return Promise.resolve(signature)
   }
 
-  // For personal_sign, we need to prefix the message:
-  signPersonalMessage (withAccount, msgHex) {
+  // For ixo_sign, we need to prefix the message:
+  signIxoMessage (withAccount, msgHex) {
     const sdid = this._getWalletForAccount(withAccount)
-    const signature = base58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))
+
+    const signedMessageHex = sovrin.signMessage(new Buffer(msgHex), sdid.secret.signKey, sdid.verifyKey)
+    const signature = bs58.encode(signedMessageHex)
     return Promise.resolve(signature)
   }
 
-  // personal_signTypedData, signs data along with the schema
+  // eth_signTypedData, signs data along with the schema
   signTypedData (withAccount, typedData) {
     const sdid = this._getWalletForAccount(withAccount)
-    const signature = base58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))
+    const signature = bs58.encode(sovrin.signMessage(new Buffer(data), sdid.secret.signKey, sdid.verifyKey))
     return Promise.resolve(signature)
   }
 

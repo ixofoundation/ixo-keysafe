@@ -25,7 +25,7 @@ function mapStateToProps (state) {
   const { metamask } = state
   const {
     unapprovedMsgCount,
-    unapprovedPersonalMsgCount,
+    unapprovedIxoMsgCount,
     unapprovedTypedMessagesCount,
   } = metamask
 
@@ -35,7 +35,7 @@ function mapStateToProps (state) {
     selectedAddress: state.metamask.selectedAddress,
     unapprovedTxs: state.metamask.unapprovedTxs,
     unapprovedMsgs: state.metamask.unapprovedMsgs,
-    unapprovedPersonalMsgs: state.metamask.unapprovedPersonalMsgs,
+    unapprovedIxoMsgs: state.metamask.unapprovedIxoMsgs,
     unapprovedTypedMessages: state.metamask.unapprovedTypedMessages,
     index: state.appState.currentView.context,
     warning: state.appState.warning,
@@ -46,7 +46,7 @@ function mapStateToProps (state) {
     blockGasLimit: state.metamask.currentBlockGasLimit,
     computedBalances: state.metamask.computedBalances,
     unapprovedMsgCount,
-    unapprovedPersonalMsgCount,
+    unapprovedIxoMsgCount,
     unapprovedTypedMessagesCount,
     send: state.metamask.send,
     selectedAddressTxList: state.metamask.selectedAddressTxList,
@@ -61,11 +61,11 @@ function ConfirmTxScreen () {
 ConfirmTxScreen.prototype.getUnapprovedMessagesTotal = function () {
   const {
     unapprovedMsgCount = 0,
-    unapprovedPersonalMsgCount = 0,
+    unapprovedIxoMsgCount = 0,
     unapprovedTypedMessagesCount = 0,
   } = this.props
 
-  return unapprovedTypedMessagesCount + unapprovedMsgCount + unapprovedPersonalMsgCount
+  return unapprovedTypedMessagesCount + unapprovedMsgCount + unapprovedIxoMsgCount
 }
 
 ConfirmTxScreen.prototype.componentDidMount = function () {
@@ -107,7 +107,7 @@ ConfirmTxScreen.prototype.render = function () {
     unapprovedTxs,
     currentCurrency,
     unapprovedMsgs,
-    unapprovedPersonalMsgs,
+    unapprovedIxoMsgs,
     unapprovedTypedMessages,
     conversionRate,
     blockGasLimit,
@@ -115,7 +115,7 @@ ConfirmTxScreen.prototype.render = function () {
     // computedBalances,
   } = props
 
-  var unconfTxList = txHelper(unapprovedTxs, unapprovedMsgs, unapprovedPersonalMsgs, unapprovedTypedMessages, network)
+  var unconfTxList = txHelper(unapprovedTxs, unapprovedMsgs, unapprovedIxoMsgs, unapprovedTypedMessages, network)
 
   var txData = unconfTxList[props.index] || {}
   var txParams = txData.params || {}
@@ -153,10 +153,10 @@ ConfirmTxScreen.prototype.render = function () {
     sendTransaction: this.sendTransaction.bind(this),
     cancelTransaction: this.cancelTransaction.bind(this, txData),
     signMessage: this.signMessage.bind(this, txData),
-    signPersonalMessage: this.signPersonalMessage.bind(this, txData),
+    signIxoMessage: this.signIxoMessage.bind(this, txData),
     signTypedMessage: this.signTypedMessage.bind(this, txData),
     cancelMessage: this.cancelMessage.bind(this, txData),
-    cancelPersonalMessage: this.cancelPersonalMessage.bind(this, txData),
+    cancelIxoMessage: this.cancelIxoMessage.bind(this, txData),
     cancelTypedMessage: this.cancelTypedMessage.bind(this, txData),
   })
 }
@@ -226,12 +226,12 @@ ConfirmTxScreen.prototype.stopPropagation = function (event) {
   }
 }
 
-ConfirmTxScreen.prototype.signPersonalMessage = function (msgData, event) {
-  log.info('conf-tx.js: signing personal message')
+ConfirmTxScreen.prototype.signIxoMessage = function (msgData, event) {
+  log.info('conf-tx.js: signing Ixo message')
   var params = msgData.msgParams
   params.metamaskId = msgData.id
   this.stopPropagation(event)
-  return this.props.dispatch(actions.signPersonalMsg(params))
+  return this.props.dispatch(actions.signIxoMsg(params))
 }
 
 ConfirmTxScreen.prototype.signTypedMessage = function (msgData, event) {
@@ -248,10 +248,10 @@ ConfirmTxScreen.prototype.cancelMessage = function (msgData, event) {
   return this.props.dispatch(actions.cancelMsg(msgData))
 }
 
-ConfirmTxScreen.prototype.cancelPersonalMessage = function (msgData, event) {
-  log.info('canceling personal message')
+ConfirmTxScreen.prototype.cancelIxoMessage = function (msgData, event) {
+  log.info('canceling ixo message')
   this.stopPropagation(event)
-  return this.props.dispatch(actions.cancelPersonalMsg(msgData))
+  return this.props.dispatch(actions.cancelIxoMsg(msgData))
 }
 
 ConfirmTxScreen.prototype.cancelTypedMessage = function (msgData, event) {

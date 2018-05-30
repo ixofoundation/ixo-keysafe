@@ -293,18 +293,18 @@ class SovrinKeyringController extends EventEmitter {
     })
   }
 
-  // Sign Personal Message
+  // Sign Ixo Message
   // @object msgParams
   //
   // returns Promise(@buffer rawSig)
   //
   // Attempts to sign the provided @object msgParams.
   // Prefixes the hash before signing as per the new geth behavior.
-  signPersonalMessage (msgParams) {
+  signIxoMessage (msgParams) {
     const address = stripHexPrefixFromAddress(msgParams.from)
     return this.getKeyringForAccount(address)
     .then((keyring) => {
-      return keyring.signPersonalMessage(address, msgParams.data)
+      return keyring.signIxoMessage(address, msgParams.data)
     })
   }
 
@@ -524,26 +524,28 @@ class SovrinKeyringController extends EventEmitter {
   // Returns the currently initialized keyring that manages
   // the specified `address` if one exists.
   getKeyringForAccount (address) {
-    const hexed = stripHexPrefixFromAddress(address)
-    log.debug(`KeyringController - getKeyringForAccount: ${hexed}`)
+    return Promise.resolve(this.keyrings[0])
 
-    return Promise.all(this.keyrings.map((keyring) => {
-      return Promise.all([
-        keyring,
-        keyring.getAccounts(),
-      ])
-    }))
-    .then(filter((candidate) => {
-      const accounts = candidate[1].map(stripHexPrefixFromAddress)
-      return accounts.includes(hexed)
-    }))
-    .then((winners) => {
-      if (winners && winners.length > 0) {
-        return winners[0][0]
-      } else {
-        throw new Error('No keyring found for the requested account.')
-      }
-    })
+    // const hexed = stripHexPrefixFromAddress(address)
+    // log.debug(`KeyringController - getKeyringForAccount: ${hexed}`)
+
+    // return Promise.all(this.keyrings.map((keyring) => {
+    //   return Promise.all([
+    //     keyring,
+    //     keyring.getAccounts(),
+    //   ])
+    // }))
+    // .then(filter((candidate) => {
+    //   const accounts = candidate[1].map(stripHexPrefixFromAddress)
+    //   return accounts.includes(hexed)
+    // }))
+    // .then((winners) => {
+    //   if (winners && winners.length > 0) {
+    //     return winners[0][0]
+    //   } else {
+    //     throw new Error('No keyring found for the requested account.')
+    //   }
+    // })
   }
 
   // Display For Keyring

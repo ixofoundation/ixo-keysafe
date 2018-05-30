@@ -1,12 +1,12 @@
 const assert = require('assert')
 
-const PersonalMessageManager = require('../../app/scripts/lib/personal-message-manager')
+const IxoMessageManager = require('../../app/scripts/lib/ixo-message-manager')
 
-describe('Personal Message Manager', function () {
+describe('Ixo Message Manager', function () {
   let messageManager
 
   beforeEach(function () {
-    messageManager = new PersonalMessageManager()
+    messageManager = new IxoMessageManager()
   })
 
   describe('#getMsgList', function () {

@@ -172,7 +172,7 @@ SignatureRequest.prototype.renderBody = function () {
   const { txData } = this.props
   const { type, msgParams: { data } } = txData
 
-  if (type === 'personal_sign') {
+  if (type === 'ixo_sign') {
     rows = [{ name: this.context.t('message'), value: this.msgHexToText(data) }]
   } else if (type === 'eth_signTypedData') {
     rows = data
@@ -189,7 +189,7 @@ SignatureRequest.prototype.renderBody = function () {
 
     h('div.request-signature__notice', {
       className: classnames({
-        'request-signature__notice': type === 'personal_sign' || type === 'eth_signTypedData',
+        'request-signature__notice': type === 'ixo_sign' || type === 'eth_signTypedData',
         'request-signature__warning': type === 'eth_sign',
       }),
     }, [notice]),
@@ -210,9 +210,9 @@ SignatureRequest.prototype.renderBody = function () {
 
 SignatureRequest.prototype.renderFooter = function () {
   const {
-    signPersonalMessage,
+    signIxoMessage,
     signTypedMessage,
-    cancelPersonalMessage,
+    cancelIxoMessage,
     cancelTypedMessage,
     signMessage,
     cancelMessage,
@@ -223,9 +223,9 @@ SignatureRequest.prototype.renderFooter = function () {
 
   let cancel
   let sign
-  if (type === 'personal_sign') {
-    cancel = cancelPersonalMessage
-    sign = signPersonalMessage
+  if (type === 'ixo_sign') {
+    cancel = cancelIxoMessage
+    sign = signIxoMessage
   } else if (type === 'eth_signTypedData') {
     cancel = cancelTypedMessage
     sign = signTypedMessage

@@ -7,10 +7,10 @@ module.exports = {
       }
       return cb(null, stateUpdate)
     },
-    signPersonalMessage: (msgData, cb) => {
+    signIxoMessage: (msgData, cb) => {
       const stateUpdate = {
-        unapprovedPersonalMsgs: {},
-        unapprovedPersonalMsgsCount: 0,
+        unapprovedIxoMsgs: {},
+        unapprovedIxoMsgsCount: 0,
       }
       return cb(null, stateUpdate)
     },
