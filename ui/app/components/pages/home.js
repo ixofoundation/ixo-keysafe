@@ -44,6 +44,9 @@ class Home extends Component {
     }
   }
 
+  // render () {
+  //   return h('h1#heading', 'Home')
+  // }
   render () {
     log.debug('rendering primary')
     const {

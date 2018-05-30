@@ -197,16 +197,34 @@ function redirectToPhishingWarning () {
 }
 
 /*
+Send a message to the page script.
+*/
+function postMessageFromContentScript(method, response, error) {
+  window.postMessage({
+    origin: "ixo-cm",
+    method,
+    response,
+    error
+  }, "*");
+}
+
+/*
 Listen for messages from the page.
 If the message was from the page script, forward it to background.js.
 */
 window.addEventListener("message", (event) => {
-  if (event.source == window &&
-      event.data &&
-      event.data.origin == 'dapp') {
+  if (event.source == window && event.data && event.data.origin == 'ixo-dapp') {
+      const message = event.data.message
+      var port = extension.runtime.connect({name: event.data.origin});    
+      port.postMessage(message);
 
-    extension.runtime.sendMessage(event.data.message, function(response) {
-      console.log(`!!! received did ${response.did}`);
-    });
-  }
+      port.onMessage.addListener(function(reply) {
+        // console.log(`!!!contentscript received reply ${JSON.stringify(reply)}`)
+        if (reply.method == 'ixo-did') {
+          postMessageFromContentScript(reply.method, reply.response, reply.error)
+        } else if (reply.method == 'ixo-sign') {
+          postMessageFromContentScript(reply.method, reply.response, reply.error)
+        }
+      });
+    }
 });

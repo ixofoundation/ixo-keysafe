@@ -431,22 +431,25 @@ extension.runtime.onInstalled.addListener(function (details) {
 })
 
 // Listen for messages from contentscript.js
-extension.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-  // alert(`message received: ${JSON.stringify(message)}`);
+extension.runtime.onConnect.addListener(function(port) {
+  if (port.name === 'ixo-dapp') {
+    port.onMessage.addListener(function(message) {
+      const method = message.method
 
-  debugger
-  switch (message.method) {
-    case 'ixo_sign':
-      global.metamaskController.newUnsignedIxoMessage(message, response=>{
-        console.log(`\n---\n---response: ${response}`)
-      })
-      return
-    case 'ixo_did':
-      const did = global.metamaskController.preferencesController.getSelectedAddress()
-      sendResponse({did})
-    return
-    default:
-      // get DID?
-      return
+      if (message.method == 'ixo-did') {
+        const response = global.metamaskController.preferencesController.getSelectedAddress()
+        port.postMessage({method, response});
+      } else if (message.method == 'ixo-sign') {
+        // Currently IxoCP only maintains one single address so we are setting it here and not expecting it being passed in
+        message.from = global.metamaskController.preferencesController.getSelectedAddress()
+        global.metamaskController.newUnsignedIxoMessage(message, (error, response)=>{
+          if (error) {
+            port.postMessage({method, error: error.toString()});
+          } else {
+            port.postMessage({method, response});
+          }
+        })
+      }
+    });
   }
 });
