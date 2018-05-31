@@ -215,7 +215,8 @@ If the message was from the page script, forward it to background.js.
 window.addEventListener("message", (event) => {
   const MONITORED_METHODS = ['ixo-info', 'ixo-sign']
 
-  if (event.source == window && event.data && event.data.origin == 'ixo-dapp') {
+  if (event.source == window && event.data) {
+    if (event.data.origin == 'ixo-dapp') {
       const message = event.data.message
       var port = extension.runtime.connect({name: event.data.origin});    
       port.postMessage(message);
@@ -226,5 +227,10 @@ window.addEventListener("message", (event) => {
           postMessageFromContentScript(reply.method, reply.response, reply.error)
         }
       });
-    }
+    } else if (event.data.origin === 'ixo-cm') {
+      const reply = event.data
+      console.log(`!!!webpage received reply: ${JSON.stringify(reply)}`)
+      alert(`Page script received reply:  ${JSON.stringify(reply)}`)
+    }      
+  }
 });
