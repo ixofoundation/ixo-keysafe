@@ -437,10 +437,6 @@ extension.runtime.onConnect.addListener(function(port) {
       const method = message.method
 
       switch (message.method) {
-        case 'ixo-did':
-          var response = global.metamaskController.preferencesController.getSelectedAddress()
-          port.postMessage({method, response})
-          break
         case 'ixo-info':
           global.metamaskController.keyringController.getAccountCredentials().then(response=>{
             port.postMessage({method, response})

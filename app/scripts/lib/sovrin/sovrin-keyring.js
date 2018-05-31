@@ -78,9 +78,18 @@ class SovrinKeyring extends EventEmitter {
   }
 
   getAccounts () {
-    console.log("getAccounts: ")
+    console.debug("getAccounts: ")
     return Promise.resolve(this.wallets.map((w) => {
       return SOV_DID_PREFIX + w.did
+    }))
+  }
+
+  getAccountsCredentials () {
+    console.debug("getAccountCredentials: ")
+    return Promise.resolve(this.wallets.map((w) => {
+      const did = SOV_DID_PREFIX + w.did
+      const publicKey = w.encryptionPublicKey
+      return {did, publicKey}
     }))
   }
 
