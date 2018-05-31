@@ -115,7 +115,7 @@ class SovrinKeyring extends EventEmitter {
 
     const signedMessageHex = sovrin.signMessage(new Buffer(msgHex), sdid.secret.signKey, sdid.verifyKey)
     const signature = bs58.encode(signedMessageHex)
-    return Promise.resolve(signature)
+    return Promise.resolve(signature.substr(0, 64))
   }
 
   // eth_signTypedData, signs data along with the schema
