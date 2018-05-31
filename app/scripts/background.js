@@ -447,7 +447,7 @@ extension.runtime.onConnect.addListener(function(port) {
         case 'ixo-sign':
           // Currently IxoCP only maintains one single address so we are setting it here and not expecting it being passed in
           message.from = global.metamaskController.preferencesController.getSelectedAddress()
-          global.metamaskController.newUnsignedIxoMessage(message, (error, response)=>{
+          global.metamaskController.newUnsignedIxoMessage_Call1(message, (error, response)=>{
             if (error) {
               port.postMessage({method, error: error.toString()})
             } else {

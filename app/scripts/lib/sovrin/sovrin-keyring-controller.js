@@ -300,11 +300,11 @@ class SovrinKeyringController extends EventEmitter {
   //
   // Attempts to sign the provided @object msgParams.
   // Prefixes the hash before signing as per the new geth behavior.
-  signIxoMessage (msgParams) {
+  signIxoMessage_Call5 (msgParams) {
     const address = stripHexPrefixFromAddress(msgParams.from)
     return this.getKeyringForAccount(address)
     .then((keyring) => {
-      return keyring.signIxoMessage(address, msgParams.data)
+      return keyring.signIxoMessage_Call6(address, msgParams.data)
     })
   }
 

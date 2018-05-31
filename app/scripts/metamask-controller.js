@@ -265,7 +265,7 @@ module.exports = class MetamaskController extends EventEmitter {
       // old style msg signing
       processMessage: this.newUnsignedMessage.bind(this),
       // ixo_sign msg signing
-      processIxoMessage: this.newUnsignedIxoMessage.bind(this),
+      processIxoMessage: this.newUnsignedIxoMessage_Call1.bind(this),
       processTypedMessage: this.newUnsignedTypedMessage.bind(this),
     }
     const providerProxy = this.networkController.initializeProvider(providerOpts)
@@ -400,7 +400,7 @@ module.exports = class MetamaskController extends EventEmitter {
       cancelMessage: this.cancelMessage.bind(this),
 
       // ixoMessageManager
-      signIxoMessage: nodeify(this.signIxoMessage, this),
+      signIxoMessage_Call4: nodeify(this.signIxoMessage_Call4, this),
       cancelIxoMessage: this.cancelIxoMessage.bind(this),
 
       // typedMessageManager
@@ -705,7 +705,7 @@ module.exports = class MetamaskController extends EventEmitter {
    * @param {Function} cb - The callback function called with the signature.
    * Passed back to the requesting Dapp.
    */
-  newUnsignedIxoMessage (msgParams, cb) {
+  newUnsignedIxoMessage_Call1 (msgParams, cb) {
     if (!msgParams.from) {
       return cb(new Error('IxoCM Message Signature: from field is required.'))
     }
@@ -716,7 +716,7 @@ module.exports = class MetamaskController extends EventEmitter {
     this.ixoMessageManager.once(`${msgId}:finished`, (data) => {
       switch (data.status) {
         case 'signed':
-          return cb(null, data.rawSig)
+          return cb(null, data.signature)
         case 'rejected':
           return cb(new Error('MetaMask Message Signature: User denied message signature.'))
         default:
@@ -732,7 +732,7 @@ module.exports = class MetamaskController extends EventEmitter {
    * @param {Object} msgParams - The params of the message to sign & return to the Dapp.
    * @returns {Promise<Object>} - A full state update.
    */
-  signIxoMessage (msgParams) {
+  signIxoMessage_Call4 (msgParams) {
     log.info('MetaMaskController - signIxoMessage')
     const msgId = msgParams.metamaskId
     // sets the status op the message to 'approved'
@@ -740,12 +740,12 @@ module.exports = class MetamaskController extends EventEmitter {
     return this.ixoMessageManager.approveMessage(msgParams)
     .then((cleanMsgParams) => {
       // signs the message
-      return this.keyringController.signIxoMessage(cleanMsgParams)
+      return this.keyringController.signIxoMessage_Call5(cleanMsgParams)
     })
-    .then((rawSig) => {
+    .then((signature) => {
       // tells the listener that the message has been signed
       // and can be returned to the dapp
-      this.ixoMessageManager.setMsgStatusSigned(msgId, rawSig)
+      this.ixoMessageManager.setMsgStatusSigned(msgId, signature)
       return this.getState()
     })
   }

@@ -135,7 +135,7 @@ var actions = {
   EDIT_TX: 'EDIT_TX',
   signMsg: signMsg,
   cancelMsg: cancelMsg,
-  signIxoMsg,
+  signIxoMsg_Call3,
   cancelIxoMsg,
   signTypedMsg,
   cancelTypedMsg,
@@ -631,14 +631,14 @@ function signMsg (msgData) {
   }
 }
 
-function signIxoMsg (msgData) {
+function signIxoMsg_Call3 (msgData) {
   log.debug('action - signIxoMsg')
   return dispatch => {
     dispatch(actions.showLoadingIndication())
 
     return new Promise((resolve, reject) => {
       log.debug(`actions calling background.signIxoMessage`)
-      background.signIxoMessage(msgData, (err, newState) => {
+      background.signIxoMessage_Call4(msgData, (err, newState) => {
         log.debug('signIxoMessage called back')
         dispatch(actions.updateMetamaskState(newState))
         dispatch(actions.hideLoadingIndication())
