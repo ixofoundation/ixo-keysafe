@@ -436,19 +436,33 @@ extension.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(message) {
       const method = message.method
 
-      if (message.method == 'ixo-did') {
-        const response = global.metamaskController.preferencesController.getSelectedAddress()
-        port.postMessage({method, response});
-      } else if (message.method == 'ixo-sign') {
-        // Currently IxoCP only maintains one single address so we are setting it here and not expecting it being passed in
-        message.from = global.metamaskController.preferencesController.getSelectedAddress()
-        global.metamaskController.newUnsignedIxoMessage(message, (error, response)=>{
-          if (error) {
-            port.postMessage({method, error: error.toString()});
-          } else {
-            port.postMessage({method, response});
-          }
-        })
+      switch (message.method) {
+        case 'ixo-did':
+          var response = global.metamaskController.preferencesController.getSelectedAddress()
+          port.postMessage({method, response})
+          break
+        case 'ixo-info':
+          global.metamaskController.keyringController.getAccountCredentials().then(response=>{
+            port.postMessage({method, response})
+          }, error=>{
+            port.postMessage({method, error: error.toString()})
+          })
+          break
+        case 'ixo-sign':
+          // Currently IxoCP only maintains one single address so we are setting it here and not expecting it being passed in
+          message.from = global.metamaskController.preferencesController.getSelectedAddress()
+          global.metamaskController.newUnsignedIxoMessage(message, (error, response)=>{
+            if (error) {
+              port.postMessage({method, error: error.toString()})
+            } else {
+              port.postMessage({method, response})
+            }
+          })
+          break
+        default:
+          const error = 'Unsupported method'
+          port.postMessage({method, error})
+          break
       }
     });
   }

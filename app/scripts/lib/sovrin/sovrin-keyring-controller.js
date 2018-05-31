@@ -524,6 +524,7 @@ class SovrinKeyringController extends EventEmitter {
   // Returns the currently initialized keyring that manages
   // the specified `address` if one exists.
   getKeyringForAccount (address) {
+    // for now the IXO CM only supports a single account so no need to look it up
     return Promise.resolve(this.keyrings[0])
 
     // const hexed = stripHexPrefixFromAddress(address)
@@ -546,6 +547,27 @@ class SovrinKeyringController extends EventEmitter {
     //     throw new Error('No keyring found for the requested account.')
     //   }
     // })
+  }
+
+  getAccountCredentials =  () => {
+    return new Promise((resolve, reject) => {
+
+      //if not unlocked reject
+      const isUnlocked = this.memStore.getState().isUnlocked
+      if (!isUnlocked) {
+        reject(new Error('IxoCM - Unlock the Credential Provider.'))
+      }
+
+      // for now the IXO CM only supports a single account so no need to look it up
+      const keyring = this.keyrings[0]
+      const walletNames = this.store.getState().walletNicknames || {}
+
+      keyring.getAccountsCredentials().then(accountsCredentials=>{
+        const credentials = accountsCredentials[0]
+        credentials.name = walletNames[credentials.did]
+        resolve(credentials)
+      })
+    });
   }
 
   // Display For Keyring
