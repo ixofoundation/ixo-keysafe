@@ -199,10 +199,11 @@ function redirectToPhishingWarning () {
 /*
 Send a message to the page script.
 */
-function postMessageFromContentScript(method, response, error) {
+function postMessageFromContentScript(method, ixoCmId, response, error) {
   window.postMessage({
     origin: "ixo-cm",
     method,
+    ixoCmId,
     response,
     error
   }, "*");
@@ -224,7 +225,7 @@ window.addEventListener("message", (event) => {
       port.onMessage.addListener(function(reply) {
         if (MONITORED_METHODS.find(m => m===reply.method) || reply.error) {
           console.debug(`contentscript received reply ${JSON.stringify(reply)}`)
-          postMessageFromContentScript(reply.method, reply.response, reply.error)
+          postMessageFromContentScript(reply.method, reply.ixoCmId, reply.response, reply.error)
         }
       });
     }      

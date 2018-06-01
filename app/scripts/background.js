@@ -435,13 +435,14 @@ extension.runtime.onConnect.addListener(function(port) {
   if (port.name === 'ixo-dapp') {
     port.onMessage.addListener(function(message) {
       const method = message.method
+      const ixoCmId = message.ixoCmId
 
       switch (message.method) {
         case 'ixo-info':
           global.metamaskController.keyringController.getAccountCredentials().then(response=>{
-            port.postMessage({method, response})
+            port.postMessage({method, ixoCmId, response})
           }, error=>{
-            port.postMessage({method, error: error.toString()})
+            port.postMessage({method, ixoCmId, error: error.toString()})
           })
           break
         case 'ixo-sign':
@@ -449,15 +450,15 @@ extension.runtime.onConnect.addListener(function(port) {
           message.from = global.metamaskController.preferencesController.getSelectedAddress()
           global.metamaskController.newUnsignedIxoMessage_Call1(message, (error, response)=>{
             if (error) {
-              port.postMessage({method, error: error.toString()})
+              port.postMessage({method, ixoCmId, error: error.toString()})
             } else {
-              port.postMessage({method, response})
+              port.postMessage({method, ixoCmId, response})
             }
           })
           break
         default:
           const error = 'Unsupported method'
-          port.postMessage({method, error})
+          port.postMessage({method, ixoCmId, error})
           break
       }
     });

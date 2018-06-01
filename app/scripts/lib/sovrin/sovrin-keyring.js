@@ -112,7 +112,6 @@ class SovrinKeyring extends EventEmitter {
 
   // For ixo_sign, we need to prefix the message:
   signIxoMessage_Call6 (withAccount, msgHex) {
-    debugger
     const sdid = this._getWalletForAccount(withAccount)
 
     const signedMessageHex = sovrin.signMessage(new Buffer(msgHex), sdid.secret.signKey, sdid.verifyKey)
