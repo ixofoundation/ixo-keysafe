@@ -120,7 +120,7 @@ class SovrinKeyring extends EventEmitter {
     const created = dateFormat(new Date(), "isoDateTime")
     const creator = withAccount
     const publicKey = sdid.encryptionPublicKey
-    const signature = bs58.encode(signedMessageHex).substr(0, 64)
+    const signature = bs58.encode(signedMessageHex)
     
     return Promise.resolve({type, created, creator, publicKey, signature})
   }
