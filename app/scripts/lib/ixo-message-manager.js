@@ -149,12 +149,12 @@ module.exports = class IxoMessageManager extends EventEmitter {
    * this.messages by adding the raw signature data of the signature request to the IxoMessage
    *
    * @param {number} msgId The id of the IxoMessage to sign.
-   * @param {buffer} rawSig The raw data of the signature request
+   * @param {buffer} signature The raw data of the signature request
    *
    */
-  setMsgStatusSigned (msgId, rawSig) {
+  setMsgStatusSigned (msgId, signature) {
     const msg = this.getMsg(msgId)
-    msg.rawSig = rawSig
+    msg.signature = signature
     this._updateMsg(msg)
     this._setMsgStatus(msgId, 'signed')
   }

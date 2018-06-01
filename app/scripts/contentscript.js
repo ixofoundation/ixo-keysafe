@@ -199,10 +199,11 @@ function redirectToPhishingWarning () {
 /*
 Send a message to the page script.
 */
-function postMessageFromContentScript(method, response, error) {
+function postMessageFromContentScript(method, ixoCmId, response, error) {
   window.postMessage({
     origin: "ixo-cm",
     method,
+    ixoCmId,
     response,
     error
   }, "*");
@@ -215,7 +216,8 @@ If the message was from the page script, forward it to background.js.
 window.addEventListener("message", (event) => {
   const MONITORED_METHODS = ['ixo-info', 'ixo-sign']
 
-  if (event.source == window && event.data && event.data.origin == 'ixo-dapp') {
+  if (event.source == window && event.data) {
+    if (event.data.origin == 'ixo-dapp') {
       const message = event.data.message
       var port = extension.runtime.connect({name: event.data.origin});    
       port.postMessage(message);
@@ -223,8 +225,9 @@ window.addEventListener("message", (event) => {
       port.onMessage.addListener(function(reply) {
         if (MONITORED_METHODS.find(m => m===reply.method) || reply.error) {
           console.debug(`contentscript received reply ${JSON.stringify(reply)}`)
-          postMessageFromContentScript(reply.method, reply.response, reply.error)
+          postMessageFromContentScript(reply.method, reply.ixoCmId, reply.response, reply.error)
         }
       });
-    }
-});
+    }      
+  }
+})

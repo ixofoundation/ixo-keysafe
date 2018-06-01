@@ -6,6 +6,7 @@ const ethUtil = require('ethereumjs-util')
 const sigUtil = require('eth-sig-util')
 const hdkey = require('ethereumjs-wallet/hdkey')
 const bs58 = require("bs58")
+var dateFormat = require('dateformat')
 
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
@@ -110,12 +111,18 @@ class SovrinKeyring extends EventEmitter {
   }
 
   // For ixo_sign, we need to prefix the message:
-  signIxoMessage (withAccount, msgHex) {
+  signIxoMessage_Call6 (withAccount, msgHex) {
     const sdid = this._getWalletForAccount(withAccount)
 
     const signedMessageHex = sovrin.signMessage(new Buffer(msgHex), sdid.secret.signKey, sdid.verifyKey)
-    const signature = bs58.encode(signedMessageHex)
-    return Promise.resolve(signature.substr(0, 64))
+    
+    const type = 'ED25519'
+    const created = dateFormat(new Date(), "isoDateTime")
+    const creator = withAccount
+    const publicKey = sdid.encryptionPublicKey
+    const signature = bs58.encode(signedMessageHex).substr(0, 64)
+    
+    return Promise.resolve({type, created, creator, publicKey, signature})
   }
 
   // eth_signTypedData, signs data along with the schema

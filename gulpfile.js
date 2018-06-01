@@ -562,7 +562,7 @@ function bundleTask(opts) {
       buildStream = buildStream
       .pipe(uglify({
         mangle: {
-          reserved: [ 'Metamask2InpageProvider' ]
+          reserved: [ 'IxoInpageProvider' ]
         },
       }))
     }

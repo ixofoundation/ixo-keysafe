@@ -82,6 +82,7 @@
     "copy-to-clipboard": "^3.0.8",
     "css-loader": "^0.28.11",
     "currency-formatter": "^1.4.2",
+    "dateformat": "^3.0.3",
     "debounce": "^1.0.0",
     "debounce-stream": "^2.0.0",
     "deep-extend": "^0.5.1",

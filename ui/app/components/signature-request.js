@@ -210,7 +210,7 @@ SignatureRequest.prototype.renderBody = function () {
 
 SignatureRequest.prototype.renderFooter = function () {
   const {
-    signIxoMessage,
+    signIxoMessage_Call2,
     signTypedMessage,
     cancelIxoMessage,
     cancelTypedMessage,
@@ -225,7 +225,7 @@ SignatureRequest.prototype.renderFooter = function () {
   let sign
   if (type === 'ixo_sign') {
     cancel = cancelIxoMessage
-    sign = signIxoMessage
+    sign = signIxoMessage_Call2
   } else if (type === 'eth_signTypedData') {
     cancel = cancelTypedMessage
     sign = signTypedMessage

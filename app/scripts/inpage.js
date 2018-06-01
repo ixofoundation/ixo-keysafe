@@ -4,47 +4,28 @@ require('web3/dist/web3.min.js')
 const log = require('loglevel')
 const LocalMessageDuplexStream = require('post-message-stream')
 const setupDappAutoReload = require('./lib/auto-reload.js')
-const Metamask2InpageProvider = require('./lib/inpage-provider.js')
+const IxoInpageProvider = require('./lib/ixo-inpage-provider')
 restoreContextAfterImports()
 
 log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
 
-//
-// setup plugin communication
-//
-
-// setup background connection
-var metamaskStream = new LocalMessageDuplexStream({
-  name: 'inpageixo',
-  target: 'contentscriptixo',
-})
-
 // compose the inpage provider
-var inpageProvider = new Metamask2InpageProvider(metamaskStream)
+var inpageProvider = new IxoInpageProvider()
 
 //
-// setup web3
+// setup IxoCM
 //
 
-if (typeof window.web3Ixo !== 'undefined') {
+if (typeof window.ixoCm !== 'undefined') {
   throw new Error(`MetaMask II detected another web3.
      MetaMask II will not work reliably with another web3 extension.
      This usually happens if you have two MetaMasks installed,
      or MetaMask and another web3 extension. Please remove one
      and try again.`)
 }
-var web3 = new Web3(inpageProvider)
-web3.setProvider = function () {
-  log.debug('MetaMask - overrode web3.setProvider')
-}
-log.debug('MetaMask - injected web3')
-// export global web3, with usage-detection
-setupDappAutoReload(web3, inpageProvider.publicConfigStore)
-
-// set web3 defaultAccount
-inpageProvider.publicConfigStore.subscribe(function (state) {
-  web3.eth.defaultAccount = state.selectedAddress
-})
+log.debug('IxoCM - injected')
+// export global IxoInpageProvider, with usage-detection
+global.ixoCm = inpageProvider
 
 // need to make sure we aren't affected by overlapping namespaces
 // and that we dont affect the app with our namespace

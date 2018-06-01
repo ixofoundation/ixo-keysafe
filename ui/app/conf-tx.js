@@ -153,7 +153,7 @@ ConfirmTxScreen.prototype.render = function () {
     sendTransaction: this.sendTransaction.bind(this),
     cancelTransaction: this.cancelTransaction.bind(this, txData),
     signMessage: this.signMessage.bind(this, txData),
-    signIxoMessage: this.signIxoMessage.bind(this, txData),
+    signIxoMessage_Call2: this.signIxoMessage_Call2.bind(this, txData),
     signTypedMessage: this.signTypedMessage.bind(this, txData),
     cancelMessage: this.cancelMessage.bind(this, txData),
     cancelIxoMessage: this.cancelIxoMessage.bind(this, txData),
@@ -226,12 +226,12 @@ ConfirmTxScreen.prototype.stopPropagation = function (event) {
   }
 }
 
-ConfirmTxScreen.prototype.signIxoMessage = function (msgData, event) {
+ConfirmTxScreen.prototype.signIxoMessage_Call2 = function (msgData, event) {
   log.info('conf-tx.js: signing Ixo message')
   var params = msgData.msgParams
   params.metamaskId = msgData.id
   this.stopPropagation(event)
-  return this.props.dispatch(actions.signIxoMsg(params))
+  return this.props.dispatch(actions.signIxoMsg_Call3(params))
 }
 
 ConfirmTxScreen.prototype.signTypedMessage = function (msgData, event) {
