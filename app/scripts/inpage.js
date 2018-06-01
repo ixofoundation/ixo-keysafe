@@ -9,9 +9,6 @@ restoreContextAfterImports()
 
 log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
 
-// compose the inpage provider
-var inpageProvider = new IxoInpageProvider()
-
 //
 // setup IxoCM
 //
@@ -25,7 +22,7 @@ if (typeof window.ixoCm !== 'undefined') {
 }
 log.debug('IxoCM - injected')
 // export global IxoInpageProvider, with usage-detection
-global.ixoCm = inpageProvider
+global.ixoCm = IxoInpageProvider
 
 // need to make sure we aren't affected by overlapping namespaces
 // and that we dont affect the app with our namespace
