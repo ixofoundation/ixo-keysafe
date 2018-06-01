@@ -46,12 +46,9 @@ class WelcomeScreen extends Component {
           }),
 
           h('div.welcome-screen__info__header', 'Welcome to the'),
-          h('div.welcome-screen__info__header', 'ixo credential Manager'),
+          h('div.welcome-screen__info__header', 'ixo Keysafe'),
 
-          h('div.welcome-screen__info__copy', 'The ixo Credential Manager securely stores your digital identity in a vault for signing ixo network requests.'),
-
-          h('div.welcome-screen__info__copy', `It allows you to hold ether & tokens,
-            and serves as your bridge to decentralized applications.`),
+          h('div.welcome-screen__info__copy', 'The ixo Keysafe securely stores your digital identity in a vault for signing ixo network requests.'),
 
           h('button.welcome-screen__button', {
             onClick: this.initiateAccountCreation,
