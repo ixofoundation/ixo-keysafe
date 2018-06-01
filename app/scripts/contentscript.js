@@ -227,10 +227,6 @@ window.addEventListener("message", (event) => {
           postMessageFromContentScript(reply.method, reply.response, reply.error)
         }
       });
-    } else if (event.data.origin === 'ixo-cm') {
-      const reply = event.data
-      console.log(`!!!webpage received reply: ${JSON.stringify(reply)}`)
-      alert(`Page script received reply:  ${JSON.stringify(reply)}`)
     }      
   }
-});
+})
