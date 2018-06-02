@@ -74,7 +74,7 @@ class ImportSeedPhraseScreen extends Component {
   }
 
   onClick = () => {
-    const { password, seedPhrase } = this.state
+    const { username, password, seedPhrase } = this.state
     const {
       createNewVaultAndRestore,
       leaveImportSeedScreenState,
