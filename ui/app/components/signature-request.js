@@ -172,11 +172,10 @@ SignatureRequest.prototype.renderBody = function () {
   const { txData } = this.props
   const { type, msgParams: { data } } = txData
 
-  if (type === 'ixo_sign') {
-    rows = [{ name: this.context.t('message'), value: this.msgHexToText(data) }]
-  } else if (type === 'eth_signTypedData') {
+  if (type === 'eth_signTypedData') {
     rows = data
-  } else if (type === 'eth_sign') {
+  } else // (type === 'eth_sign') or (type === 'ixo_sign')
+  {
     rows = [{ name: this.context.t('message'), value: data }]
     notice = this.context.t('signNotice')
   }

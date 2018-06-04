@@ -78,7 +78,7 @@ module.exports = class IxoMessageManager extends EventEmitter {
    */
   addUnapprovedMessage (msgParams) {
     log.debug(`IxoMessageManager addUnapprovedMessage: ${JSON.stringify(msgParams)}`)
-    msgParams.data = this.normalizeMsgData(msgParams.data)
+    // msgParams.data = this.normalizeMsgData(msgParams.data)
     // create txData obj with parameters and meta data
     var time = (new Date()).getTime()
     var msgId = createId()

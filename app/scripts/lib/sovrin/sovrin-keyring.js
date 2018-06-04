@@ -7,6 +7,8 @@ const sigUtil = require('eth-sig-util')
 const hdkey = require('ethereumjs-wallet/hdkey')
 const bs58 = require("bs58")
 var dateFormat = require('dateformat')
+var cc = require('five-bells-condition');
+
 
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
@@ -110,19 +112,32 @@ class SovrinKeyring extends EventEmitter {
     return Promise.resolve(signature)
   }
 
-  // For ixo_sign, we need to prefix the message:
-  signIxoMessage_Call6 (withAccount, msgHex) {
-    const sdid = this._getWalletForAccount(withAccount)
+  //Signs a document using signKey from generated SDID and returns the signature
+  signIxoMessage_Call6(accountDid, msg) {
+    const sdid = this._getWalletForAccount(accountDid)
+    var signature = bs58.encode(sovrin.signMessage(new Buffer(msg), sdid.secret.signKey, sdid.verifyKey))
+    if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
+        return this.generateDocumentSignature(sdid.did, sdid.encryptionPublicKey, signature)
+    } else {
+        throw new Error('fulfillment validation failed')
+    }
+  }
 
-    const signedMessageHex = sovrin.signMessage(new Buffer(msgHex), sdid.secret.signKey, sdid.verifyKey)
-    
-    const type = 'ED25519'
-    const created = dateFormat(new Date(), "isoDateTime")
-    const creator = withAccount
-    const publicKey = sdid.encryptionPublicKey
-    const signature = bs58.encode(signedMessageHex)
-    
-    return Promise.resolve({type, created, creator, publicKey, signature})
+  verifyDocumentSignature(signature, publicKey) {
+    //return !(sovrin.verifySignedMessage(base58.decode(signature), base58.decode(publicKey)) === false);
+    return !(sovrin.verifySignedMessage(bs58.decode(signature), publicKey) === false)
+  }
+
+  //Generates signature json from generated doc signature
+  generateDocumentSignature(did, publicKey, signature) {
+    var signatureJson = {
+      "type": cc.Ed25519Sha256.TYPE_NAME,
+      "created": dateFormat(new Date(), "isoDateTime"),
+      "creator": did,
+      "publicKey": publicKey,
+      "signatureValue": signature
+    };
+    return signatureJson
   }
 
   // eth_signTypedData, signs data along with the schema
