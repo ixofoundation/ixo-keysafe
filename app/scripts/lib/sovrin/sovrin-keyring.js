@@ -123,34 +123,31 @@ class SovrinKeyring extends EventEmitter {
   //Signs a document using signKey from generated SDID and returns the signature
   signIxoMessage_Call6(accountDid, msg) {
     const sdid = this._getWalletForAccount(accountDid)
-    var signature = bs58.encode(sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey))
+    var signature = sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey)
     if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
-        return this.generateDocumentSignature(sdid.did, sdid.encryptionPublicKey, signature)
+        return this.generateSignatureObject(sdid.did, sdid.encryptionPublicKey, signature)
     } else {
         throw new Error('fulfillment validation failed')
     }
   }
 
   verifyDocumentSignature(signature, publicKey) {
-    //return !(sovrin.verifySignedMessage(base58.decode(signature), base58.decode(publicKey)) === false);
-    return !(sovrin.verifySignedMessage(bs58.decode(signature), publicKey) === false)
+    return !(sovrin.verifySignedMessage(signature, publicKey) === false)
   }
 
-  //Generates signature json from generated doc signature
-  generateDocumentSignature(did, publicKey, signature) {
-
-    const signatureJson = {
+  generateSignatureObject(did, publicKey, signature) {
+    const signatureObject = {
       type: cc.Ed25519Sha256.TYPE_NAME,
       created: dateFormat(new Date(), "isoUtcDateTime"),
       creator: did,
       publicKey: publicKey,
-      signatureValue: this.reduceSignature(signature)
+      signatureValue: this.hexEncode(signature)
     };
-    return signatureJson
+    return signatureObject
   }
 
-  reduceSignature(signature) {
-    return new Buffer(bs58.decode(signature).slice(0, 64)).toString("hex").toUpperCase()
+  hexEncode(text) {
+    return new Buffer(text).slice(0, 64).toString("hex").toUpperCase()
   }
 
   // eth_signTypedData, signs data along with the schema
