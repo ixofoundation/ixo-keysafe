@@ -13,7 +13,7 @@ var cc = require('five-bells-condition');
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
 const type = 'sovrin'
-const SOV_DID_PREFIX = 'did:ixo:'
+const SOV_DID_PREFIX = 'did:sov:'
 
 class SovrinKeyring extends EventEmitter {
 
@@ -87,13 +87,24 @@ class SovrinKeyring extends EventEmitter {
     }))
   }
 
-  getAccountsCredentials () {
-    console.debug("getAccountCredentials: ")
+  getDidDoc () {
+    console.debug("getDidDoc: ")
     return Promise.resolve(this.wallets.map((w) => {
       const did = SOV_DID_PREFIX + w.did
       const publicKey = w.encryptionPublicKey
-      return {did, publicKey}
+      return this.generateDidDoc(did, publicKey)
     }))
+  }
+
+  //Generates didDoc json from did and public key
+  generateDidDoc(did, pubKey) {
+    var didDocJson = {
+      "didDoc": {
+        did,
+        pubKey
+      }
+    };
+    return didDocJson
   }
 
   // tx is an instance of the ethereumjs-transaction class.
@@ -115,7 +126,7 @@ class SovrinKeyring extends EventEmitter {
   //Signs a document using signKey from generated SDID and returns the signature
   signIxoMessage_Call6(accountDid, msg) {
     const sdid = this._getWalletForAccount(accountDid)
-    var signature = bs58.encode(sovrin.signMessage(new Buffer(msg), sdid.secret.signKey, sdid.verifyKey))
+    var signature = bs58.encode(sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey))
     if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
         return this.generateDocumentSignature(sdid.did, sdid.encryptionPublicKey, signature)
     } else {
@@ -130,14 +141,19 @@ class SovrinKeyring extends EventEmitter {
 
   //Generates signature json from generated doc signature
   generateDocumentSignature(did, publicKey, signature) {
-    var signatureJson = {
+
+    const signatureJson = {
       "type": cc.Ed25519Sha256.TYPE_NAME,
       "created": dateFormat(new Date(), "isoDateTime"),
       "creator": did,
       "publicKey": publicKey,
-      "signatureValue": signature
+      "signatureValue": this.reduceSignature(signature)
     };
     return signatureJson
+  }
+
+  reduceSignature(signature) {
+    return new Buffer(bs58.decode(signature).slice(0, 64)).toString("hex").toUpperCase()
   }
 
   // eth_signTypedData, signs data along with the schema

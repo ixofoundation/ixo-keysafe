@@ -562,7 +562,7 @@ class SovrinKeyringController extends EventEmitter {
       const keyring = this.keyrings[0]
       const walletNames = this.store.getState().walletNicknames || {}
 
-      keyring.getAccountsCredentials().then(accountsCredentials=>{
+      keyring.getDidDoc().then(accountsCredentials=>{
         const credentials = accountsCredentials[0]
         credentials.name = walletNames[credentials.did]
         resolve(credentials)
@@ -570,6 +570,25 @@ class SovrinKeyringController extends EventEmitter {
     });
   }
 
+  getDidDoc =  () => {
+    return new Promise((resolve, reject) => {
+
+      //if not unlocked reject
+      const isUnlocked = this.memStore.getState().isUnlocked
+      if (!isUnlocked) {
+        reject(new Error('IxoCM - Unlock the Credential Provider.'))
+      }
+
+      // for now the IXO CM only supports a single account so no need to look it up
+      const keyring = this.keyrings[0]
+      const walletNames = this.store.getState().walletNicknames || {}
+
+      keyring.getDidDoc().then(accountsDidDocs=>{
+        const didDoc = accountsDidDocs[0]
+        resolve(didDoc)
+      })
+    });
+  }
   // Display For Keyring
   // @Keyring keyring
   //
