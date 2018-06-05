@@ -87,24 +87,21 @@ class SovrinKeyring extends EventEmitter {
     }))
   }
 
+  //Generates didDoc from did and verify key
   getDidDoc () {
     console.debug("getDidDoc: ")
     return Promise.resolve(this.wallets.map((w) => {
       const did = SOV_DID_PREFIX + w.did
-      const publicKey = w.encryptionPublicKey
-      return this.generateDidDoc(did, publicKey)
-    }))
-  }
+      const pubKey = w.verifyKey
 
-  //Generates didDoc json from did and public key
-  generateDidDoc(did, pubKey) {
-    var didDocJson = {
-      "didDoc": {
-        did,
-        pubKey
-      }
-    };
-    return didDocJson
+      const didDoc = {
+        didDoc: {
+          did,
+          pubKey
+        }
+      };
+      return didDoc
+    }))
   }
 
   // tx is an instance of the ethereumjs-transaction class.
@@ -143,11 +140,11 @@ class SovrinKeyring extends EventEmitter {
   generateDocumentSignature(did, publicKey, signature) {
 
     const signatureJson = {
-      "type": cc.Ed25519Sha256.TYPE_NAME,
-      "created": dateFormat(new Date(), "isoDateTime"),
-      "creator": did,
-      "publicKey": publicKey,
-      "signatureValue": this.reduceSignature(signature)
+      type: cc.Ed25519Sha256.TYPE_NAME,
+      created: dateFormat(new Date(), "isoUtcDateTime"),
+      creator: did,
+      publicKey: publicKey,
+      signatureValue: this.reduceSignature(signature)
     };
     return signatureJson
   }
