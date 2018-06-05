@@ -438,6 +438,13 @@ extension.runtime.onConnect.addListener(function(port) {
       const ixoCmId = message.ixoCmId
 
       switch (message.method) {
+        case 'ixo-did-doc':
+          global.metamaskController.keyringController.getDidDoc().then(response=>{
+            port.postMessage({method, ixoCmId, response})
+          }, error=>{
+            port.postMessage({method, ixoCmId, error: error.toString()})
+          })
+        break
         case 'ixo-info':
           global.metamaskController.keyringController.getAccountCredentials().then(response=>{
             port.postMessage({method, ixoCmId, response})

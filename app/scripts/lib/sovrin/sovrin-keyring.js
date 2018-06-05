@@ -13,7 +13,7 @@ var cc = require('five-bells-condition');
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
 const type = 'sovrin'
-const SOV_DID_PREFIX = 'did:ixo:'
+const SOV_DID_PREFIX = 'did:sov:'
 
 class SovrinKeyring extends EventEmitter {
 
@@ -87,12 +87,20 @@ class SovrinKeyring extends EventEmitter {
     }))
   }
 
-  getAccountsCredentials () {
-    console.debug("getAccountCredentials: ")
+  //Generates didDoc from did and verify key
+  getDidDoc () {
+    console.debug("getDidDoc: ")
     return Promise.resolve(this.wallets.map((w) => {
       const did = SOV_DID_PREFIX + w.did
-      const publicKey = w.encryptionPublicKey
-      return {did, publicKey}
+      const pubKey = w.verifyKey
+
+      const didDoc = {
+        didDoc: {
+          did,
+          pubKey
+        }
+      };
+      return didDoc
     }))
   }
 
@@ -115,29 +123,31 @@ class SovrinKeyring extends EventEmitter {
   //Signs a document using signKey from generated SDID and returns the signature
   signIxoMessage_Call6(accountDid, msg) {
     const sdid = this._getWalletForAccount(accountDid)
-    var signature = bs58.encode(sovrin.signMessage(new Buffer(msg), sdid.secret.signKey, sdid.verifyKey))
+    var signature = sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey)
     if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
-        return this.generateDocumentSignature(sdid.did, sdid.encryptionPublicKey, signature)
+        return this.generateSignatureObject(sdid.did, sdid.encryptionPublicKey, signature)
     } else {
         throw new Error('fulfillment validation failed')
     }
   }
 
   verifyDocumentSignature(signature, publicKey) {
-    //return !(sovrin.verifySignedMessage(base58.decode(signature), base58.decode(publicKey)) === false);
-    return !(sovrin.verifySignedMessage(bs58.decode(signature), publicKey) === false)
+    return !(sovrin.verifySignedMessage(signature, publicKey) === false)
   }
 
-  //Generates signature json from generated doc signature
-  generateDocumentSignature(did, publicKey, signature) {
-    var signatureJson = {
-      "type": cc.Ed25519Sha256.TYPE_NAME,
-      "created": dateFormat(new Date(), "isoDateTime"),
-      "creator": did,
-      "publicKey": publicKey,
-      "signatureValue": signature
+  generateSignatureObject(did, publicKey, signature) {
+    const signatureObject = {
+      type: cc.Ed25519Sha256.TYPE_NAME,
+      created: dateFormat(new Date(), "isoUtcDateTime"),
+      creator: did,
+      publicKey: publicKey,
+      signatureValue: this.hexEncodedFirst64Bytes(signature)
     };
-    return signatureJson
+    return signatureObject
+  }
+
+  hexEncodedFirst64Bytes(text) {
+    return new Buffer(text).slice(0, 64).toString("hex").toUpperCase()
   }
 
   // eth_signTypedData, signs data along with the schema
