@@ -141,7 +141,7 @@ class SovrinKeyring extends EventEmitter {
       created: dateFormat(new Date(), "isoUtcDateTime"),
       creator: did,
       publicKey: publicKey,
-      signature: this.hexEncodedFirst64Bytes(signature)
+      signatureValue: this.hexEncodedFirst64Bytes(signature)
     };
     return signatureObject
   }
