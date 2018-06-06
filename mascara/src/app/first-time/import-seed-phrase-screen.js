@@ -46,6 +46,11 @@ class ImportSeedPhraseScreen extends Component {
     this.setState({ seedPhrase, seedPhraseError })
   }
 
+
+  handleUsernameChange (username) {
+    this.setState({ username })
+  }
+    
   handlePasswordChange (password) {
     const { confirmPassword } = this.state
     let confirmPasswordError = null
@@ -82,7 +87,7 @@ class ImportSeedPhraseScreen extends Component {
     } = this.props
 
     leaveImportSeedScreenState()
-    createNewVaultAndRestore(password, this.parseSeedPhrase(seedPhrase))
+    createNewVaultAndRestore(username, password, this.parseSeedPhrase(seedPhrase))
       .then(() => history.push(INITIALIZE_NOTICE_ROUTE))
   }
 
@@ -190,6 +195,6 @@ export default connect(
     leaveImportSeedScreenState: () => {
       dispatch(unMarkPasswordForgotten())
     },
-    createNewVaultAndRestore: (pw, seed) => dispatch(createNewVaultAndRestore(pw, seed)),
+    createNewVaultAndRestore: (un, pw, seed) => dispatch(createNewVaultAndRestore(un, pw, seed)),
   })
 )(ImportSeedPhraseScreen)
