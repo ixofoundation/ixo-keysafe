@@ -369,13 +369,13 @@ function confirmSeedWords () {
   }
 }
 
-function createNewVaultAndRestore (password, seed) {
+function createNewVaultAndRestore (accountName, password, seed) {
   return (dispatch) => {
     dispatch(actions.showLoadingIndication())
     log.debug(`background.createNewVaultAndRestore`)
 
     return new Promise((resolve, reject) => {
-      background.createNewVaultAndRestore(password, seed, err => {
+      background.createNewVaultAndRestore(accountName, password, seed, err => {
         if (err) {
           return reject(err)
         }

@@ -7,11 +7,13 @@ const sigUtil = require('eth-sig-util')
 const hdkey = require('ethereumjs-wallet/hdkey')
 const bs58 = require("bs58")
 var dateFormat = require('dateformat')
+var cc = require('five-bells-condition');
+
 
 // Options:
 const hdPathString = `m/44'/60'/0'/0`
 const type = 'sovrin'
-const SOV_DID_PREFIX = 'did:ixo:'
+const SOV_DID_PREFIX = 'did:sov:'
 
 class SovrinKeyring extends EventEmitter {
 
@@ -85,12 +87,20 @@ class SovrinKeyring extends EventEmitter {
     }))
   }
 
-  getAccountsCredentials () {
-    console.debug("getAccountCredentials: ")
+  //Generates didDoc from did and verify key
+  getDidDoc () {
+    console.debug("getDidDoc: ")
     return Promise.resolve(this.wallets.map((w) => {
       const did = SOV_DID_PREFIX + w.did
-      const publicKey = w.encryptionPublicKey
-      return {did, publicKey}
+      const pubKey = w.verifyKey
+
+      const didDoc = {
+        didDoc: {
+          did,
+          pubKey
+        }
+      };
+      return didDoc
     }))
   }
 
@@ -110,19 +120,34 @@ class SovrinKeyring extends EventEmitter {
     return Promise.resolve(signature)
   }
 
-  // For ixo_sign, we need to prefix the message:
-  signIxoMessage_Call6 (withAccount, msgHex) {
-    const sdid = this._getWalletForAccount(withAccount)
+  //Signs a document using signKey from generated SDID and returns the signature
+  signIxoMessage_Call6(accountDid, msg) {
+    const sdid = this._getWalletForAccount(accountDid)
+    var signature = sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey)
+    if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
+        return this.generateSignatureObject(accountDid, sdid.encryptionPublicKey, signature)
+    } else {
+        throw new Error('fulfillment validation failed')
+    }
+  }
 
-    const signedMessageHex = sovrin.signMessage(new Buffer(msgHex), sdid.secret.signKey, sdid.verifyKey)
-    
-    const type = 'ED25519'
-    const created = dateFormat(new Date(), "isoDateTime")
-    const creator = withAccount
-    const publicKey = sdid.encryptionPublicKey
-    const signature = bs58.encode(signedMessageHex)
-    
-    return Promise.resolve({type, created, creator, publicKey, signature})
+  verifyDocumentSignature(signature, publicKey) {
+    return !(sovrin.verifySignedMessage(signature, publicKey) === false)
+  }
+
+  generateSignatureObject(did, publicKey, signature) {
+    const signatureObject = {
+      type: cc.Ed25519Sha256.TYPE_NAME,
+      created: dateFormat(new Date(), "isoUtcDateTime"),
+      creator: did,
+      publicKey: publicKey,
+      signatureValue: this.hexEncodedFirst64Bytes(signature)
+    };
+    return signatureObject
+  }
+
+  hexEncodedFirst64Bytes(text) {
+    return new Buffer(text).slice(0, 64).toString("hex").toUpperCase()
   }
 
   // eth_signTypedData, signs data along with the schema

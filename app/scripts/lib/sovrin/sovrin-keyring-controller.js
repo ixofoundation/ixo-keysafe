@@ -85,7 +85,7 @@ class SovrinKeyringController extends EventEmitter {
   // Destroys any old encrypted storage,
   // creates a new encrypted store with the given password,
   // creates a new HD wallet from the given seed with 1 account.
-  createNewVaultAndRestore (password, seed) {
+  createNewVaultAndRestore (accountName, password, seed) {
     if (typeof password !== 'string') {
       return Promise.reject('Password must be text.')
     }
@@ -109,7 +109,7 @@ class SovrinKeyringController extends EventEmitter {
     .then((accounts) => {
       const firstAccount = accounts[0]
       if (!firstAccount) throw new Error('KeyringController - First Account not found.')
-      return this.setupAccounts(accounts)
+      return this.setupAccounts(accounts, accountName)
     })
     .then(this.persistAllKeyrings.bind(this, password))
     .then(this.fullUpdate.bind(this))
@@ -562,7 +562,7 @@ class SovrinKeyringController extends EventEmitter {
       const keyring = this.keyrings[0]
       const walletNames = this.store.getState().walletNicknames || {}
 
-      keyring.getAccountsCredentials().then(accountsCredentials=>{
+      keyring.getDidDoc().then(accountsCredentials=>{
         const credentials = accountsCredentials[0]
         credentials.name = walletNames[credentials.did]
         resolve(credentials)
@@ -570,6 +570,25 @@ class SovrinKeyringController extends EventEmitter {
     });
   }
 
+  getDidDoc =  () => {
+    return new Promise((resolve, reject) => {
+
+      //if not unlocked reject
+      const isUnlocked = this.memStore.getState().isUnlocked
+      if (!isUnlocked) {
+        reject(new Error('IxoCM - Unlock the Credential Provider.'))
+      }
+
+      // for now the IXO CM only supports a single account so no need to look it up
+      const keyring = this.keyrings[0]
+      const walletNames = this.store.getState().walletNicknames || {}
+
+      keyring.getDidDoc().then(accountsDidDocs=>{
+        const didDoc = accountsDidDocs[0]
+        resolve(didDoc)
+      })
+    });
+  }
   // Display For Keyring
   // @Keyring keyring
   //

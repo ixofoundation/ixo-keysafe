@@ -214,7 +214,7 @@ Listen for messages from the page.
 If the message was from the page script, forward it to background.js.
 */
 window.addEventListener("message", (event) => {
-  const MONITORED_METHODS = ['ixo-info', 'ixo-sign']
+  const MONITORED_METHODS = ['ixo-info', 'ixo-sign', 'ixo-did-doc']
 
   if (event.source == window && event.data) {
     if (event.data.origin == 'ixo-dapp') {

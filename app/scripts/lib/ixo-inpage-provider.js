@@ -29,6 +29,13 @@ class IxoInpageProvider {
     this.postMessageToContentscript(method, ixoCmId)    
   }
 
+  requestDidDocFromIxoCM = (cb) => {
+    const ixoCmId = uniqid()
+    this.callbacks[ixoCmId] = cb
+    const method = 'ixo-did-doc'
+    this.postMessageToContentscript(method, ixoCmId)    
+  }
+
   // PRIVATE METHODS
   //
   // THESE METHODS ARE ONLY USED INTERNALLY TO THE KEYRING-CONTROLLER
