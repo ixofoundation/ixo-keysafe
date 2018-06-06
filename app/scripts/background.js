@@ -423,12 +423,12 @@ function triggerUi () {
   })
 }
 
-// On first install, open a window to MetaMask website to how-it-works.
-extension.runtime.onInstalled.addListener(function (details) {
-  if ((details.reason === 'install') && (!METAMASK_DEBUG)) {
-    extension.tabs.create({url: 'https://metamask.io/#how-it-works'})
-  }
-})
+// // On first install, open a window to MetaMask website to how-it-works.
+// extension.runtime.onInstalled.addListener(function (details) {
+//   if ((details.reason === 'install') && (!METAMASK_DEBUG)) {
+//     extension.tabs.create({url: 'https://metamask.io/#how-it-works'})
+//   }
+// })
 
 // Listen for messages from contentscript.js
 extension.runtime.onConnect.addListener(function(port) {

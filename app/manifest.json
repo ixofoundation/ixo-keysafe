@@ -24,8 +24,7 @@
     "scripts": [
       "chromereload.js",
       "background.js"
-    ],
-    "persistent": true
+    ]
   },
   "browser_action": {
     "default_icon": {
@@ -58,10 +57,5 @@
   ],
   "web_accessible_resources": [
     "inpage.js"
-  ],
-  "externally_connectable": {
-    "matches": [
-      "https://metamask.io/*"
-    ]
-  }
+  ]
 }
