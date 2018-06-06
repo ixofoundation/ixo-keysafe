@@ -391,7 +391,7 @@ class SovrinKeyringController extends EventEmitter {
     const currentIdentityCount = Object.keys(identities).length + 1
     const nicknames = this.store.getState().walletNicknames || {}
     const existingNickname = nicknames[hexAddress]
-    const name = existingNickname || accountName || `Account ${currentIdentityCount}`
+    const name = accountName || existingNickname || `Account ${currentIdentityCount}`
     identities[hexAddress] = {
       address: hexAddress,
       name,
