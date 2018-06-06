@@ -125,7 +125,7 @@ class SovrinKeyring extends EventEmitter {
     const sdid = this._getWalletForAccount(accountDid)
     var signature = sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey)
     if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
-        return this.generateSignatureObject(sdid.did, sdid.encryptionPublicKey, signature)
+        return this.generateSignatureObject(accountDid, sdid.encryptionPublicKey, signature)
     } else {
         throw new Error('fulfillment validation failed')
     }
@@ -141,7 +141,7 @@ class SovrinKeyring extends EventEmitter {
       created: dateFormat(new Date(), "isoUtcDateTime"),
       creator: did,
       publicKey: publicKey,
-      signatureValue: this.hexEncodedFirst64Bytes(signature)
+      signature: this.hexEncodedFirst64Bytes(signature)
     };
     return signatureObject
   }
