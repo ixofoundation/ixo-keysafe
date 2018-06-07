@@ -24,8 +24,8 @@
     "message": "Số lượng + Gas"
   },
   "appDescription": {
-    "description": "Mô tả phần mềm",
-    "message": "Tính năng Ethereum cho trình duyệt"
+    "message": "IXO Browser Extension",
+    "description": "Tính năng Ethereum cho trình duyệt"
   },
   "appName": {
     "description": "Tên phần mềm",
