@@ -3,7 +3,6 @@ cleanContextForImports()
 require('web3/dist/web3.min.js')
 const log = require('loglevel')
 const LocalMessageDuplexStream = require('post-message-stream')
-const setupDappAutoReload = require('./lib/auto-reload.js')
 const IxoInpageProvider = require('./lib/ixo-inpage-provider')
 restoreContextAfterImports()
 
@@ -14,13 +13,10 @@ log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
 //
 
 if (typeof window.ixoCm !== 'undefined') {
-  throw new Error(`MetaMask II detected another web3.
-     MetaMask II will not work reliably with another web3 extension.
-     This usually happens if you have two MetaMasks installed,
-     or MetaMask and another web3 extension. Please remove one
-     and try again.`)
+  throw new Error(`IXO Keysafe already injected.
+  IXO Keysafe can only be injected once.`)
 }
-log.debug('IxoCM - injected')
+log.debug('IXO Keysafe - injected')
 // export global IxoInpageProvider, with usage-detection
 global.ixoCm = IxoInpageProvider
 
@@ -39,7 +35,7 @@ function cleanContextForImports () {
   try {
     global.define = undefined
   } catch (_) {
-    console.warn('MetaMask - global.define could not be deleted.')
+    console.warn('IXO Keysafe - global.define could not be deleted.')
   }
 }
 
@@ -50,6 +46,6 @@ function restoreContextAfterImports () {
   try {
     global.define = __define
   } catch (_) {
-    console.warn('MetaMask - global.define could not be overwritten.')
+    console.warn('IXO Keysafe - global.define could not be overwritten.')
   }
 }

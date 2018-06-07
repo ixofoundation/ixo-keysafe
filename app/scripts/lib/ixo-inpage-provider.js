@@ -10,7 +10,7 @@ class IxoInpageProvider {
   // THEIR SURFACE AREA SHOULD BE CHANGED WITH GREAT CARE.
 
   constructor (opts) {
-      console.log('CTOR of IxoInpageProvider')
+      console.debug('CTOR of IxoInpageProvider')
       this.callbacks = {}
       this.registerWindowListener()
   }
@@ -42,7 +42,7 @@ class IxoInpageProvider {
   // AND SO MAY BE CHANGED MORE LIBERALLY THAN THE ABOVE METHODS.
 
   registerWindowListener () {
-    console.log('inside registerWindowListener()')
+    console.debug('inside registerWindowListener()')
 
     /*
     Listen for messages from the page.
@@ -64,7 +64,7 @@ class IxoInpageProvider {
   }
 
   handleIxoCMReply = (reply) => {
-    console.log(`IxoInpageProvider handling received reply:  ${JSON.stringify(reply)}`)
+    console.debug(`IxoInpageProvider handling received reply:  ${JSON.stringify(reply)}`)
     const callback = this.callbacks[reply.ixoCmId]
     if (callback) {
       delete this.callbacks[reply.ixoCmId]
