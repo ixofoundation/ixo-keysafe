@@ -564,7 +564,7 @@ class SovrinKeyringController extends EventEmitter {
 
       keyring.getDidDoc().then(accountsCredentials=>{
         const credentials = accountsCredentials[0]
-        credentials.name = walletNames[credentials.did]
+        credentials.name = walletNames[credentials.didDoc.did]
         resolve(credentials)
       })
     });

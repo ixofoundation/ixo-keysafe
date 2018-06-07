@@ -3,7 +3,7 @@ cleanContextForImports()
 require('web3/dist/web3.min.js')
 const log = require('loglevel')
 const LocalMessageDuplexStream = require('post-message-stream')
-const IxoInpageProvider = require('./lib/ixo-inpage-provider')
+const IxoKeysafeInpageProvider = require('./lib/ixo-keysafe-inpage-provider')
 restoreContextAfterImports()
 
 log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
@@ -18,7 +18,7 @@ if (typeof window.ixoCm !== 'undefined') {
 }
 log.debug('IXO Keysafe - injected')
 // export global IxoInpageProvider, with usage-detection
-global.ixoCm = IxoInpageProvider
+global.ixoKs = IxoKeysafeInpageProvider
 
 // need to make sure we aren't affected by overlapping namespaces
 // and that we dont affect the app with our namespace
