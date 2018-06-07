@@ -14,7 +14,7 @@ The purpose of this project is for it to enable actors on the IXO blockchain to 
   - [request keysafe DID document](#keysafe-get-did-doc)
   - [request keysafe to present message signing](#keysafe-request-signing)
 
-  ## Integration
+## Integration
 
 ### `absent extension`
 
