@@ -28,14 +28,14 @@ if (!window["ixoKs"]) {
 
 ### `instantiate extension`
 
-```
+```javascript
 const IxoKeysafeInpageProvider = window["ixoKs"];
 this.ixoKsProvider = new IxoKeysafeInpageProvider();
 ```
 
 ### `keysafe information`
 
-```
+```javascript
 this.ixoKsProvider.getInfo((error, response)=>{
   console.log(`Callback received response for getInfo. response: ${JSON.stringify(response)}, error: ${JSON.stringify(error)}`);
 })
@@ -53,7 +53,7 @@ __a successful response looks like this:__
 
 ### `keysafe get DID doc`
 
-```
+```javascript
 this.ixoKsProvider.getDidDoc((error, response)=>{
   if (error) {
     // handle error
@@ -74,7 +74,7 @@ __a successful response looks like this:__
 
 ### `keysafe request signing`
 
-```
+```javascript
 const textToSign = '{"key1": "value1", "key2": "this entire textToSign can be any string really"}';
 this.ixoKsProvider.requestSigning(textToSign, (error, response)=>{
   if (error) {
