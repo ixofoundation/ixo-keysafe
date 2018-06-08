@@ -423,33 +423,33 @@ function triggerUi () {
   })
 }
 
-// On first install, open a window to MetaMask website to how-it-works.
-extension.runtime.onInstalled.addListener(function (details) {
-  if ((details.reason === 'install') && (!METAMASK_DEBUG)) {
-    extension.tabs.create({url: 'https://metamask.io/#how-it-works'})
-  }
-})
+// // On first install, open a window to MetaMask website to how-it-works.
+// extension.runtime.onInstalled.addListener(function (details) {
+//   if ((details.reason === 'install') && (!METAMASK_DEBUG)) {
+//     extension.tabs.create({url: 'https://metamask.io/#how-it-works'})
+//   }
+// })
 
 // Listen for messages from contentscript.js
 extension.runtime.onConnect.addListener(function(port) {
   if (port.name === 'ixo-dapp') {
     port.onMessage.addListener(function(message) {
       const method = message.method
-      const ixoCmId = message.ixoCmId
+      const ixoKsId = message.ixoKsId
 
       switch (message.method) {
         case 'ixo-did-doc':
           global.metamaskController.keyringController.getDidDoc().then(response=>{
-            port.postMessage({method, ixoCmId, response})
+            port.postMessage({method, ixoKsId, response})
           }, error=>{
-            port.postMessage({method, ixoCmId, error: error.toString()})
+            port.postMessage({method, ixoKsId, error: error.toString()})
           })
         break
         case 'ixo-info':
           global.metamaskController.keyringController.getAccountCredentials().then(response=>{
-            port.postMessage({method, ixoCmId, response})
+            port.postMessage({method, ixoKsId, response})
           }, error=>{
-            port.postMessage({method, ixoCmId, error: error.toString()})
+            port.postMessage({method, ixoKsId, error: error.toString()})
           })
           break
         case 'ixo-sign':
@@ -457,15 +457,15 @@ extension.runtime.onConnect.addListener(function(port) {
           message.from = global.metamaskController.preferencesController.getSelectedAddress()
           global.metamaskController.newUnsignedIxoMessage_Call1(message, (error, response)=>{
             if (error) {
-              port.postMessage({method, ixoCmId, error: error.toString()})
+              port.postMessage({method, ixoKsId, error: error.toString()})
             } else {
-              port.postMessage({method, ixoCmId, response})
+              port.postMessage({method, ixoKsId, response})
             }
           })
           break
         default:
           const error = 'Unsupported method'
-          port.postMessage({method, ixoCmId, error})
+          port.postMessage({method, ixoKsId, error})
           break
       }
     });

@@ -36,7 +36,7 @@ function setupInjection () {
     // append as first child
     container.insertBefore(scriptTag, container.children[0])
   } catch (e) {
-    console.error('MetamaskII injection failed.', e)
+    console.error('IXO Keysafe injection failed.', e)
   }
 }
 
@@ -58,7 +58,7 @@ function setupStreams () {
     pageStream,
     pluginStream,
     pageStream,
-    (err) => logStreamDisconnectWarning('MetaMaskII Contentscript Forwarding', err)
+    (err) => logStreamDisconnectWarning('IXO Keysafe Contentscript Forwarding', err)
   )
 
   // setup local multistream channels
@@ -69,13 +69,13 @@ function setupStreams () {
     mux,
     pageStream,
     mux,
-    (err) => logStreamDisconnectWarning('MetaMaskII Inpage', err)
+    (err) => logStreamDisconnectWarning('IXO Keysafe Inpage', err)
   )
   pump(
     mux,
     pluginStream,
     mux,
-    (err) => logStreamDisconnectWarning('MetaMaskII Background', err)
+    (err) => logStreamDisconnectWarning('IXO Keysafe Background', err)
   )
 
   // connect ping stream
@@ -84,7 +84,7 @@ function setupStreams () {
     mux,
     pongStream,
     mux,
-    (err) => logStreamDisconnectWarning('MetaMaskII PingPongStream', err)
+    (err) => logStreamDisconnectWarning('IXO Keysafe PingPongStream', err)
   )
 
   // connect phishing warning stream
@@ -104,7 +104,7 @@ function setupStreams () {
  * @param {Error} err Stream connection error
  */
 function logStreamDisconnectWarning (remoteLabel, err) {
-  let warningMsg = `MetamaskIIContentscript - lost connection to ${remoteLabel}`
+  let warningMsg = `IXO Keysafe:Contentscript - lost connection to ${remoteLabel}`
   if (err) warningMsg += '\n' + err.stack
   console.warn(warningMsg)
 }
@@ -192,18 +192,18 @@ function blacklistedDomainCheck () {
  * Redirects the current page to a phishing information page
  */
 function redirectToPhishingWarning () {
-  console.log('MetaMaskII - redirecting to phishing warning')
+  console.log('IXO Keysafe - redirecting to phishing warning')
   window.location.href = 'https://metamask.io/phishing.html'
 }
 
 /*
 Send a message to the page script.
 */
-function postMessageFromContentScript(method, ixoCmId, response, error) {
+function postMessageFromContentScript(method, ixoKsId, response, error) {
   window.postMessage({
-    origin: "ixo-cm",
+    origin: "ixo-keysafe",
     method,
-    ixoCmId,
+    ixoKsId,
     response,
     error
   }, "*");
@@ -225,7 +225,7 @@ window.addEventListener("message", (event) => {
       port.onMessage.addListener(function(reply) {
         if (MONITORED_METHODS.find(m => m===reply.method) || reply.error) {
           console.debug(`contentscript received reply ${JSON.stringify(reply)}`)
-          postMessageFromContentScript(reply.method, reply.ixoCmId, reply.response, reply.error)
+          postMessageFromContentScript(reply.method, reply.ixoKsId, reply.response, reply.error)
         }
       });
     }      
