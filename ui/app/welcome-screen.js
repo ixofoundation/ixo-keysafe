@@ -37,8 +37,8 @@ class WelcomeScreen extends Component {
   render () {
     return (
       <div className="welcome-screen">
-        <Logo/>
-        <Logo/>
+        <div className="welcome-screen__ixo-logo"/>
+        <div className="welcome-screen__ixo-graphic"/>
         <div className="welcome-screen__info">
           <div className="welcome-screen__info__copy">A secure credential manager for managing your ixo projects.</div>
           <button className="welcome-screen__button" onClick={this.initiateAccountCreation}>Continue</button>
