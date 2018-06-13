@@ -8,7 +8,6 @@
 
 .first-time-flow {
   width: 100vw;
-  background-color: #fff;
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -229,10 +228,15 @@
 .backup-phrase__title,
 .import-account__title,
 .buy-ether__title {
-  color: #1B344D;
-  font-size: 40px;
-  line-height: 51px;
-  margin-bottom: 24px;
+  height: 50px;
+  color: #FFFFFF;
+  font-size: 22px;
+  line-height: 29px;
+  letter-spacing: 0.15px;
+  margin-top: 50px;
+  margin-bottom: 14px;
+  font-family: "Roboto Condensed";
+  text-align: center;
 }
 
 .import-account__title {
@@ -683,19 +687,19 @@ button.backup-phrase__confirm-seed-option:hover {
 }
 
 .first-time-flow__button {
-  height: 54px;
-  width: 198px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.14);
+  height: 43px;
+  width: 274px;
+  border: 1.5px solid #00D2FF;
+  border-radius: 2px;
+  font-family: "Roboto Condensed";
+  font-size: 15px;
   color: #FFFFFF;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: Roboto;
-  line-height: 26px;
+  letter-spacing: 0.3px;
+  line-height: 20px;
   text-align: center;
   text-transform: uppercase;
-  margin: 35px 0 14px;
   transition: 200ms ease-in-out;
-  background-color: rgba(247, 134, 28, 0.9);
+  background-color: transparent;
 }
 
 button.first-time-flow__button[disabled] {

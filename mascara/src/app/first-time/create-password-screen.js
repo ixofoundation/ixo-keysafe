@@ -134,7 +134,7 @@ class CreatePasswordScreen extends Component {
           </div>}
           <div className="create-password">
             <div className="create-password__title">
-              Create Password
+              Let's set up your account
             </div>
             <TextField
               id="create-username"
@@ -189,19 +189,6 @@ class CreatePasswordScreen extends Component {
             >
               Import with seed phrase
             </a>
-            { /* }
-            <a
-              href=""
-              className="first-time-flow__link create-password__import-link"
-              onClick={e => {
-                e.preventDefault()
-                history.push(INITIALIZE_IMPORT_ACCOUNT_ROUTE)
-              }}
-            >
-              Import an account
-            </a>
-            { */ }
-            <Breadcrumbs total={3} currentIndex={0} />
           </div>
         </div>
       </div>

@@ -531,7 +531,7 @@
     "message": "New Contract"
   },
   "createUsername": {
-    "message": "Username"
+    "message": "Your name"
   },
   "newPassword": {
     "message": "New Password (min 8 chars)"
