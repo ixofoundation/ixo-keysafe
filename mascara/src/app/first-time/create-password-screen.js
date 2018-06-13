@@ -179,17 +179,18 @@ class CreatePasswordScreen extends Component {
             >
               Create
             </button>
-            <a
-              href=""
-              className="first-time-flow__link create-password__import-link"
-              onClick={e => {
-                e.preventDefault()
-                history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE)
-              }}
-            >
-              Import with seed phrase
-            </a>
+
           </div>
+
+          <a
+            className="first-time-flow__link create-password__import-link"
+            onClick={e => {
+              e.preventDefault()
+              history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE)
+            }}
+          >
+            <div className="first-time-flow__link-text">Import your existing key</div>
+          </a>
         </div>
       </div>
     )

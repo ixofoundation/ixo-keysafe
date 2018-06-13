@@ -57,7 +57,6 @@
   width: 100%;
   height: 100%;
   justify-content: center;
-  padding: 0 10px;
 }
 
 .first-view-main,
@@ -145,6 +144,7 @@
 
   .first-view-main {
     height: 100%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
@@ -252,8 +252,24 @@
   margin-top: 16px;
 }
 
+a:hover {
+  color: #61abce;
+  cursor: pointer;
+}
+
 .create-password__import-link {
-  margin-bottom: 54px;
+  position: absolute;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  background-color: #063f5a;  
+  display: table;
+}
+
+.first-time-flow__link-text {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .unique-image__title,
@@ -700,6 +716,7 @@ button.backup-phrase__confirm-seed-option:hover {
   text-transform: uppercase;
   transition: 200ms ease-in-out;
   background-color: transparent;
+  margin-top: 44px;
 }
 
 button.first-time-flow__button[disabled] {
@@ -729,9 +746,10 @@ button.first-time-flow__button--tertiary:hover {
 }
 
 .first-time-flow__link {
-  color: #1B344D;
-  font-size: 18px;
-  line-height: 23px;
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: center;
 }
 
 .breadcrumbs {

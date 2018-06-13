@@ -4,28 +4,36 @@ import { withStyles } from 'material-ui/styles'
 import { default as MaterialTextField } from 'material-ui/TextField'
 
 const styles = {
+  cssDefault: {
+    color: '#f0f0f0'
+  },
   cssLabel: {
     '&$cssFocused': {
-      color: '#aeaeae',
+      color: '#61abce',
     },
     '&$cssError': {
-      color: '#aeaeae',
+      color: '#61abce',
     },
-    fontWeight: '400',
-    color: '#aeaeae',
+    color: '#ffffff',
+    fontFamily: 'Roboto'
   },
   cssFocused: {},
   cssUnderline: {
     '&:after': {
-      backgroundColor: '#f7861c',
+      backgroundColor: '#61abce',
     },
   },
   cssError: {},
+  cssInput: {
+    '&:after': {
+      backgroundColor: '#61abce',
+    },
+    color: "#ffffff"
+  }
 }
 
 const TextField = props => {
   const { error, classes, ...textFieldProps } = props
-
   return (
     <MaterialTextField
       error={Boolean(error)}
@@ -37,11 +45,11 @@ const TextField = props => {
           error: classes.cssError,
         },
       }}
+
       InputProps={{
-        classes: {
-          underline: classes.cssUnderline,
-        },
+        className: classes.cssInput,
       }}
+
       {...textFieldProps}
     />
   )
