@@ -750,16 +750,13 @@ button.backup-phrase__confirm-seed-option:hover {
 
 .first-time-flow__unique-image-button {
   cursor: pointer;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .first-time-flow__unique-image-button p {
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%)
 }
 
 button.first-time-flow__button[disabled] {
