@@ -113,7 +113,7 @@ class ImportSeedPhraseScreen extends Component {
     return (
       <div className="first-view-main-wrapper">
         <div className="first-view-main">
-          <div className="import-account">
+          <div className="first-view-nav">
             <a
               className="import-account__back-button"
               onClick={e => {
@@ -122,21 +122,18 @@ class ImportSeedPhraseScreen extends Component {
               }}
               href="#"
             >
-              {`< Back`}
             </a>
-            <div className="import-account__title">
-              Import an Account with Seed Phrase
-            </div>
-            <div className="import-account__selector-label">
-              Enter your secret twelve word phrase here to restore your vault.
+          </div>
+          <div className="import-account">
+            <div className="first-time__title import-account__title">
+              Import your existing key
             </div>
             <div className="import-account__input-wrapper">
-              <label className="import-account__input-label">Wallet Seed</label>
               <textarea
                 className="import-account__secret-phrase"
                 onChange={e => this.handleSeedPhraseChange(e.target.value)}
                 value={this.state.seedPhrase}
-                placeholder="Separate each word with a single space"
+                placeholder="Enter your secret twelve word phrase here to restore your vault."
               />
             </div>
             <span className="error">

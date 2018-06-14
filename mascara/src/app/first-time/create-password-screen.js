@@ -133,7 +133,7 @@ class CreatePasswordScreen extends Component {
             </div>
           </div>}
           <div className="create-password">
-            <div className="create-password__title">
+            <div className="first-time__title create-password__title">
               Let's set up your account
             </div>
             <TextField
