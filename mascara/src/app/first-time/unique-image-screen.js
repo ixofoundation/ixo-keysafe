@@ -35,12 +35,14 @@ class UniqueImageScreen extends Component {
           <div className="unique-image__body-text">
             You’ll see this image everytime you need to confirm a transaction.
           </div>
-          <button
-            className="first-time-flow__button"
+        </div>
+        <div  className="footer-bar">
+          <div
+            className="first-time-flow__button first-time-flow__unique-image-button"
             onClick={() => this.props.history.push(INITIALIZE_NOTICE_ROUTE)}
           >
-            Next
-          </button>
+            <p>Next</p>
+          </div>
         </div>
       </div>
     )

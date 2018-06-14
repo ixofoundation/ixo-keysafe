@@ -109,6 +109,15 @@
   display: table;
 }
 
+.footer-bar {
+  height: 107px;
+  width: 100%;
+  background-color: #063F5A;
+  display: table;
+  bottom: 0;
+  position: absolute;
+}
+
 .back-nav-button {
   width: 20px;
   height: 20px;
@@ -735,7 +744,22 @@ button.backup-phrase__confirm-seed-option:hover {
   text-transform: uppercase;
   transition: 200ms ease-in-out;
   background-color: transparent;
-  margin-top: 24px;
+  position: relative;
+  margin: 20px auto;
+}
+
+.first-time-flow__unique-image-button {
+  cursor: pointer;
+  position: relative;
+}
+
+.first-time-flow__unique-image-button p {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
 }
 
 button.first-time-flow__button[disabled] {

@@ -38,6 +38,7 @@ MainContainer.prototype.render = function () {
   }
 
   return h('div.main-container', {
+    id: 'main-container',
     style: contents.style,
   }, [
     h(contents.component, {
