@@ -113,9 +113,9 @@ class ImportSeedPhraseScreen extends Component {
     return (
       <div className="first-view-main-wrapper">
         <div className="first-view-main">
-          <div className="first-view-nav">
+          <div className="nav-bar">
             <a
-              className="import-account__back-button"
+              className="back-nav-button"
               onClick={e => {
                 e.preventDefault()
                 this.props.history.goBack()
