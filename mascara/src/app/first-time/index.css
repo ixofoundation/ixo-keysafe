@@ -8,7 +8,6 @@
 
 .first-time-flow {
   width: 100vw;
-  background-color: #fff;
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -58,7 +57,6 @@
   width: 100%;
   height: 100%;
   justify-content: center;
-  padding: 0 10px;
 }
 
 .first-view-main,
@@ -146,10 +144,16 @@
 
   .first-view-main {
     height: 100%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    margin-top: 12px;
+  }
+
+  .first-view-nav {
+    height: 43px;
+    width: 100%;
+    background-color: #063F5A;
   }
 
   .mascara-info {
@@ -210,8 +214,8 @@
   .backup-phrase__confirm-secret,
   .import-account__secret-phrase {
     width: initial !important;
-    height: initial !important;
-    min-height: 190px;
+    height: 126px;
+    resize: none;
   }
 
   .backup-phrase__confirm-seed-options {
@@ -223,19 +227,27 @@
   max-width: 46rem;
 }
 
-.create-password__title,
 .unique-image__title,
 .tou__title,
 .backup-phrase__title,
-.import-account__title,
-.buy-ether__title {
-  color: #1B344D;
-  font-size: 40px;
-  line-height: 51px;
-  margin-bottom: 24px;
+.buy-ether__title,
+.first-time__title {
+  height: 50px;
+  color: #FFFFFF;
+  font-size: 22px;
+  line-height: 29px;
+  letter-spacing: 0.15px;
+  margin-bottom: 14px;
+  font-family: "Roboto Condensed";
+  text-align: center;
+}
+
+.create-password__title {
+  margin-top: 50px;
 }
 
 .import-account__title {
+  margin-top: 30px;
   margin-bottom: 10px;
 }
 
@@ -248,8 +260,24 @@
   margin-top: 16px;
 }
 
+a:hover {
+  color: #61abce;
+  cursor: pointer;
+}
+
 .create-password__import-link {
-  margin-bottom: 54px;
+  position: absolute;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  background-color: #063f5a;  
+  display: table;
+}
+
+.first-time-flow__link-text {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .unique-image__title,
@@ -409,12 +437,15 @@
 
 .backup-phrase__back-button,
 .import-account__back-button {
-  margin-bottom: 18px;
-  color: #22232c;
-  font-size: 16px;
-  line-height: 21px;
-  position: absolute;
-  top: -25px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-top: 13px;
+  margin-left: 13px;
+  background-image: url(images/back.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .backup-phrase__back-button {
@@ -427,17 +458,15 @@ button.backup-phrase__reveal-button:hover {
 
 .backup-phrase__confirm-secret,
 .import-account__secret-phrase {
-  height: 190px;
-  width: 495px;
-  border: 1px solid #CDCDCD;
-  border-radius: 6px;
-  background-color: #FFFFFF;
-  margin: 25px 0 36px;
+  border: 1px solid #FFFFFF;
+  border-radius: 2px;
+  background-color: transparent;
   padding: 17px;
 }
 
 .import-account__secret-phrase {
-  font-size: 16px;
+  font-size: 15px;
+  color: #FFFFFF;
   margin: initial;
 }
 
@@ -514,7 +543,6 @@ button.backup-phrase__confirm-seed-option:hover {
 .import-account__input-wrapper {
   display: flex;
   flex-flow: column nowrap;
-  margin-top: 30px;
 }
 
 .import-account__input-error-message {
@@ -683,19 +711,20 @@ button.backup-phrase__confirm-seed-option:hover {
 }
 
 .first-time-flow__button {
-  height: 54px;
-  width: 198px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.14);
+  height: 43px;
+  width: 274px;
+  border: 1.5px solid #00D2FF;
+  border-radius: 2px;
+  font-family: "Roboto Condensed";
+  font-size: 15px;
   color: #FFFFFF;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: Roboto;
-  line-height: 26px;
+  letter-spacing: 0.3px;
+  line-height: 20px;
   text-align: center;
   text-transform: uppercase;
-  margin: 35px 0 14px;
   transition: 200ms ease-in-out;
-  background-color: rgba(247, 134, 28, 0.9);
+  background-color: transparent;
+  margin-top: 24px;
 }
 
 button.first-time-flow__button[disabled] {
@@ -704,7 +733,6 @@ button.first-time-flow__button[disabled] {
 
 button.first-time-flow__button:hover {
   transform: scale(1);
-  background-color: rgba(247, 134, 28, 0.9);
 }
 
 .first-time-flow__button--tertiary {
@@ -725,9 +753,10 @@ button.first-time-flow__button--tertiary:hover {
 }
 
 .first-time-flow__link {
-  color: #1B344D;
-  font-size: 18px;
-  line-height: 23px;
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: center;
 }
 
 .breadcrumbs {
