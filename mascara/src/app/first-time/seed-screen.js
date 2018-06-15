@@ -93,58 +93,57 @@ class BackupPhraseScreen extends Component {
   }
 
   renderSecretScreen () {
-    const { isShowingSecret } = this.state
-    const { history } = this.props
 
     return (
       <div className="backup-phrase__content-wrapper">
         <div className="backup-phrase__phrase">
-          <div className="backup-phrase__title">Secret Backup Phrase</div>
+          <div className="backup-phrase__title">
+            <span className="first-time-flow__context-color">Step2: </span>
+            <span>Secret Backup Phrase</span>                    
+          </div>
           <div className="backup-phrase__body-text">
             Your secret backup phrase makes it easy to back up and restore your account.
           </div>
           <div className="backup-phrase__body-text">
-            WARNING: Never disclose your backup phrase. Anyone with this phrase can take your Ether forever.
+            <span className="first-time-flow__warning-color">WARNING: </span>
+            <span>Never disclose your backup phrase. Anyone with this phrase can take your Ether forever.</span>
           </div>
           {this.renderSecretWordsContainer()}
-        </div>
-        <div className="backup-phrase__tips">
-          <div className="backup-phrase__tips-text">Tips:</div>
-          <div className="backup-phrase__tips-text">
-            Store this phrase in a password manager like 1password.
-          </div>
-          <div className="backup-phrase__tips-text">
-            Write this phrase on a piece of paper and store in a secure location. If you want even more security, write it down on multiple pieces of paper and store each in 2 - 3 different locations.
-          </div>
-          <div className="backup-phrase__tips-text">
-            Memorize this phrase.
-          </div>
-        </div>
-        <div className="backup-phrase__next-button">
-          <button
-            className="first-time-flow__button"
-            onClick={() => isShowingSecret && history.push(INITIALIZE_CONFIRM_SEED_ROUTE)}
-            disabled={!isShowingSecret}
-          >
-            Next
-          </button>
-          <Breadcrumbs total={3} currentIndex={1} />
         </div>
       </div>
     )
   }
 
   render () {
+    const { isShowingSecret } = this.state
+    const { history } = this.props
+    
     return this.props.isLoading
       ? <LoadingScreen loadingMessage="Creating your new account" />
       : (
         <div className="first-view-main-wrapper">
+          <div  className="nav-bar">
+          </div>
           <div className="first-view-main">
             <div className="backup-phrase">
-              <Identicon address={this.props.address} diameter={70} />
+              <Identicon className="first-time-flow__seedscreen-image-frieze" address={this.props.address} diameter={54} />
               {this.renderSecretScreen()}
             </div>
           </div>
+          <div  className="footer-bar">
+            <div
+              className="first-time-flow__button first-time-flow__unique-image-button"
+              onClick={() => {
+                isShowingSecret && history.push(INITIALIZE_CONFIRM_SEED_ROUTE)
+              }}
+              disabled={!isShowingSecret}
+            >
+              <p>Next</p>
+            </div>
+            <div className="first-time-flow__step-indication-breadcrumbs">
+              <Breadcrumbs total={3} currentIndex={1} />
+            </div>          
+          </div>          
         </div>
       )
   }
