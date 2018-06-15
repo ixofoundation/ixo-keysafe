@@ -15,25 +15,40 @@ class UniqueImageScreen extends Component {
 
   render () {
     return (
-      <div className="first-view-main-wrapper">
-        <div className="first-view-main">
-          <div className="unique-image">
-            <Identicon address={this.props.address} diameter={70} />
-            <div className="unique-image__title">Your unique account image</div>
-            <div className="unique-image__body-text">
-              This image was programmatically generated for you by your new account number.
-            </div>
-            <div className="unique-image__body-text">
-              You’ll see this image everytime you need to confirm a transaction.
-            </div>
-            <button
-              className="first-time-flow__button"
-              onClick={() => this.props.history.push(INITIALIZE_NOTICE_ROUTE)}
-            >
-              Next
-            </button>
-            <Breadcrumbs total={3} currentIndex={1} />
+      <div className="unique-account-image">
+        <div  className="nav-bar">
+          <a
+            className="back-nav-button"
+            onClick={e => {
+              e.preventDefault()
+              this.props.history.goBack()
+            }}
+            href="#"
+          />
+        </div>
+        <div className="unique-image">
+          <Identicon className="first-time-flow__unique-image-frieze" address={this.props.address} diameter={70} />
+          <div className="unique-image__title">
+            <span className="first-time-flow__context-color">Step1: </span>
+            <span>Your unique account image</span>
           </div>
+          <div className="unique-image__body-text">
+            This image was programmatically generated for you by your new account number.
+          </div>
+          <div className="unique-image__body-text">
+            You’ll see this image everytime you sign a new project or claim.
+          </div>
+        </div>
+        <div  className="footer-bar">
+          <div
+            className="first-time-flow__button first-time-flow__unique-image-button"
+            onClick={() => this.props.history.push(INITIALIZE_NOTICE_ROUTE)}
+          >
+            <p>Next</p>
+          </div>
+          <div className="first-time-flow__unique-image-breadcrumbs">
+            <Breadcrumbs total={3} currentIndex={0} />
+          </div>          
         </div>
       </div>
     )

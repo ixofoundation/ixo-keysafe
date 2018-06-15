@@ -64,7 +64,7 @@ class FirstTimeFlow extends Component {
     const { isPopup } = this.props
 
     return (
-      <div className="flex-column flex-grow">
+      <div>
         { !isPopup && this.renderAppBar() }
         <div className="first-time-flow">
           <Switch>

@@ -9,9 +9,7 @@
 .first-time-flow {
   width: 100vw;
   overflow: auto;
-  display: flex;
   justify-content: center;
-  flex: 1 0 auto;
   font-weight: 400;
   font-family: Roboto;
 }
@@ -104,6 +102,34 @@
   position: relative;
 }
 
+.nav-bar {
+  height: 43px;
+  width: 100%;
+  background-color: #063F5A;
+  display: table;
+}
+
+.footer-bar {
+  height: 107px;
+  width: 100%;
+  background-color: #063F5A;
+  display: table;
+  bottom: 0;
+  position: absolute;
+}
+
+.back-nav-button {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-top: 13px;
+  margin-left: 13px;
+  background-image: url(images/back.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;  
+}
+
 .import-account {
   max-width: initial;
 }
@@ -148,12 +174,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-  }
-
-  .first-view-nav {
-    height: 43px;
-    width: 100%;
-    background-color: #063F5A;
   }
 
   .mascara-info {
@@ -290,9 +310,9 @@ a:hover {
 .unique-image__body-text,
 .backup-phrase__body-text,
 .buy-ether__body-text {
-  color: #1B344D;
-  font-size: 16px;
-  line-height: 23px;
+  color: #FFFFFF;
+  font-size: 15px;
+  line-height: 20px;
   font-family: Roboto;
 }
 
@@ -305,7 +325,7 @@ a:hover {
 }
 
 .unique-image__body-text {
-  width: 335px;
+  width: 100%;
 }
 
 .unique-image__body-text +
@@ -724,7 +744,35 @@ button.backup-phrase__confirm-seed-option:hover {
   text-transform: uppercase;
   transition: 200ms ease-in-out;
   background-color: transparent;
-  margin-top: 24px;
+  position: relative;
+  margin: 20px auto;
+}
+
+.first-time-flow__unique-image-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.first-time-flow__unique-image-button p {
+  margin: 0;
+}
+
+.first-time-flow__context-color {
+  color: #00D2FF;
+}
+
+.first-time-flow__unique-image-frieze {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -40px;
+}
+
+.first-time-flow__unique-image-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button.first-time-flow__button[disabled] {
@@ -767,12 +815,11 @@ button.first-time-flow__button--tertiary:hover {
 .breadcrumb {
   height: 10px;
   width: 10px;
-  border: 1px solid #979797;
   border-radius: 50%;
 }
 
 .breadcrumb + .breadcrumb {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .loading-screen {

@@ -109,7 +109,7 @@ class App extends Component {
     log.debug('Main ui render function')
 
     return (
-      h('.flex-column.full-height', {
+      h('', {
         className: classnames({ 'mouse-user-styles': isMouseUser }),
         style: {
           overflowX: 'hidden',
