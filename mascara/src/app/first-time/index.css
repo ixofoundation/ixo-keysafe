@@ -332,7 +332,7 @@ a:hover {
 .backup-phrase__body-text,
 .backup-phrase__tips-text +
 .backup-phrase__tips-text {
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .tou__body {

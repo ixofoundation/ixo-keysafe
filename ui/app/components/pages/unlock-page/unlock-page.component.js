@@ -7,7 +7,6 @@ const { ENVIRONMENT_TYPE_POPUP } = require('../../../../../app/scripts/lib/enums
 const { getEnvironmentType } = require('../../../../../app/scripts/lib/util')
 const getCaretCoordinates = require('textarea-caret')
 const EventEmitter = require('events').EventEmitter
-const Mascot = require('../../mascot')
 const { DEFAULT_ROUTE, RESTORE_VAULT_ROUTE } = require('../../../routes')
 
 class UnlockPage extends Component {
@@ -22,8 +21,6 @@ class UnlockPage extends Component {
       password: '',
       error: null,
     }
-
-    this.animationEventEmitter = new EventEmitter()
   }
 
   componentWillMount () {
@@ -61,15 +58,6 @@ class UnlockPage extends Component {
 
   handleInputChange ({ target }) {
     this.setState({ password: target.value, error: null })
-
-    // tell mascot to look at page action
-    const element = target
-    const boundingRect = element.getBoundingClientRect()
-    const coordinates = getCaretCoordinates(element, element.selectionEnd)
-    this.animationEventEmitter.emit('point', {
-      x: boundingRect.left + coordinates.left - element.scrollLeft,
-      y: boundingRect.top + coordinates.top - element.scrollTop,
-    })
   }
 
   renderSubmitButton () {
@@ -105,13 +93,6 @@ class UnlockPage extends Component {
     return (
       <div className="unlock-page__container">
         <div className="unlock-page">
-          <div className="unlock-page__mascot-container">
-            <Mascot
-              animationEventEmitter={this.animationEventEmitter}
-              width="120"
-              height="120"
-            />
-          </div>
           <h1 className="unlock-page__title">
             { this.context.t('welcomeBack') }
           </h1>

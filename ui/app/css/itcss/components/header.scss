@@ -3,7 +3,7 @@
   background: $gallery;
   position: relative;
   z-index: $header-z-index;
-  display: flex;
+  display: none;
   flex-flow: column nowrap;
   width: 100%;
   flex: 0 0 auto;
