@@ -80,7 +80,8 @@ class ConfirmSeedScreen extends Component {
                 <div className="backup-phrase__content-wrapper">
                   <div>
                     <div className="backup-phrase__title">
-                      Confirm your Secret Backup Phrase
+                      <span className="first-time-flow__context-color">Step3: </span>
+                      <span>Confirm your Secret Backup Phrase</span>                                          
                     </div>
                     <div className="backup-phrase__body-text">
                       Please select each phrase in order to make sure it is correct.
@@ -136,7 +137,7 @@ class ConfirmSeedScreen extends Component {
                     }}
                     disabled={!isValid}
                 >
-                  <p>Next</p>
+                  <p>Confirm</p>
                 </div>
                 <div className="first-time-flow__step-indication-breadcrumbs">
                   <Breadcrumbs total={3} currentIndex={2} />

@@ -233,7 +233,7 @@
   .backup-phrase__confirm-secret,
   .import-account__secret-phrase {
     width: initial !important;
-    height: 126px;
+    height: 140px;
     resize: none;
   }
 
@@ -301,7 +301,7 @@ a:hover {
 .tou__title,
 .backup-phrase__title,
 .buy-ether__title {
-  margin-top: 24px;
+  margin-top: 5px;
 }
 
 .unique-image__body-text,
@@ -309,6 +309,7 @@ a:hover {
 .buy-ether__body-text {
   color: #FFFFFF;
   font-size: 15px;
+  letter-spacing: 0.1px;
   line-height: 20px;
   font-family: Roboto;
 }
@@ -331,7 +332,7 @@ a:hover {
 .backup-phrase__body-text,
 .backup-phrase__tips-text +
 .backup-phrase__tips-text {
-  margin-top: 24px;
+  margin-top: 5px;
 }
 
 .tou__body {
@@ -367,6 +368,7 @@ a:hover {
 
 .backup-phrase__body-text {
   width: 450px;
+  margin-top: 10px;
 }
 
 .backup-phrase__tips {
@@ -417,7 +419,8 @@ a:hover {
   font-family: Roboto;
   font-size: 15px;
   line-height: 20px;
-  text-align: center;
+  text-align: left;
+  padding: 10px;
 }
 
 .backup-phrase__secret-words--hidden {
@@ -471,12 +474,12 @@ button.backup-phrase__reveal-button:hover {
   transform: scale(1);
 }
 
-.backup-phrase__confirm-secret,
+.backup-phrase__confirm-secret, 
 .import-account__secret-phrase {
   border: 1px solid #FFFFFF;
   border-radius: 2px;
   background-color: transparent;
-  padding: 17px;
+  margin: 4px 0px;
 }
 
 .import-account__secret-phrase {
@@ -495,19 +498,21 @@ button.backup-phrase__reveal-button:hover {
   flex-flow: row wrap;
   width: 465px;
   position: relative;
-  left: -7px;
 }
 
 .backup-phrase__confirm-seed-option {
-  color: #5B5D67;
+  color: #FFFFFF;
   font-family: Roboto;
-  font-size: 16px;
-  line-height: 21px;
-  background-color: #E7E7E7;
-  padding: 8px 19px;
+  font-size: 14px;
+  line-height: 12px;
+  background-color: transparent;
+  border: solid 1px #00D2FF;
+  border-radius: 2px;
+  padding: 5px 12px;
   box-shadow: none;
-  min-width: 65px;
-  margin: 7px;
+  min-width: 46px;
+  margin: 4px;
+  height: 24px;
 }
 
 .backup-phrase__confirm-seed-option--selected {
