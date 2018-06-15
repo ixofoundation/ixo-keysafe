@@ -310,9 +310,9 @@ a:hover {
 .unique-image__body-text,
 .backup-phrase__body-text,
 .buy-ether__body-text {
-  color: #1B344D;
-  font-size: 16px;
-  line-height: 23px;
+  color: #FFFFFF;
+  font-size: 15px;
+  line-height: 20px;
   font-family: Roboto;
 }
 
@@ -325,7 +325,7 @@ a:hover {
 }
 
 .unique-image__body-text {
-  width: 335px;
+  width: 100%;
 }
 
 .unique-image__body-text +
@@ -759,6 +759,22 @@ button.backup-phrase__confirm-seed-option:hover {
   margin: 0;
 }
 
+.first-time-flow__context-color {
+  color: #00D2FF;
+}
+
+.first-time-flow__unique-image-frieze {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -40px;
+}
+
+.first-time-flow__unique-image-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 button.first-time-flow__button[disabled] {
   opacity: .6;
 }
@@ -799,12 +815,11 @@ button.first-time-flow__button--tertiary:hover {
 .breadcrumb {
   height: 10px;
   width: 10px;
-  border: 1px solid #979797;
   border-radius: 50%;
 }
 
 .breadcrumb + .breadcrumb {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .loading-screen {

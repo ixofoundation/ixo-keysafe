@@ -27,13 +27,16 @@ class UniqueImageScreen extends Component {
           />
         </div>
         <div className="unique-image">
-          <Identicon address={this.props.address} diameter={70} />
-          <div className="unique-image__title">Your unique account image</div>
+          <Identicon className="first-time-flow__unique-image-frieze" address={this.props.address} diameter={70} />
+          <div className="unique-image__title">
+            <span className="first-time-flow__context-color">Step1: </span>
+            <span>Your unique account image</span>
+          </div>
           <div className="unique-image__body-text">
             This image was programmatically generated for you by your new account number.
           </div>
           <div className="unique-image__body-text">
-            You’ll see this image everytime you need to confirm a transaction.
+            You’ll see this image everytime you sign a new project or claim.
           </div>
         </div>
         <div  className="footer-bar">
@@ -43,6 +46,9 @@ class UniqueImageScreen extends Component {
           >
             <p>Next</p>
           </div>
+          <div className="first-time-flow__unique-image-breadcrumbs">
+            <Breadcrumbs total={3} currentIndex={0} />
+          </div>          
         </div>
       </div>
     )
