@@ -17,14 +17,6 @@ class UniqueImageScreen extends Component {
     return (
       <div className="unique-account-image">
         <div  className="nav-bar">
-          <a
-            className="back-nav-button"
-            onClick={e => {
-              e.preventDefault()
-              this.props.history.goBack()
-            }}
-            href="#"
-          />
         </div>
         <div className="unique-image">
           <Identicon className="first-time-flow__unique-image-frieze" address={this.props.address} diameter={70} />
@@ -42,11 +34,13 @@ class UniqueImageScreen extends Component {
         <div  className="footer-bar">
           <div
             className="first-time-flow__button first-time-flow__unique-image-button"
-            onClick={() => this.props.history.push(INITIALIZE_NOTICE_ROUTE)}
+            onClick={() => {
+              this.props.history.push(INITIALIZE_NOTICE_ROUTE)
+            }}
           >
             <p>Next</p>
           </div>
-          <div className="first-time-flow__unique-image-breadcrumbs">
+          <div className="first-time-flow__step-indication-breadcrumbs">
             <Breadcrumbs total={3} currentIndex={0} />
           </div>          
         </div>

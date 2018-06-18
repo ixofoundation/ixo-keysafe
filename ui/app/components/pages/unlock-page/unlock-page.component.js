@@ -7,7 +7,6 @@ const { ENVIRONMENT_TYPE_POPUP } = require('../../../../../app/scripts/lib/enums
 const { getEnvironmentType } = require('../../../../../app/scripts/lib/util')
 const getCaretCoordinates = require('textarea-caret')
 const EventEmitter = require('events').EventEmitter
-const Mascot = require('../../mascot')
 const { DEFAULT_ROUTE, RESTORE_VAULT_ROUTE } = require('../../../routes')
 
 class UnlockPage extends Component {
@@ -22,8 +21,6 @@ class UnlockPage extends Component {
       password: '',
       error: null,
     }
-
-    this.animationEventEmitter = new EventEmitter()
   }
 
   componentWillMount () {
@@ -39,6 +36,10 @@ class UnlockPage extends Component {
     tryUnlockMetamask(password)
       .then(() => history.push(DEFAULT_ROUTE))
       .catch(({ message }) => this.setState({ error: message }))
+  }
+
+  isValid () {
+    return this.state.password.length >= 8
   }
 
   handleSubmit (event) {
@@ -61,15 +62,6 @@ class UnlockPage extends Component {
 
   handleInputChange ({ target }) {
     this.setState({ password: target.value, error: null })
-
-    // tell mascot to look at page action
-    const element = target
-    const boundingRect = element.getBoundingClientRect()
-    const coordinates = getCaretCoordinates(element, element.selectionEnd)
-    this.animationEventEmitter.emit('point', {
-      x: boundingRect.left + coordinates.left - element.scrollLeft,
-      y: boundingRect.top + coordinates.top - element.scrollTop,
-    })
   }
 
   renderSubmitButton () {
@@ -99,43 +91,45 @@ class UnlockPage extends Component {
     )
   }
 
+  renderLoginForm () {
+    const { error } = this.state
+
+    return (
+      <div className="unlock-page__login-form">
+        <div className="unlock-page__login-textfield">
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleInputChange(event)}
+            error={error}
+            autoComplete="current-password"
+            fullWidth
+          />
+        </div>
+        <div onClick={event => this.handleSubmit(event)} className={"unlock-page__login-button" + (this.isValid()?" unlock-page__login-button-enabled":"")}>
+          <p>Log In</p>
+        </div>
+      </div>
+    )
+  }
+
   render () {
     const { error } = this.state
 
     return (
       <div className="unlock-page__container">
         <div className="unlock-page">
-          <div className="unlock-page__mascot-container">
-            <Mascot
-              animationEventEmitter={this.animationEventEmitter}
-              width="120"
-              height="120"
-            />
-          </div>
-          <h1 className="unlock-page__title">
-            { this.context.t('welcomeBack') }
-          </h1>
-          <div>{ this.context.t('unlockMessage') }</div>
-          <form
-            className="unlock-page__form"
-            onSubmit={event => this.handleSubmit(event)}
-          >
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.handleInputChange(event)}
-              error={error}
-              autoFocus
-              autoComplete="current-password"
-              fullWidth
-            />
-          </form>
-          { this.renderSubmitButton() }
-          <div className="unlock-page__links">
-            <div
-              className="unlock-page__link"
+
+          <div className="unlock-page__ixo-logo"/>
+          <div className="unlock-page__ixo-graphic"/>
+          
+          { this.renderLoginForm()}
+
+          <div className="unlock-page__footer-bar">          
+            <div 
+              className="unlock-page__import-account-link-text"
               onClick={() => {
                 this.props.markPasswordForgotten()
                 this.props.history.push(RESTORE_VAULT_ROUTE)
@@ -143,22 +137,8 @@ class UnlockPage extends Component {
                 if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
                   global.platform.openExtensionInBrowser()
                 }
-              }}
-            >
-              { this.context.t('restoreFromSeed') }
-            </div>
-            <div
-              className="unlock-page__link unlock-page__link--import"
-              onClick={() => {
-                this.props.markPasswordForgotten()
-                this.props.history.push(RESTORE_VAULT_ROUTE)
-
-                if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
-                  global.platform.openExtensionInBrowser()
-                }
-              }}
-            >
-              { this.context.t('importUsingSeed') }
+              }}>
+              { this.context.t('restoreFromSeed') }              
             </div>
           </div>
         </div>
