@@ -38,6 +38,10 @@ class UnlockPage extends Component {
       .catch(({ message }) => this.setState({ error: message }))
   }
 
+  isValid () {
+    return this.state.password.length >= 8
+  }
+
   handleSubmit (event) {
     event.preventDefault()
     event.stopPropagation()
@@ -88,29 +92,23 @@ class UnlockPage extends Component {
   }
 
   renderLoginForm () {
-    // const { error } = this.state
+    const { error } = this.state
 
-    // return (
-    //   <form
-    //     className="unlock-page__form"
-    //     onSubmit={event => this.handleSubmit(event)}
-    //   >
-    //     <TextField
-    //       id="password"
-    //       label="Password"
-    //       type="password"
-    //       value={this.state.password}
-    //       onChange={event => this.handleInputChange(event)}
-    //       error={error}
-    //       autoFocus
-    //       autoComplete="current-password"
-    //       fullWidth
-    //     />
-    //   </form>
-    // )
     return (
       <div className="unlock-page__login-form">
-        <div className="unlock-page__login-button">
+        <div className="unlock-page__login-textfield">
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleInputChange(event)}
+            error={error}
+            autoComplete="current-password"
+            fullWidth
+          />
+        </div>
+        <div onClick={event => this.handleSubmit(event)} className={"unlock-page__login-button" + (this.isValid()?" unlock-page__login-button-enabled":"")}>
           <p>Log In</p>
         </div>
       </div>
@@ -175,8 +173,19 @@ class UnlockPage extends Component {
 
           { this.renderLoginForm()}
 
-          <div  className="unlock-page__footer-bar">          
-            <div className="unlock-page__import-account-link-text">Import account with seed phrase</div>
+          <div className="unlock-page__footer-bar">          
+            <div 
+              className="unlock-page__import-account-link-text"
+              onClick={() => {
+                this.props.markPasswordForgotten()
+                this.props.history.push(RESTORE_VAULT_ROUTE)
+
+                if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
+                  global.platform.openExtensionInBrowser()
+                }
+              }}>
+              Import account with seed phrase
+            </div>
           </div>
         </div>
       </div>

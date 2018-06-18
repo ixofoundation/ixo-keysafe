@@ -50,20 +50,27 @@
   }
 
   &__login-form {
-    border: solid 1px yellow;
     position: absolute;
     width: 100%;
   }
 
+  &__login-textfield {
+    width: 274px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+  }
+
   &__login-button {
-    cursor: pointer;    
+    cursor: not-allowed;    
     height: 43px;
     width: 274px;
-    border: 1.5px solid #00D2FF;
+    border: 1.5px solid #D3D3D3;
     border-radius: 2px;
     font-family: "Roboto Condensed";
     font-size: 15px;
-    color: #FFFFFF;
+    color: #D3D3D3;
     letter-spacing: 0.3px;
     line-height: 20px;
     text-align: center;
@@ -77,6 +84,13 @@
     align-items: center;
     justify-content: center;
   }
+
+  &__login-button-enabled {
+    cursor: pointer;    
+    border: 1.5px solid #00D2FF;
+    color: #FFFFFF;
+  }
+
 
   &__login-button p {
     margin: 0;

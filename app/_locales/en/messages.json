@@ -641,7 +641,7 @@
     "message": "Reset Account"
   },
   "restoreFromSeed": {
-    "message": "Restore account?"
+    "message": "Import account with seed phrase"
   },
   "restoreVault": {
     "message": "Restore Vault"
