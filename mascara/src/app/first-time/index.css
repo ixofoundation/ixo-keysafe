@@ -8,6 +8,7 @@
 
 .first-time-flow {
   width: 100vw;
+  height: 596px;
   overflow: auto;
   justify-content: center;
   font-weight: 400;
@@ -172,7 +173,6 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
   }
 
   .mascara-info {
@@ -407,12 +407,12 @@ a:hover {
   justify-content: center;
   width: 349px;
   padding: 20px 0;
-  margin-top: 36px;
+  margin-top: 10px;
 }
 
 .backup-phrase__secret-words {
   width: 310px;
-  height: 126px;
+  height: 115px;
   color: #FFFFFF;
   background-color: #113247;
   border: solid 1px #61ABCE;

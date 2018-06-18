@@ -125,52 +125,6 @@ class UnlockPage extends Component {
           <div className="unlock-page__ixo-logo"/>
           <div className="unlock-page__ixo-graphic"/>
           
-          {/* <form
-            className="unlock-page__form"
-            onSubmit={event => this.handleSubmit(event)}
-          >
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.handleInputChange(event)}
-              error={error}
-              autoFocus
-              autoComplete="current-password"
-              fullWidth
-            />
-          </form>
-          { this.renderSubmitButton() }
-          <div className="unlock-page__links">
-            <div
-              className="unlock-page__link"
-              onClick={() => {
-                this.props.markPasswordForgotten()
-                this.props.history.push(RESTORE_VAULT_ROUTE)
-
-                if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
-                  global.platform.openExtensionInBrowser()
-                }
-              }}
-            >
-              { this.context.t('restoreFromSeed') }
-            </div>
-            <div
-              className="unlock-page__link unlock-page__link--import"
-              onClick={() => {
-                this.props.markPasswordForgotten()
-                this.props.history.push(RESTORE_VAULT_ROUTE)
-
-                if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
-                  global.platform.openExtensionInBrowser()
-                }
-              }}
-            >
-              { this.context.t('importUsingSeed') }
-            </div>
-          </div> */}
-
           { this.renderLoginForm()}
 
           <div className="unlock-page__footer-bar">          
@@ -184,7 +138,7 @@ class UnlockPage extends Component {
                   global.platform.openExtensionInBrowser()
                 }
               }}>
-              Import account with seed phrase
+              { this.context.t('restoreFromSeed') }              
             </div>
           </div>
         </div>
