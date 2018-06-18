@@ -154,51 +154,6 @@ class App extends Component {
     ])
   }
 
-  // renderSidebar () {
-  //   return h('div', [
-  //     h('style', `
-  //       .sidebar-enter {
-  //         transition: transform 300ms ease-in-out;
-  //         transform: translateX(-100%);
-  //       }
-  //       .sidebar-enter.sidebar-enter-active {
-  //         transition: transform 300ms ease-in-out;
-  //         transform: translateX(0%);
-  //       }
-  //       .sidebar-leave {
-  //         transition: transform 200ms ease-out;
-  //         transform: translateX(0%);
-  //       }
-  //       .sidebar-leave.sidebar-leave-active {
-  //         transition: transform 200ms ease-out;
-  //         transform: translateX(-100%);
-  //       }
-  //     `),
-
-  //     h(ReactCSSTransitionGroup, {
-  //       transitionName: 'sidebar',
-  //       transitionEnterTimeout: 300,
-  //       transitionLeaveTimeout: 200,
-  //     }, [
-  //       // A second instance of Walletview is used for non-mobile viewports
-  //       this.props.sidebarOpen ? h(WalletView, {
-  //         responsiveDisplayClassname: '.sidebar',
-  //         style: {},
-  //       }) : undefined,
-
-  //     ]),
-
-  //     // overlay
-  //     // TODO: add onClick for overlay to close sidebar
-  //     this.props.sidebarOpen ? h('div.sidebar-overlay', {
-  //       style: {},
-  //       onClick: () => {
-  //         this.props.hideSidebar()
-  //       },
-  //     }, []) : undefined,
-  //   ])
-  // }
-
   toggleMetamaskActive () {
     if (!this.props.isUnlocked) {
       // currently inactive: redirect to password box
