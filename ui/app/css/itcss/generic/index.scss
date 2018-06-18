@@ -43,7 +43,7 @@ textarea:focus {
 #app-content {
   overflow-x: hidden;
   height: 100%;
-  display: flex;
+  display: block;
   background: linear-gradient(0deg, #012639 0%, #002D42 100%);
 }
 /* stylelint-enable */

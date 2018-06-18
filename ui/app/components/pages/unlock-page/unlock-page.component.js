@@ -87,17 +87,47 @@ class UnlockPage extends Component {
     )
   }
 
+  renderLoginForm () {
+    // const { error } = this.state
+
+    // return (
+    //   <form
+    //     className="unlock-page__form"
+    //     onSubmit={event => this.handleSubmit(event)}
+    //   >
+    //     <TextField
+    //       id="password"
+    //       label="Password"
+    //       type="password"
+    //       value={this.state.password}
+    //       onChange={event => this.handleInputChange(event)}
+    //       error={error}
+    //       autoFocus
+    //       autoComplete="current-password"
+    //       fullWidth
+    //     />
+    //   </form>
+    // )
+    return (
+      <div className="unlock-page__login-form">
+        <div className="unlock-page__login-button">
+          <p>Log In</p>
+        </div>
+      </div>
+    )
+  }
+
   render () {
     const { error } = this.state
 
     return (
       <div className="unlock-page__container">
         <div className="unlock-page">
-          <h1 className="unlock-page__title">
-            { this.context.t('welcomeBack') }
-          </h1>
-          <div>{ this.context.t('unlockMessage') }</div>
-          <form
+
+          <div className="unlock-page__ixo-logo"/>
+          <div className="unlock-page__ixo-graphic"/>
+          
+          {/* <form
             className="unlock-page__form"
             onSubmit={event => this.handleSubmit(event)}
           >
@@ -141,6 +171,12 @@ class UnlockPage extends Component {
             >
               { this.context.t('importUsingSeed') }
             </div>
+          </div> */}
+
+          { this.renderLoginForm()}
+
+          <div  className="unlock-page__footer-bar">          
+            <div className="unlock-page__import-account-link-text">Import account with seed phrase</div>
           </div>
         </div>
       </div>
