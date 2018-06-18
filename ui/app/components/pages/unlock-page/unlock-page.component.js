@@ -105,6 +105,7 @@ class UnlockPage extends Component {
             onChange={event => this.handleInputChange(event)}
             error={error}
             autoComplete="current-password"
+            autoFocus
             fullWidth
           />
         </div>

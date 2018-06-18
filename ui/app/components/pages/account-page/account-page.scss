@@ -1,0 +1,70 @@
+.account-page {
+  display: block;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  width: 100%;
+  height: 596px;
+
+  &__unique-image-frieze {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+  }
+  
+
+  &__nav-bar {
+    height: 43px;
+    width: 100%;
+    background-color: #063F5A;
+    display: table;
+  }
+  
+  &__footer-bar {
+    height: 65px;
+    width: 100%;
+    background-color: #063F5A;
+    display: table;
+    bottom: 0;
+    position: absolute;
+    cursor: pointer;    
+  }
+
+  &__export-pk-button {
+    cursor: pointer;    
+    border: 1.5px solid #00D2FF;
+    color: #FFFFFF;
+    height: 43px;
+    width: 274px;
+    border-radius: 2px;
+    font-family: "Roboto Condensed";
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 200ms ease-in-out;
+    background-color: transparent;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__export-pk-button p {
+    margin: 0;
+  }
+  
+  &__export-pk-link-text {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 27px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+}
