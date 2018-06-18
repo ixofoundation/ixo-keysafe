@@ -14,9 +14,6 @@ const InitializeScreen = require('../../mascara/src/app/first-time').default
 const SendTransactionScreen2 = require('./components/send/send-v2-container')
 const ConfirmTxScreen = require('./conf-tx')
 
-// slideout menu
-// const WalletView = require('./components/wallet-view')
-
 // other views
 const Home = require('./components/pages/home')
 const Authenticated = require('./components/pages/authenticated')
