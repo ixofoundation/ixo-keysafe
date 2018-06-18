@@ -26,7 +26,13 @@ debugger
           <Identicon className="account-page__unique-image-frieze" address={this.props.address} diameter={70} />
         </div>
 
-        <div className="account-page__footer-bar">    
+        <div className="account-page__footer-bar">
+          <div
+            className="account-page__export-pk-button"
+            onClick={() => {}}
+          >
+            <p>Export Private Key</p>
+          </div>
         </div>
       </div>
 )
