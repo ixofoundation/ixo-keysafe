@@ -103,13 +103,20 @@ class UnlockPage extends Component {
             type="password"
             value={this.state.password}
             onChange={event => this.handleInputChange(event)}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                this.handleSubmit(event)
+              }
+            }}  
             error={error}
             autoComplete="current-password"
             autoFocus
             fullWidth
           />
         </div>
-        <div onClick={event => this.handleSubmit(event)} className={"unlock-page__login-button" + (this.isValid()?" unlock-page__login-button-enabled":"")}>
+        <div 
+          onClick={event => this.handleSubmit(event)} className={"unlock-page__login-button" + (this.isValid()?" unlock-page__login-button-enabled":"")}
+        >
           <p>Log In</p>
         </div>
       </div>
