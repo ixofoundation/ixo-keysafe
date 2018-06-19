@@ -20,7 +20,34 @@
     background-color: #063F5A;
     display: table;
   }
-  
+
+  &__description-section {
+    font-family: "Roboto Condensed";
+    font-size: 23px;
+    color: #FFFFFF;
+    height: 37px;
+    letter-spacing: 0.15px;
+    line-height: 30px;
+    text-align: center;
+    background-color: transparent;
+  }
+
+  &__description-section input {
+    font-family: "Roboto Condensed";
+    font-size: 23px;
+    color: #FFFFFF;
+    height: 37px;
+    letter-spacing: 0.15px;
+    line-height: 30px;
+    text-align: center;
+    background-color: transparent;
+  }
+
+  &__description-label {
+    margin-top: 9px;
+    font-size: 20px;
+  }
+
   &__footer-bar {
     height: 65px;
     width: 100%;

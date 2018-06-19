@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
+const { getSelectedIdentity } = require('../../../selectors')
+const actions = require('../../../actions')
+
 
 const {
   tryUnlockMetamask,
@@ -15,17 +18,15 @@ const mapStateToProps = state => {
   const { metamask: { isUnlocked, selectedAddress } } = state
   
   return {
-    address: selectedAddress,
+    selectedIdentity: getSelectedIdentity(state),
     isUnlocked,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    forgotPassword: () => dispatch(forgotPassword()),
-    tryUnlockMetamask: password => dispatch(tryUnlockMetamask(password)),
-    markPasswordForgotten: () => dispatch(markPasswordForgotten()),
-    setNetworkEndpoints: type => dispatch(setNetworkEndpoints(type)),
+    revealSeedWords: () => dispatch(actions.showModal({name: 'REVEAL_SEED_CONFIRMATION'})),
+    saveAccountLabel: (address, label) => dispatch(actions.saveAccountLabel(address, label)),
   }
 }
 
