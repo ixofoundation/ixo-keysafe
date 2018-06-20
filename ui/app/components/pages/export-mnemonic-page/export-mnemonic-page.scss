@@ -90,11 +90,15 @@
   }
 
   &__work-area {
+    // border: 1px solid purple;
     background-color: #08202F;
     border-radius: 8px;
     margin-left: 14px;
     margin-right: 14px;
-    padding-top: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &__unique-image-frieze {
@@ -118,6 +122,7 @@
     position: relative;
     margin-left: 10px;
     margin-right: 10px;
+    width: 100%;
   }
 
   &__confirmation-button {
@@ -141,6 +146,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
   }
 
   &__confirmation-button-enabled {
@@ -168,4 +174,16 @@
     vertical-align: middle;
   }
   
+  &__qr-code {
+    border: 1px solid yellow;
+    width: 150px;
+    height: 150px;
+  }
+
+  &__mnemonic-text {
+    border: 1px solid red;
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+  }
 }

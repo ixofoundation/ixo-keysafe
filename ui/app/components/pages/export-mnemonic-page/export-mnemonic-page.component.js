@@ -29,10 +29,51 @@ class ExportMnemonicPage extends Component {
     return this.state.password.length >= 8
   }
 
+  renderPasswordConfirmation () {
+    const { error } = this.state
+    return (
+      <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">
+        <div className="export-mnemonic-page__password-textfield">
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleInputChange(event)}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                this.handleSubmit(event)
+              }
+            }}  
+            error={error}
+            autoComplete="current-password"
+            autoFocus
+            fullWidth
+          />
+        </div>
 
+        <div className={"export-mnemonic-page__confirmation-button" + (this.isValid()?" export-mnemonic-page__confirmation-button-enabled":"")}
+          onClick={() => {
+          }}
+        >
+          <p>Confirm</p>
+        </div>
+      </div>
+    )    
+  }
+
+  renderPrivateInformation () {
+    return (
+      <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">
+        <div className="export-mnemonic-page__qr-code">
+        </div>
+        <div className="export-mnemonic-page__mnemonic-text">
+        </div>
+      </div>
+    )
+  }
 
   render () {
-    const { error } = this.state
     const { selectedIdentity, revealSeedWords,  saveAccountLabel} = this.props
     const { name, address } = selectedIdentity
 
@@ -59,34 +100,8 @@ class ExportMnemonicPage extends Component {
             </div>
             <div className="export-mnemonic-page__account-title">{name}</div>
           </div>
-          <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">            
-
-            <div className="export-mnemonic-page__password-textfield">
-              <TextField
-                id="password"
-                label="Password"
-                type="password"
-                value={this.state.password}
-                onChange={event => this.handleInputChange(event)}
-                onKeyPress={event => {
-                  if (event.key === 'Enter') {
-                    this.handleSubmit(event)
-                  }
-                }}  
-                error={error}
-                autoComplete="current-password"
-                autoFocus
-                fullWidth
-              />
-            </div>
-
-            <div className={"export-mnemonic-page__confirmation-button" + (this.isValid()?" export-mnemonic-page__confirmation-button-enabled":"")}
-              onClick={() => {
-              }}
-            >
-              <p>Confirm</p>
-            </div>
-          </div>
+          {/* {this.renderPasswordConfirmation()} */}
+          { this.renderPrivateInformation() }
           <div className="export-mnemonic-page__content-item">
             <div className="export-mnemonic-page__subtext">
               <span className="export-mnemonic-page__warning-color">WARNING: </span>
@@ -94,22 +109,6 @@ class ExportMnemonicPage extends Component {
             </div>
           </div>
         </div>
-        {/* <div className="export-mnemonic-page__work-section">
-          <div className="export-mnemonic-page__title">{name}</div>
-
-          <div
-            className="export-mnemonic-page__confirmation-button"
-            onClick={() => {
-            }}
-          >
-            <p>Confirm</p>
-          </div>
-
-          <div className="export-mnemonic-page__body-text">
-            <span className="export-mnemonic-page__warning-color">WARNING: </span>
-            <span>Never disclose your backup phrase. Anyone with this phrase can compromise your account.</span>
-          </div>
-        </div> */}
 
         <div className="export-mnemonic-page__footer-bar">
           <div className="export-mnemonic-page__did-label">{address}</div>
