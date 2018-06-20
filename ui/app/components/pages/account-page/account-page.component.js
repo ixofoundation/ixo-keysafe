@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Identicon from '../../identicon'
 import EditableLabel from '../../editable-label'
+const Tooltip = require('../../tooltip-v2.js')
+const copyToClipboard = require('copy-to-clipboard')
 
 
 class AccountPage extends Component {
@@ -12,8 +14,8 @@ class AccountPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      password: '',
-      error: null,
+      hasCopied: false,
+      copyToClipboardPressed: false,
     }
   }
 
@@ -44,6 +46,22 @@ class AccountPage extends Component {
           </div>
         </div>
 
+        <Tooltip 
+          position ="bottom"
+          title = {this.state.hasCopied ? this.context.t('copiedExclamation') : this.context.t('copyToClipboard')}
+          wrapperClassName = 'account-page__copy-did-tooltip'
+        >
+          <div className="account-page__did-section" onClick = {() => {
+            copyToClipboard(address)
+            this.setState({ hasCopied: true })
+            setTimeout(() => this.setState({ hasCopied: false }), 3000)
+          }}
+          >
+              <div className="account-page__did-label">{address}</div>
+              <div className="account-page__did-copy-button">Copy</div>
+          </div>
+        </Tooltip>
+
         <div className="account-page__footer-bar">
           <div
             className="account-page__export-pk-button"
@@ -53,7 +71,7 @@ class AccountPage extends Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }
 

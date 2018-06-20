@@ -15,6 +15,45 @@
     height: 250px;
   }
 
+  &__did-section {
+    height: 29px;
+    width: 299px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    background-color: #08202F;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__did-section:active { 
+    background-color: #52B9DF;
+    opacity: 0.333;
+  }
+
+  &__did-label {
+    height: 22px;
+    color: #52B9DF;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 19px;
+    margin-left: 4px;
+    margin-right: auto;  
+  }
+
+  &__did-copy-button {
+    height: 22px;
+    color: #275670;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
   &__nav-bar {
     height: 43px;
     width: 100%;
@@ -45,6 +84,11 @@
     display: block;
     margin-left: auto;
     margin-right: 14px;
+    cursor: pointer;
+  }
+
+  &__ixo-menu-burger:hover {
+    background-color: yellow;
   }
 
   &__description-section {
