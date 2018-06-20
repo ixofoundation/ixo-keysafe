@@ -36,16 +36,71 @@
     background-position: center;  
   }
 
+  &__right-nav-button {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: 13px;
+  }
+
   &__description {
     margin-left: auto;
+    margin-right: auto;
     letter-spacing: 0.15px;
+    text-transform: uppercase;
+  }
+
+  &__account-title {
+    color: #FFFFFF;
+    font-size: 20px;
+    letter-spacing: 0.15px;
+    font-family: "Roboto Condensed";
+    text-align: center;
+  }
+
+  &__subtext {
+    color: #FFFFFF;
+    margin: 5px;
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    line-height: 20px;
+    font-family: Roboto;
+  }
+
+  &__warning-color {
+    color: #f89d28;
+  }
+
+  &__content-frame {
+    // border: 1px solid blue;
+    height: 510px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  &__content-item {
+    // border: 1px solid yellow;
+    // height: 150px;
+    width: 100%;
+    margin-top: 13px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  &__work-area {
+    background-color: #08202F;
+    border-radius: 8px;
+    margin-left: 14px;
+    margin-right: 14px;
   }
 
   &__unique-image-frieze {
+    width: 75px;
+    height: 75px;
     margin-left: auto;
-    margin-right: 14px;
-    width: 35px;
-    height: 35px;
+    margin-right: auto;
   }
 
   &__footer-bar {
@@ -56,6 +111,51 @@
     bottom: 0;
     position: absolute;
     align-items: center;
+  }
+
+  &__password-textfield {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  &__confirmation-button {
+    cursor: pointer;    
+    border: 1.5px solid #00D2FF;
+    color: #FFFFFF;
+    height: 43px;
+    border-radius: 2px;
+    font-family: "Roboto Condensed";
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 200ms ease-in-out;
+    background-color: transparent;
+    position: relative;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__confirmation-button p {
+    margin: 0;
+  }
+  
+  &__confirmation-text {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 27px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  &__confirmation-button:hover {
+    color: #063F5A;
+    background-color: #00D2FF;
   }
   
 }

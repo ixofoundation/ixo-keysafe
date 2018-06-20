@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Identicon from '../../identicon'
 import EditableLabel from '../../editable-label'
+import TextField from '../../text-field'
 const Tooltip = require('../../tooltip-v2.js')
 const copyToClipboard = require('copy-to-clipboard')
 
@@ -20,6 +21,7 @@ class ExportMnemonicPage extends Component {
   }
 
   render () {
+    const { error } = this.state
     const { selectedIdentity, revealSeedWords,  saveAccountLabel} = this.props
     const { name, address } = selectedIdentity
 
@@ -34,11 +36,69 @@ class ExportMnemonicPage extends Component {
             }}
             href="#"
           />
-          <div className="export-mnemonic-page__description">{name}</div>
-          <div className="export-mnemonic-page__unique-image-frieze">
-            <Identicon address={address} diameter={35} />
-          </div>            
+          <div className="export-mnemonic-page__description">Export private key</div>
+          <div className="export-mnemonic-page__right-nav-button"></div>
         </div>
+
+
+        <div className="export-mnemonic-page__content-frame">
+          <div className="export-mnemonic-page__content-item">
+            <div className="export-mnemonic-page__unique-image-frieze">
+              <Identicon address={address} diameter={75} />
+            </div>
+            <div className="export-mnemonic-page__account-title">{name}</div>
+          </div>
+          <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">            
+
+            <div className="export-mnemonic-page__password-textfield">
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                value={this.state.password}
+                onChange={event => this.handleInputChange(event)}
+                onKeyPress={event => {
+                  if (event.key === 'Enter') {
+                    this.handleSubmit(event)
+                  }
+                }}  
+                error={error}
+                autoComplete="current-password"
+                autoFocus
+                fullWidth
+              />
+            </div>
+
+            <div className="export-mnemonic-page__confirmation-button"
+              onClick={() => {
+              }}
+            >
+              <p>Confirm</p>
+            </div>
+          </div>
+          <div className="export-mnemonic-page__content-item">
+            <div className="export-mnemonic-page__subtext">
+              <span className="export-mnemonic-page__warning-color">WARNING: </span>
+              <span>Never disclose your backup phrase. Anyone with this phrase can compromise your account.</span>
+            </div>
+          </div>
+        </div>
+        {/* <div className="export-mnemonic-page__work-section">
+          <div className="export-mnemonic-page__title">{name}</div>
+
+          <div
+            className="export-mnemonic-page__confirmation-button"
+            onClick={() => {
+            }}
+          >
+            <p>Confirm</p>
+          </div>
+
+          <div className="export-mnemonic-page__body-text">
+            <span className="export-mnemonic-page__warning-color">WARNING: </span>
+            <span>Never disclose your backup phrase. Anyone with this phrase can compromise your account.</span>
+          </div>
+        </div> */}
 
         <div className="export-mnemonic-page__footer-bar">
           <div className="export-mnemonic-page__did-label">{address}</div>

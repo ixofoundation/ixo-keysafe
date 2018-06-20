@@ -43,7 +43,7 @@ class AccountPage extends Component {
 
         <div className="account-page__unique-image">
           <div className="account-page__unique-image-frieze">
-            <Identicon address={address} diameter={250} />
+            <Identicon address={address} diameter={200} />
           </div>
         </div>
 
