@@ -4,6 +4,7 @@ import Identicon from '../../identicon'
 import EditableLabel from '../../editable-label'
 const Tooltip = require('../../tooltip-v2.js')
 const copyToClipboard = require('copy-to-clipboard')
+import { EXPORT_MNEMONIC_ROUTE } from '../../../../app/routes'
 
 
 class AccountPage extends Component {
@@ -65,7 +66,9 @@ class AccountPage extends Component {
         <div className="account-page__footer-bar">
           <div
             className="account-page__export-pk-button"
-            onClick={() => {}}
+            onClick={() => {
+              this.props.history.push(EXPORT_MNEMONIC_ROUTE)
+            }}
           >
             <p>Export Private Key</p>
           </div>

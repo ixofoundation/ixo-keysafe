@@ -88,7 +88,7 @@
   }
 
   &__ixo-menu-burger:hover {
-    background-color: yellow;
+    opacity: 0.333;
   }
 
   &__description-section {
@@ -163,6 +163,13 @@
     text-align: center;
     display: table-cell;
     vertical-align: middle;
+  }
+
+  &__export-pk-button:hover {
+    color: #063F5A;
+    background-color: #00D2FF;
+
+    // opacity: 0.333;
   }
   
 }

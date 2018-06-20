@@ -22,6 +22,7 @@ const Settings = require('./components/pages/settings')
 const UnlockPage = require('./components/pages/unlock-page')
 const RestoreVaultPage = require('./components/pages/keychains/restore-vault')
 const RevealSeedConfirmation = require('./components/pages/keychains/reveal-seed')
+const ExportMnemonicPage = require('./components/pages/export-mnemonic-page')
 const AddTokenPage = require('./components/pages/add-token')
 const CreateAccountPage = require('./components/pages/create-account')
 const NoticeScreen = require('./components/pages/notice')
@@ -42,6 +43,7 @@ const {
   UNLOCK_ROUTE,
   SETTINGS_ROUTE,
   REVEAL_SEED_ROUTE,
+  EXPORT_MNEMONIC_ROUTE,
   RESTORE_VAULT_ROUTE,
   ADD_TOKEN_ROUTE,
   NEW_ACCOUNT_ROUTE,
@@ -69,6 +71,7 @@ class App extends Component {
         h(Initialized, { path: UNLOCK_ROUTE, exact, component: UnlockPage }),
         h(Initialized, { path: RESTORE_VAULT_ROUTE, exact, component: RestoreVaultPage }),
         h(Authenticated, { path: REVEAL_SEED_ROUTE, exact, component: RevealSeedConfirmation }),
+        h(Authenticated, { path: EXPORT_MNEMONIC_ROUTE, exact, component: ExportMnemonicPage }),
         h(Authenticated, { path: SETTINGS_ROUTE, component: Settings }),
         h(Authenticated, { path: NOTICE_ROUTE, exact, component: NoticeScreen }),
         h(Authenticated, { path: CONFIRM_TRANSACTION_ROUTE, component: ConfirmTxScreen }),
