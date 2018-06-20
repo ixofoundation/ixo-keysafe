@@ -5,13 +5,6 @@ const { getSelectedIdentity } = require('../../../selectors')
 const actions = require('../../../actions')
 
 
-const {
-  tryUnlockMetamask,
-  forgotPassword,
-  markPasswordForgotten,
-  setNetworkEndpoints,
-} = require('../../../actions')
-
 import AccountPage from './account-page.component'
 
 const mapStateToProps = state => {

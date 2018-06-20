@@ -24,9 +24,8 @@ class AccountPage extends Component {
     return (
       <div className="account-page">
         <div  className="account-page__nav-bar">
-        </div>
-        <div className="account-page__unique-image">
-          <Identicon className="account-page__unique-image-frieze" address={address} diameter={70} />
+          <div className="account-page__ixo-logo-letters account-page__nav-image-item"/>
+          <div className="account-page__ixo-menu-burger account-page__nav-image-item"/>
         </div>
 
         <div className="account-page__description-section">
@@ -38,6 +37,12 @@ class AccountPage extends Component {
               }
             }/>
         </div>        
+
+        <div className="account-page__unique-image">
+          <div className="account-page__unique-image-frieze">
+            <Identicon address={address} diameter={250} />
+          </div>
+        </div>
 
         <div className="account-page__footer-bar">
           <div
