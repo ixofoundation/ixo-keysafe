@@ -94,6 +94,7 @@
     border-radius: 8px;
     margin-left: 14px;
     margin-right: 14px;
+    padding-top: 10px;
   }
 
   &__unique-image-frieze {
@@ -120,9 +121,11 @@
   }
 
   &__confirmation-button {
-    cursor: pointer;    
-    border: 1.5px solid #00D2FF;
-    color: #FFFFFF;
+    cursor: not-allowed;    
+    color: #D3D3D3;
+    border: 1.5px solid #D3D3D3;
+    opacity: 0.333;
+
     height: 43px;
     border-radius: 2px;
     font-family: "Roboto Condensed";
@@ -140,6 +143,18 @@
     justify-content: center;
   }
 
+  &__confirmation-button-enabled {
+    cursor: pointer;    
+    color: #FFFFFF;
+    border: 1.5px solid #00D2FF;
+    opacity: 1.0;
+  }
+
+  &__confirmation-button-enabled:hover {
+    color: #063F5A;
+    background-color: #00D2FF;
+  }
+
   &__confirmation-button p {
     margin: 0;
   }
@@ -151,11 +166,6 @@
     text-align: center;
     display: table-cell;
     vertical-align: middle;
-  }
-
-  &__confirmation-button:hover {
-    color: #063F5A;
-    background-color: #00D2FF;
   }
   
 }

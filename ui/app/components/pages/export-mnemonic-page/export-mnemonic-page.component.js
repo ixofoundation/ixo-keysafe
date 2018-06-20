@@ -17,8 +17,19 @@ class ExportMnemonicPage extends Component {
     this.state = {
       hasCopied: false,
       copyToClipboardPressed: false,
+      password: ""
     }
   }
+
+  handleInputChange ({ target }) {
+    this.setState({ password: target.value, error: null })
+  }
+
+  isValid () {
+    return this.state.password.length >= 8
+  }
+
+
 
   render () {
     const { error } = this.state
@@ -69,7 +80,7 @@ class ExportMnemonicPage extends Component {
               />
             </div>
 
-            <div className="export-mnemonic-page__confirmation-button"
+            <div className={"export-mnemonic-page__confirmation-button" + (this.isValid()?" export-mnemonic-page__confirmation-button-enabled":"")}
               onClick={() => {
               }}
             >
