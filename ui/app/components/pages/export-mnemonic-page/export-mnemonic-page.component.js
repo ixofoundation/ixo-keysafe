@@ -17,8 +17,16 @@ class ExportMnemonicPage extends Component {
     this.state = {
       hasCopied: false,
       copyToClipboardPressed: false,
-      password: ""
+      mnemonic: null,
+      password: ''
     }
+  }
+
+  exportAccountAndRevealSeedWords (password, address) {
+    const { exportAccount } = this.props
+  
+    exportAccount(password, address)
+      .then(mnemonic => this.setState({ mnemonic }))
   }
 
   handleInputChange ({ target }) {
@@ -29,10 +37,10 @@ class ExportMnemonicPage extends Component {
     return this.state.password.length >= 8
   }
 
-  renderPasswordConfirmation () {
+  renderPasswordConfirmation (address) {
     const { error } = this.state
     return (
-      <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">
+      <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area export-mnemonic-page__bounded-background">
         <div className="export-mnemonic-page__password-textfield">
           <TextField
             id="password"
@@ -54,6 +62,7 @@ class ExportMnemonicPage extends Component {
 
         <div className={"export-mnemonic-page__confirmation-button" + (this.isValid()?" export-mnemonic-page__confirmation-button-enabled":"")}
           onClick={() => {
+            this.exportAccountAndRevealSeedWords(this.state.password, address)
           }}
         >
           <p>Confirm</p>
@@ -67,13 +76,14 @@ class ExportMnemonicPage extends Component {
       <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">
         <div className="export-mnemonic-page__qr-code">
         </div>
-        <div className="export-mnemonic-page__mnemonic-text">
+        <div className="export-mnemonic-page__mnemonic-text export-mnemonic-page__bounded-background">
         </div>
       </div>
     )
   }
 
   render () {
+    const { mnemonic } = this.state
     const { selectedIdentity, revealSeedWords,  saveAccountLabel} = this.props
     const { name, address } = selectedIdentity
 
@@ -100,8 +110,10 @@ class ExportMnemonicPage extends Component {
             </div>
             <div className="export-mnemonic-page__account-title">{name}</div>
           </div>
-          {/* {this.renderPasswordConfirmation()} */}
-          { this.renderPrivateInformation() }
+
+          {mnemonic && this.renderPrivateInformation()}
+          {!mnemonic && this.renderPasswordConfirmation(address)}
+
           <div className="export-mnemonic-page__content-item">
             <div className="export-mnemonic-page__subtext">
               <span className="export-mnemonic-page__warning-color">WARNING: </span>

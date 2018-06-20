@@ -11,6 +11,7 @@ const mapStateToProps = state => {
   const { metamask: { isUnlocked, selectedAddress } } = state
   
   return {
+    mnemonic: state.appState.accountDetail.mnemonic,
     selectedIdentity: getSelectedIdentity(state),
     isUnlocked,
   }
@@ -18,8 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    revealSeedWords: () => dispatch(actions.showModal({name: 'REVEAL_SEED_CONFIRMATION'})),
-    saveAccountLabel: (address, label) => dispatch(actions.saveAccountLabel(address, label)),
+    exportAccount: (password, address) => dispatch(actions.requestRevealSeedWords(password))
   }
 }
 

@@ -91,8 +91,6 @@
 
   &__work-area {
     // border: 1px solid purple;
-    background-color: #08202F;
-    border-radius: 8px;
     margin-left: 14px;
     margin-right: 14px;
     padding: 10px;
@@ -101,6 +99,11 @@
     align-items: center;
   }
 
+  &__bounded-background {
+    background-color: #08202F;
+    border-radius: 8px;
+  }
+    
   &__unique-image-frieze {
     width: 75px;
     height: 75px;
@@ -181,7 +184,6 @@
   }
 
   &__mnemonic-text {
-    border: 1px solid red;
     width: 100%;
     height: 100px;
     margin-top: 10px;
