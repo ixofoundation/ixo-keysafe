@@ -37,7 +37,11 @@ class AccountPage extends Component {
 
     return (
       <div className="account-page">
-        <div className={"account-page__light-box" + (isMenuDisplaying?" account-page__light-box-visible":"")}/>
+        <div className={"account-page__light-box" + (isMenuDisplaying?" account-page__light-box-visible":"")}
+          onClick={() => {
+            this.toggleIsMenuDisplaying()
+          }}
+        />
         <div className={"account-page__menu-modal" + (isMenuDisplaying?" account-page__menu-modal-visible":"")}>
           <div className="account-page__menu-modal-item">
             <div className="account-page__ixo-menu-close account-page__nav-image-item"
