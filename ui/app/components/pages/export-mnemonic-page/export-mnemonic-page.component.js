@@ -3,8 +3,11 @@ import PropTypes from 'prop-types'
 import Identicon from '../../identicon'
 import EditableLabel from '../../editable-label'
 import TextField from '../../text-field'
+const h = require('react-hyperscript')
 const Tooltip = require('../../tooltip-v2.js')
 const copyToClipboard = require('copy-to-clipboard')
+const qrCode = require('qrcode-npm').qrcode
+
 
 
 class ExportMnemonicPage extends Component {
@@ -71,13 +74,48 @@ class ExportMnemonicPage extends Component {
     )    
   }
 
-  renderPrivateInformation () {
+  renderQRCode (mnemonic, name) {
+    if (mnemonic) {
+      const qrImage = qrCode(7, 'M')
+      const qrData = JSON.stringify({mnemonic, name})
+      qrImage.addData(qrData)
+      qrImage.make()
+
+      return h('export-mnemonic-page__qr-code', {
+        style: 
+        {
+          border: '1px solid #08202F'
+        },
+        dangerouslySetInnerHTML: {
+          __html: qrImage.createTableTag(4),
+        },
+      })
+    } else {
+      return null
+    }
+  }
+
+  renderPrivateInformation (mnemonic, name) {
     return (
       <div className="export-mnemonic-page__content-item export-mnemonic-page__work-area">
-        <div className="export-mnemonic-page__qr-code">
-        </div>
-        <div className="export-mnemonic-page__mnemonic-text export-mnemonic-page__bounded-background">
-        </div>
+        {this.renderQRCode(mnemonic, name)}
+        <Tooltip 
+          position ="bottom"
+          title = {this.state.hasCopied ? this.context.t('copiedExclamation') : this.context.t('copyToClipboard')}
+          wrapperClassName="export-mnemonic-page__wide-area"
+        >
+          <div onClick = {() => {
+            copyToClipboard(mnemonic)
+            this.setState({ hasCopied: true })
+            setTimeout(() => this.setState({ hasCopied: false }), 3000)
+          }}
+          >
+            <div className="export-mnemonic-page__mnemonic-text export-mnemonic-page__bounded-background">
+            <div className="export-mnemonic-page__mnemonic-text-value">{mnemonic}</div>
+            <div className="export-mnemonic-page__did-copy-button">Copy</div>
+            </div>
+          </div>
+        </Tooltip>
       </div>
     )
   }
@@ -111,7 +149,7 @@ class ExportMnemonicPage extends Component {
             <div className="export-mnemonic-page__account-title">{name}</div>
           </div>
 
-          {mnemonic && this.renderPrivateInformation()}
+          {mnemonic && this.renderPrivateInformation(mnemonic, name)}
           {!mnemonic && this.renderPasswordConfirmation(address)}
 
           <div className="export-mnemonic-page__content-item">
