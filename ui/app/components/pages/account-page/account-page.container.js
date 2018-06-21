@@ -20,6 +20,12 @@ const mapDispatchToProps = dispatch => {
   return {
     revealSeedWords: () => dispatch(actions.showModal({name: 'REVEAL_SEED_CONFIRMATION'})),
     saveAccountLabel: (address, label) => dispatch(actions.saveAccountLabel(address, label)),
+    lockMetamask: () => {
+      dispatch(actions.lockMetamask())
+      dispatch(actions.hideWarning())
+      dispatch(actions.hideSidebar())
+      dispatch(actions.toggleAccountMenu())
+    }
   }
 }
 

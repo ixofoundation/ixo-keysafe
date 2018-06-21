@@ -31,7 +31,8 @@ class AccountPage extends Component {
 
   render () {
     const { isMenuDisplaying } = this.state
-    const { selectedIdentity, revealSeedWords,  saveAccountLabel} = this.props
+    debugger
+    const { selectedIdentity,  saveAccountLabel, lockMetamask} = this.props
     const { name, address } = selectedIdentity
 
     return (
@@ -47,7 +48,11 @@ class AccountPage extends Component {
           </div>
           <div className="account-page__menu-modal-item account-page__menu-modal-item-option account-page__menu-modal-item-option-disabled">Settings</div>
           <div className="account-page__menu-modal-item account-page__menu-modal-item-option account-page__menu-modal-item-option-disabled">Help</div>
-          <div className="account-page__menu-modal-item account-page__menu-modal-item-option">Log out</div>
+          <div className="account-page__menu-modal-item account-page__menu-modal-item-option"
+            onClick = {() => {
+            lockMetamask()
+            history.push(DEFAULT_ROUTE)
+          }}>Log out</div>
         </div>
 
         <div className="account-page__content-container">
