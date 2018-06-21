@@ -84,7 +84,8 @@ class ExportMnemonicPage extends Component {
       return h('export-mnemonic-page__qr-code', {
         style: 
         {
-          border: '1px solid #08202F'
+          'border': '1px solid #08202F',
+          'background-color': 'white'
         },
         dangerouslySetInnerHTML: {
           __html: qrImage.createTableTag(4),
