@@ -16,63 +16,94 @@ class AccountPage extends Component {
     super(props)
     this.state = {
       hasCopied: false,
+      isMenuDisplaying: false,
       copyToClipboardPressed: false,
     }
   }
 
+  toggleIsMenuDisplaying () {
+    // this.setState({ isMenuDisplaying: !this.state.isMenuDisplaying })
+
+    this.setState((prevState) => ({
+      isMenuDisplaying: !prevState.isMenuDisplaying
+    }));
+  }
+
   render () {
+    const { isMenuDisplaying } = this.state
     const { selectedIdentity, revealSeedWords,  saveAccountLabel} = this.props
     const { name, address } = selectedIdentity
 
     return (
       <div className="account-page">
-        <div  className="account-page__nav-bar">
-          <div className="account-page__ixo-logo-letters account-page__nav-image-item"/>
-          <div className="account-page__ixo-menu-burger account-page__nav-image-item"/>
-        </div>
-
-        <div className="account-page__description-section">
-          <EditableLabel 
-            className="account-page__description-label" 
-            defaultValue={name} 
-            onSubmit={(label) => {
-              saveAccountLabel(address, label)
-              }
-            }/>
-        </div>        
-
-        <div className="account-page__unique-image">
-          <div className="account-page__unique-image-frieze">
-            <Identicon address={address} diameter={200} />
+        <div className={"account-page__light-box" + (isMenuDisplaying?" account-page__light-box-visible":"")}/>
+        <div className={"account-page__menu-modal" + (isMenuDisplaying?" account-page__menu-modal-visible":"")}>
+          <div className="account-page__menu-modal-item">
+            <div className="account-page__ixo-menu-close account-page__nav-image-item"
+                onClick={() => {
+                  this.toggleIsMenuDisplaying()
+                }}
+              />
           </div>
+          <div className="account-page__menu-modal-item account-page__menu-modal-item-option">Settings</div>
+          <div className="account-page__menu-modal-item account-page__menu-modal-item-option">Help</div>
+          <div className="account-page__menu-modal-item account-page__menu-modal-item-option">Log out</div>
         </div>
 
-        <Tooltip 
-          position ="bottom"
-          title = {this.state.hasCopied ? this.context.t('copiedExclamation') : this.context.t('copyToClipboard')}
-          wrapperClassName = 'account-page__copy-did-tooltip'
-        >
-          <div className="account-page__did-section" onClick = {() => {
-            copyToClipboard(address)
-            this.setState({ hasCopied: true })
-            setTimeout(() => this.setState({ hasCopied: false }), 3000)
-          }}
+        <div className="account-page__content-container">
+          <div  className="account-page__nav-bar">
+            <div className="account-page__ixo-logo-letters account-page__nav-image-item"/>
+            <div className="account-page__ixo-menu-burger account-page__nav-image-item"
+              onClick={() => {
+                this.toggleIsMenuDisplaying()
+              }}
+            />
+          </div>
+
+          <div className="account-page__description-section">
+            <EditableLabel 
+              className="account-page__description-label" 
+              defaultValue={name} 
+              onSubmit={(label) => {
+                saveAccountLabel(address, label)
+                }
+              }/>
+          </div>        
+
+          <div className="account-page__unique-image">
+            <div className="account-page__unique-image-frieze">
+              <Identicon address={address} diameter={200} />
+            </div>
+          </div>
+
+          <Tooltip 
+            position ="bottom"
+            title = {this.state.hasCopied ? this.context.t('copiedExclamation') : this.context.t('copyToClipboard')}
+            wrapperClassName = 'account-page__copy-did-tooltip'
           >
-              <div className="account-page__did-label">{address}</div>
-              <div className="account-page__did-copy-button">Copy</div>
-          </div>
-        </Tooltip>
-
-        <div className="account-page__footer-bar">
-          <div
-            className="account-page__export-pk-button"
-            onClick={() => {
-              this.props.history.push(EXPORT_MNEMONIC_ROUTE)
+            <div className="account-page__did-section" onClick = {() => {
+              copyToClipboard(address)
+              this.setState({ hasCopied: true })
+              setTimeout(() => this.setState({ hasCopied: false }), 3000)
             }}
-          >
-            <p>Export Private Key</p>
+            >
+                <div className="account-page__did-label">{address}</div>
+                <div className="account-page__did-copy-button">Copy</div>
+            </div>
+          </Tooltip>
+
+          <div className="account-page__footer-bar">
+            <div
+              className="account-page__export-pk-button"
+              onClick={() => {
+                this.props.history.push(EXPORT_MNEMONIC_ROUTE)
+              }}
+            >
+              <p>Export Private Key</p>
+            </div>
           </div>
         </div>
+
       </div>
     )
   }
