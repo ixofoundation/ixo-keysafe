@@ -9,7 +9,7 @@ const txHelper = require('../lib/tx-helper')
 const log = require('loglevel')
 
 const PendingTx = require('./components/pending-tx')
-const SignatureRequest = require('./components/signature-request')
+const SignRequestPage = require('./components/pages/sign-request-page')
 // const PendingMsg = require('./components/pending-msg')
 // const PendingPersonalMsg = require('./components/pending-personal-msg')
 // const PendingTypedMsg = require('./components/pending-typed-msg')
@@ -172,7 +172,7 @@ function currentTxView (opts) {
   } else if (msgParams) {
     log.debug('msgParams detected, rendering pending msg')
 
-    return h(SignatureRequest, opts)
+    return h(SignRequestPage, opts)
 
     // if (type === 'eth_sign') {
     //   log.debug('rendering eth_sign message')

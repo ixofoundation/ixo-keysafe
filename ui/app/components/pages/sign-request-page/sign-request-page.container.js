@@ -1,0 +1,35 @@
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { compose } from 'recompose'
+const { getSelectedIdentity } = require('../../../selectors')
+const actions = require('../../../actions')
+
+
+import SignRequestPage from './sign-request-page.component'
+
+const mapStateToProps = state => {
+  const { metamask: { isUnlocked, selectedAddress } } = state
+  
+  return {
+    selectedIdentity: getSelectedIdentity(state),
+    isUnlocked,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    revealSeedWords: () => dispatch(actions.showModal({name: 'REVEAL_SEED_CONFIRMATION'})),
+    saveAccountLabel: (address, label) => dispatch(actions.saveAccountLabel(address, label)),
+    lockMetamask: () => {
+      dispatch(actions.lockMetamask())
+      dispatch(actions.hideWarning())
+      dispatch(actions.hideSidebar())
+      dispatch(actions.toggleAccountMenu())
+    }
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(SignRequestPage)
