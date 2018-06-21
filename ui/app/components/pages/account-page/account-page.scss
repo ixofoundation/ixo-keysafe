@@ -223,6 +223,16 @@
     color: #59C7EF;
   }
 
+  &__menu-modal-item-option-disabled {
+    cursor: not-allowed;
+    color: #A9A9A9;
+  }
+
+  &__menu-modal-item-option-disabled:hover {
+    color: #A9A9A9;
+    background-color: #063F5A;
+  }
+
   &__ixo-menu-close {
     width: 18px;
     height: 18px;
