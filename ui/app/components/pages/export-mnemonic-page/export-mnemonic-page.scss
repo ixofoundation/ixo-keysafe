@@ -1,0 +1,224 @@
+.export-mnemonic-page {
+  display: block;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  width: 100%;
+  height: 596px;
+
+  &__did-label {
+    height: 22px;
+    color: #52B9DF;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 19px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__nav-bar {
+    height: 43px;
+    width: 100%;
+    background-color: #063F5A;
+    display: flex;
+    align-items: center;
+  }
+
+  &__back-nav-button {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: 13px;
+    background-image: url(images/back.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;  
+  }
+
+  &__right-nav-button {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: 13px;
+  }
+
+  &__description {
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0.15px;
+    text-transform: uppercase;
+  }
+
+  &__account-title {
+    color: #FFFFFF;
+    font-size: 20px;
+    letter-spacing: 0.15px;
+    font-family: "Roboto Condensed";
+    text-align: center;
+  }
+
+  &__subtext {
+    // border: 1px solid blue;
+    color: #FFFFFF;
+    margin: 5px;
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    line-height: 20px;
+    font-family: Roboto;
+  }
+
+  &__warning-color {
+    color: #f89d28;
+  }
+
+  &__content-frame {
+    // border: 1px solid blue;
+    height: 510px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &__content-item {
+    // border: 1px solid yellow;
+    // height: 150px;
+    width: 100%;
+    margin-top: 13px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  &__work-area {
+    // border: 1px solid purple;
+    margin-left: 14px;
+    margin-right: 14px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__bounded-background {
+    background-color: #08202F;
+    border-radius: 8px;
+  }
+    
+  &__unique-image-frieze {
+    width: 75px;
+    height: 75px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__footer-bar {
+    height: 43px;
+    width: 100%;
+    background-color: #063F5A;
+    display: flex;
+    bottom: 0;
+    position: absolute;
+    align-items: center;
+  }
+
+  &__password-textfield {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+  }
+
+  &__confirmation-button {
+    cursor: not-allowed;    
+    color: #D3D3D3;
+    border: 1.5px solid #D3D3D3;
+    opacity: 0.333;
+
+    height: 43px;
+    border-radius: 2px;
+    font-family: "Roboto Condensed";
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 200ms ease-in-out;
+    background-color: transparent;
+    position: relative;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__confirmation-button-enabled {
+    cursor: pointer;    
+    color: #FFFFFF;
+    border: 1.5px solid #00D2FF;
+    opacity: 1.0;
+  }
+
+  &__confirmation-button-enabled:hover {
+    color: #063F5A;
+    background-color: #00D2FF;
+  }
+
+  &__confirmation-button p {
+    margin: 0;
+  }
+  
+  &__confirmation-text {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 27px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  &__qr-code {
+    border: 1px solid magenta;
+    // width: 175px;
+    // height: 175px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__wide-area {
+    width: 100%;
+  }
+
+  &__mnemonic-text {
+    width: 100%;
+    height: 75px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &__mnemonic-text-value {
+    margin: 7.5px;
+    color: #52B9DF;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+  }
+
+  &__did-copy-button {
+    height: 22px;
+    color: #275670;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-left: auto;
+    margin-right: 5px;
+    margin-top: auto;
+  }
+
+}

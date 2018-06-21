@@ -24,7 +24,7 @@ class PreferencesController {
       frequentRpcList: [],
       currentAccountTab: 'history',
       tokens: [],
-      useBlockie: false,
+      useBlockie: true,
       featureFlags: {betaUI: true},
       currentLocale: opts.initLangCode,
     }, opts.initState)
