@@ -113,21 +113,4 @@
     margin-top: 6px;
     overflow-y: scroll;
   }
-
-  &__signed-data-item {
-    font-weight: 300;
-    font-size: 13px;
-    line-height: 21px;
-    letter-spacing: 0.09px;
-  }
-
-  &__signed-data-item-key {
-    color: #6AA0BF;
-  }
-
-  &__signed-data-item-value {
-    color: #FFFFFF;    
-    padding-bottom: 3px
-  }
-
 }
