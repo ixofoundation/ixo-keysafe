@@ -25,7 +25,6 @@ const Value = styled.div`
 const Indentation = styled.div`
     width: 20px;
     height: 10px;
-    border: 1px solid yellow;
     margin: 2.5px;
 `
 

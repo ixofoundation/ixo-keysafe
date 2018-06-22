@@ -43,10 +43,17 @@ class SignRequestPage extends Component {
       const value = itemObject[key]
 
       if (Array.isArray(value)) {
+        assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} indentLevel={level}/>)
         for (var x=0; x<value.length; x++) {
-          this.assembleIndentedItems(value[x], assembledItems, null)
+          const valueArrayItem = value[x]
+          if (typeof valueArrayItem === 'object') {
+            this.assembleIndentedItems(valueArrayItem, assembledItems, level)
+          } else {
+            assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+x+level} displayValue={valueArrayItem} indentLevel={level}/>)
+          }
         }
       } else if (typeof value === 'object') {
+        assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} indentLevel={level}/>)
         this.assembleIndentedItems(value, assembledItems, level+1)
       } else {
         assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} displayValue={value} indentLevel={level}/>)
