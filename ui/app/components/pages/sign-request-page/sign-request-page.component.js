@@ -29,87 +29,69 @@ class SignRequestPage extends Component {
     }));
   }
 
+  renderItems () {
+    let items = []
+
+    for (let i = 0; i < 10; i++) {
+      items.push(
+      <div className="sign-request-page__signed-data-item">
+        <div className="sign-request-page__signed-data-item-key">Short description:</div>
+        <div className="sign-request-page__signed-data-item-value">Togo provides clean water, basic toilets and good higiene practices are essential for the survival and development of children in Uganda.</div>
+      </div>
+      )
+    }
+
+    return items
+  }
+
   render () {
     const { isMenuDisplaying } = this.state
-    debugger
     const { selectedIdentity,  saveAccountLabel, lockMetamask} = this.props
     const { name, address } = selectedIdentity
 
     return (
       <div className="sign-request-page">
-        <div className={"sign-request-page__light-box" + (isMenuDisplaying?" sign-request-page__light-box-visible":"")}
-          onClick={() => {
-            this.toggleIsMenuDisplaying()
-          }}
-        />
-        <div className={"sign-request-page__menu-modal" + (isMenuDisplaying?" sign-request-page__menu-modal-visible":"")}>
-          <div className="sign-request-page__menu-modal-item">
-            <div className="sign-request-page__ixo-menu-close sign-request-page__nav-image-item"
-                onClick={() => {
-                  this.toggleIsMenuDisplaying()
-                }}
-              />
-          </div>
-          <div className="sign-request-page__menu-modal-item sign-request-page__menu-modal-item-option sign-request-page__menu-modal-item-option-disabled">Settings</div>
-          <div className="sign-request-page__menu-modal-item sign-request-page__menu-modal-item-option sign-request-page__menu-modal-item-option-disabled">Help</div>
-          <div className="sign-request-page__menu-modal-item sign-request-page__menu-modal-item-option"
-            onClick = {() => {
-            lockMetamask()
-            history.push(DEFAULT_ROUTE)
-          }}>Log out</div>
-        </div>
 
         <div className="sign-request-page__content-container">
           <div  className="sign-request-page__nav-bar">
-            <div className="sign-request-page__ixo-logo-letters sign-request-page__nav-image-item"/>
-            <div className="sign-request-page__ixo-menu-burger sign-request-page__nav-image-item"
-              onClick={() => {
-                this.toggleIsMenuDisplaying()
+            <a
+              className="sign-request-page__back-nav-button"
+              onClick={e => {
+                e.preventDefault()
+                //this.props.history.goBack()
               }}
+              href="#"
             />
+            <div className="sign-request-page__description">Signature request</div>
+            <div className="sign-request-page__right-nav-button"></div>
           </div>
 
-          <div className="sign-request-page__description-section">
-            <EditableLabel 
-              className="sign-request-page__description-label" 
-              defaultValue={name} 
-              onSubmit={(label) => {
-                saveAccountLabel(address, label)
-                }
-              }/>
-          </div>        
-
-          <div className="sign-request-page__unique-image">
-            <div className="sign-request-page__unique-image-frieze">
-              <Identicon address={address} diameter={200} />
-            </div>
+          <div className="sign-request-page__unique-image-frieze">
+            <Identicon address={address} diameter={46} />
           </div>
 
-          <Tooltip 
-            position ="bottom"
-            title = {this.state.hasCopied ? this.context.t('copiedExclamation') : this.context.t('copyToClipboard')}
-            wrapperClassName = 'sign-request-page__copy-did-tooltip'
-          >
-            <div className="sign-request-page__did-section" onClick = {() => {
-              copyToClipboard(address)
-              this.setState({ hasCopied: true })
-              setTimeout(() => this.setState({ hasCopied: false }), 3000)
-            }}
-            >
-                <div className="sign-request-page__did-label">{address}</div>
-                <div className="sign-request-page__did-copy-button">Copy</div>
-            </div>
-          </Tooltip>
+          <div className="sign-request-page__signed-data-section">
+          {
+            this.renderItems()
+          }
+          </div>
 
           <div className="sign-request-page__footer-bar">
             <div
-              className="sign-request-page__export-pk-button"
+              className="sign-request-page__button"
               onClick={() => {
-                this.props.history.push(EXPORT_MNEMONIC_ROUTE)
+                this.props.history.goBack()
               }}
             >
-              <p>Export Private Key</p>
+              <p>Cancel</p>
             </div>
+            <div
+              className="sign-request-page__button sign-request-page__button-primary"
+              onClick={() => {
+              }}
+            >
+              <p>Sign</p>
+            </div>            
           </div>
         </div>
 

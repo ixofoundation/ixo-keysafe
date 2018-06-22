@@ -9,49 +9,10 @@
 
   &__unique-image-frieze {
     margin-left: auto;
-    margin-right: auto;
-    margin-top: 55px;
-    width: 200px;
-    height: 200px;
-  }
-
-  &__did-section {
-    height: 29px;
-    width: 299px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 75px;
-    background-color: #08202F;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  &__did-section:active { 
-    background-color: #52B9DF;
-    opacity: 0.333;
-  }
-
-  &__did-label {
-    height: 22px;
-    color: #52B9DF;
-    font-family: Roboto;
-    font-size: 14px;
-    line-height: 19px;
-    margin-left: 4px;
-    margin-right: auto;  
-  }
-
-  &__did-copy-button {
-    height: 22px;
-    color: #275670;
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 19px;
-    margin-left: auto;
-    margin-right: 10px;
+    margin-right: 31px;
+    margin-top: -23px;
+    width: 46px;
+    height: 46px;
   }
 
   &__nav-bar {
@@ -68,73 +29,47 @@
     background-position: center;
   }
 
-  &__ixo-logo-letters {
-      width: 42px;
-      height: 42px;
-      background-image: url(images/ixo-logo-letters.png);
-      display: block;
-      margin-left: 14px;
-      margin-right: auto;
-  }
-
-  &__ixo-menu-burger {
-    width: 32px;
-    height: 32px;
-    background-image: url(images/ixo-menu-burger.png);
+  &__back-nav-button {
+    width: 20px;
+    height: 20px;
     display: block;
+    margin-left: 13px;
+    background-image: url(images/back.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;  
+  }
+
+  &__description {
     margin-left: auto;
-    margin-right: 14px;
-    cursor: pointer;
-  }
-
-  &__ixo-menu-burger:hover {
-    opacity: 0.333;
-  }
-
-  &__description-section {
-    font-family: "Roboto Condensed";
-    font-size: 23px;
-    color: #FFFFFF;
-    height: 37px;
+    margin-right: auto;
     letter-spacing: 0.15px;
-    line-height: 30px;
-    text-align: center;
-    background-color: transparent;
+    font-weight: 300;
   }
 
-  &__description-section input {
-    font-family: "Roboto Condensed";
-    font-size: 23px;
-    color: #FFFFFF;
-    height: 37px;
-    letter-spacing: 0.15px;
-    line-height: 30px;
-    text-align: center;
-    background-color: transparent;
-  }
-
-  &__description-label {
-    margin-top: 9px;
-    font-size: 20px;
+  &__right-nav-button {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: 13px;
   }
 
   &__footer-bar {
     height: 65px;
     width: 100%;
     background-color: #063F5A;
-    display: table;
+    display: flex;
     bottom: 0;
     position: absolute;
-    cursor: pointer;    
   }
 
-  &__export-pk-button {
-    cursor: pointer;    
+  &__button {
+    cursor: pointer;
     border: 1.5px solid #00D2FF;
     color: #FFFFFF;
     height: 43px;
-    width: 274px;
-    border-radius: 2px;
+    width: 153px;
+    border-radius: 1.5px;
     font-family: "Roboto Condensed";
     font-size: 15px;
     letter-spacing: 0.3px;
@@ -144,15 +79,19 @@
     transition: 200ms ease-in-out;
     background-color: transparent;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 20px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 11px;
   }
 
-  &__export-pk-button p {
+  &__button-primary {
+    background-color: #00D2FF;
+  }
+
+  &__button p {
     margin: 0;
   }
   
@@ -165,87 +104,30 @@
     vertical-align: middle;
   }
 
-  &__export-pk-button:hover {
-    color: #063F5A;
-    background-color: #00D2FF;
-  }
-
-  &__light-box {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 66;
-    display: none;
-    background-color: black;
-    opacity: 0.333;
-  }
-
-  &__light-box-visible {
+  &__signed-data-section {
+    border: 1px solid yellow;
     display: block;
+    height: 450px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 6px;
+    overflow-y: scroll;
   }
 
-  &__content-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 33;
+  &__signed-data-item {
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 21px;
+    letter-spacing: 0.09px;
   }
 
-  &__menu-modal {
-    position: absolute;
-    width: 220px;
-    z-index: 99;
-    display: none;
-    background-color: #063F5A;
-    top: 0;
-    right: 0;
+  &__signed-data-item-key {
+    color: #6AA0BF;
   }
 
-  &__menu-modal-visible {
-    display: block;
-  }
-
-  &__menu-modal-item {
-    height: 43px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__menu-modal-item-option {
-    justify-content: center;
-    font-size: 15px;
-    cursor: pointer;
-  }
-
-  &__menu-modal-item-option:hover {
-    background-color: #0C2739;
-    color: #59C7EF;
-  }
-
-  &__menu-modal-item-option-disabled {
-    cursor: not-allowed;
-    color: #A9A9A9;
-  }
-
-  &__menu-modal-item-option-disabled:hover {
-    color: #A9A9A9;
-    background-color: #063F5A;
-  }
-
-  &__ixo-menu-close {
-    width: 18px;
-    height: 18px;
-    background-image: url(images/ixo-menu-close.png);
-    display: block;
-    margin: 0;
-    margin-right: 12.5px;
-    margin-left: auto;
-    cursor: pointer;
-  }
-
-  &__ixo-menu-close:hover {
-    opacity: 0.333;
+  &__signed-data-item-value {
+    color: #FFFFFF;    
+    padding-bottom: 3px
   }
 
 }
