@@ -5,7 +5,7 @@ import EditableLabel from '../../editable-label'
 const Tooltip = require('../../tooltip-v2.js')
 const copyToClipboard = require('copy-to-clipboard')
 import { EXPORT_MNEMONIC_ROUTE } from '../../../../app/routes'
-import KeyValueItem from '../../key-value-item'
+import KeyValueItem from '../../key-value-item/key-value-item'
 
 
 class SignRequestPage extends Component {

@@ -1,2 +1,2 @@
-const KeyValueItem = require('./key-value-item.component')
+const KeyValueItem = require('./key-value-item')
 module.exports = KeyValueItem
