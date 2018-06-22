@@ -22,8 +22,8 @@ class KeyValueItem extends React.Component {
     render () {
         return (
             <Item>
-                <Key>Short description:</Key>
-                <Value>Togo provides clean water, basic toilets and good higiene practices are essential for the survival and development of children in Uganda.</Value>
+                <Key>{this.props.displayKey}</Key>
+                <Value>{this.props.displayValue}</Value>
             </Item>
         )
     }    

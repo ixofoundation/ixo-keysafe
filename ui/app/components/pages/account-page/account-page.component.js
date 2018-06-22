@@ -30,8 +30,7 @@ class AccountPage extends Component {
   }
 
   render () {
-    const { isMenuDisplaying } = this.state
-    debugger
+    const { isMenuDisplaying } = this.state    
     const { selectedIdentity,  saveAccountLabel, lockMetamask} = this.props
     const { name, address } = selectedIdentity
 

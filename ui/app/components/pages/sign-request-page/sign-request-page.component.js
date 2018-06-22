@@ -30,19 +30,27 @@ class SignRequestPage extends Component {
     }));
   }
 
-  renderItems () {
-    let items = []
+  initialCapSentence(str) {
+    const spacedString = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
+    return spacedString.charAt(0).toUpperCase() + spacedString.substr(1)
+  }
 
-    for (let i = 0; i < 10; i++) {
-      items.push(
-      <div className="sign-request-page__signed-data-item">
-        <div className="sign-request-page__signed-data-item-key">Short description:</div>
-        <div className="sign-request-page__signed-data-item-value">Togo provides clean water, basic toilets and good higiene practices are essential for the survival and development of children in Uganda.</div>
-      </div>
-      )
+  renderDataToSign () {
+    const { txData } = this.props
+    const { type, msgParams: { data } } = txData
+  
+    const dataObject = JSON.parse(data)
+    const dataKeys = Object.keys(dataObject)
+
+    let dataItems = []
+    for (var i=0; i<dataKeys.length; i++) {
+      const key = dataKeys[i]
+      const value = dataObject[key]
+      // dataItems.push(<KeyValueItem key={i} displayKey={key} displayValue={JSON.stringify(value)}/>)
+      dataItems.push(<KeyValueItem key={i} displayKey={this.initialCapSentence(key)} displayValue={JSON.stringify(value)}/>)
     }
 
-    return items
+    return <div className="sign-request-page__signed-data-section">{dataItems}</div>
   }
 
   render () {
@@ -71,13 +79,10 @@ class SignRequestPage extends Component {
             <Identicon address={address} diameter={46} />
           </div>
 
-          <div className="sign-request-page__signed-data-section">
-          {/* {
-            this.renderItems()
-          } */}
-            <KeyValueItem/>
-          </div>
-
+          {
+            this.renderDataToSign()
+          }
+            
           <div className="sign-request-page__footer-bar">
             <div
               className="sign-request-page__button"

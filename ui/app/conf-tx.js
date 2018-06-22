@@ -173,17 +173,6 @@ function currentTxView (opts) {
     log.debug('msgParams detected, rendering pending msg')
 
     return h(SignRequestPage, opts)
-
-    // if (type === 'eth_sign') {
-    //   log.debug('rendering eth_sign message')
-    //   return h(PendingMsg, opts)
-    // } else if (type === 'personal_sign') {
-    //   log.debug('rendering personal_sign message')
-    // return h(PendingPersonalMsg, opts)
-    // } else if (type === 'eth_signTypedData') {
-    //   log.debug('rendering eth_signTypedData message')
-    //   return h(PendingTypedMsg, opts)
-    // }
   }
 
   return h(Loading)
