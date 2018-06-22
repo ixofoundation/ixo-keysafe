@@ -35,28 +35,38 @@ class SignRequestPage extends Component {
     return spacedString.charAt(0).toUpperCase() + spacedString.substr(1)
   }
 
-  renderDataToSign () {
-    const { txData } = this.props
-    const { type, msgParams: { data } } = txData
-  
-    const dataObject = JSON.parse(data)
-    const dataKeys = Object.keys(dataObject)
+  assembleIndentedItems(itemObject, assembledItems, level) {
+    const itemKeys = Object.keys(itemObject)
 
-    let dataItems = []
-    for (var i=0; i<dataKeys.length; i++) {
-      const key = dataKeys[i]
-      const value = dataObject[key]
-      // dataItems.push(<KeyValueItem key={i} displayKey={key} displayValue={JSON.stringify(value)}/>)
-      dataItems.push(<KeyValueItem key={i} displayKey={this.initialCapSentence(key)} displayValue={JSON.stringify(value)}/>)
+    for (var i=0; i<itemKeys.length; i++) {
+      const key = itemKeys[i]
+      const value = itemObject[key]
+
+      if (Array.isArray(value)) {
+        for (var x=0; x<value.length; x++) {
+          this.assembleIndentedItems(value[x], assembledItems, null)
+        }
+      } else if (typeof value === 'object') {
+        this.assembleIndentedItems(value, assembledItems, level+1)
+      } else {
+        assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} displayValue={value} indentLevel={level}/>)
+      }      
     }
 
-    return <div className="sign-request-page__signed-data-section">{dataItems}</div>
+    return assembledItems
+  }
+
+  renderDataToSign (itemsObject) {
+    let assembledItems = []
+    this.assembleIndentedItems(itemsObject, assembledItems, 0)
+    return <div className="sign-request-page__signed-data-section">{assembledItems}</div>
   }
 
   render () {
     const { isMenuDisplaying } = this.state
-    const { selectedIdentity,  saveAccountLabel, lockMetamask} = this.props
-    const { name, address } = selectedIdentity
+    const { selectedIdentity, txData } = this.props
+    const { msgParams: { data } } = txData
+    const { address } = selectedIdentity
 
     return (
       <div className="sign-request-page">
@@ -79,8 +89,8 @@ class SignRequestPage extends Component {
             <Identicon address={address} diameter={46} />
           </div>
 
-          {
-            this.renderDataToSign()
+          {            
+            this.renderDataToSign(JSON.parse(data))
           }
             
           <div className="sign-request-page__footer-bar">
