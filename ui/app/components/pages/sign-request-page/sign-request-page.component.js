@@ -9,24 +9,7 @@ class SignRequestPage extends Component {
   static contextTypes = {
     t: PropTypes.func,
   }
-
-  constructor (props) {
-    super(props)
-    this.state = {
-      hasCopied: false,
-      isMenuDisplaying: false,
-      copyToClipboardPressed: false,
-    }
-  }
-
-  toggleIsMenuDisplaying () {
-    // this.setState({ isMenuDisplaying: !this.state.isMenuDisplaying })
-
-    this.setState((prevState) => ({
-      isMenuDisplaying: !prevState.isMenuDisplaying
-    }));
-  }
-
+  
   initialCapSentence(str) {
     const spacedString = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
     return spacedString.charAt(0).toUpperCase() + spacedString.substr(1)

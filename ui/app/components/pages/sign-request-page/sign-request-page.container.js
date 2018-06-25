@@ -8,25 +8,15 @@ const actions = require('../../../actions')
 import SignRequestPage from './sign-request-page.component'
 
 const mapStateToProps = state => {
-  const { metamask: { isUnlocked, selectedAddress } } = state
+  const { metamask: { selectedAddress } } = state
   
   return {
-    selectedIdentity: getSelectedIdentity(state),
-    isUnlocked,
+    selectedIdentity: getSelectedIdentity(state)
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    revealSeedWords: () => dispatch(actions.showModal({name: 'REVEAL_SEED_CONFIRMATION'})),
-    saveAccountLabel: (address, label) => dispatch(actions.saveAccountLabel(address, label)),
-    lockMetamask: () => {
-      dispatch(actions.lockMetamask())
-      dispatch(actions.hideWarning())
-      dispatch(actions.hideSidebar())
-      dispatch(actions.toggleAccountMenu())
-    }
-  }
+  return {}
 }
 
 export default compose(
