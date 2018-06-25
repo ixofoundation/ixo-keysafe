@@ -15,6 +15,8 @@ const Item = styled.div`
 
 const Key = styled.div`
     color: #6AA0BF;
+    font-weight: bold;
+    font-size: 15px;
 `
 
 const Value = styled.div`

@@ -87,8 +87,16 @@
     margin-top: 11px;
   }
 
+  &__button:hover {
+    color: #00D2FF;
+  }
+
   &__button-primary {
     background-color: #00D2FF;
+  }
+
+  &__button-primary:hover {
+    color: #063F5A;
   }
 
   &__button p {

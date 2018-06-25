@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Identicon from '../../identicon'
-import EditableLabel from '../../editable-label'
-const Tooltip = require('../../tooltip-v2.js')
-const copyToClipboard = require('copy-to-clipboard')
-import { EXPORT_MNEMONIC_ROUTE } from '../../../../app/routes'
+import { DEFAULT_ROUTE } from '../../../../app/routes'
 import KeyValueItem from '../../key-value-item/key-value-item'
 
 
@@ -70,26 +67,16 @@ class SignRequestPage extends Component {
   }
 
   render () {
-    const { isMenuDisplaying } = this.state
-    const { selectedIdentity, txData } = this.props
-    const { msgParams: { data } } = txData
+    const { selectedIdentity, txData, signIxoMessage_Call2, cancelIxoMessage } = this.props
     const { address } = selectedIdentity
+    const { msgParams: { data } } = txData
 
     return (
       <div className="sign-request-page">
 
         <div className="sign-request-page__content-container">
           <div  className="sign-request-page__nav-bar">
-            <a
-              className="sign-request-page__back-nav-button"
-              onClick={e => {
-                e.preventDefault()
-                //this.props.history.goBack()
-              }}
-              href="#"
-            />
             <div className="sign-request-page__description">Signature request</div>
-            <div className="sign-request-page__right-nav-button"></div>
           </div>
 
           <div className="sign-request-page__unique-image-frieze">
@@ -103,18 +90,19 @@ class SignRequestPage extends Component {
           <div className="sign-request-page__footer-bar">
             <div
               className="sign-request-page__button"
-              onClick={() => {
-                this.props.history.goBack()
+              onClick={(event) => {
+                cancelIxoMessage(event).then(() => this.props.history.push(DEFAULT_ROUTE))
               }}
             >
-              <p>Cancel</p>
+              <p>{this.context.t('cancel')}</p>
             </div>
             <div
               className="sign-request-page__button sign-request-page__button-primary"
-              onClick={() => {
+              onClick={(event) => {
+                signIxoMessage_Call2(event).then(() => this.props.history.push(DEFAULT_ROUTE))
               }}
             >
-              <p>Sign</p>
+              <p>{this.context.t('sign')}</p>
             </div>            
           </div>
         </div>
