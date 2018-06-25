@@ -7,7 +7,7 @@ const { ENVIRONMENT_TYPE_POPUP } = require('../../../../../app/scripts/lib/enums
 const { getEnvironmentType } = require('../../../../../app/scripts/lib/util')
 const getCaretCoordinates = require('textarea-caret')
 const EventEmitter = require('events').EventEmitter
-const { DEFAULT_ROUTE, RESTORE_VAULT_ROUTE } = require('../../../routes')
+const { DEFAULT_ROUTE, INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE } = require('../../../routes')
 
 class UnlockPage extends Component {
   static contextTypes = {
@@ -103,12 +103,20 @@ class UnlockPage extends Component {
             type="password"
             value={this.state.password}
             onChange={event => this.handleInputChange(event)}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                this.handleSubmit(event)
+              }
+            }}  
             error={error}
             autoComplete="current-password"
+            autoFocus
             fullWidth
           />
         </div>
-        <div onClick={event => this.handleSubmit(event)} className={"unlock-page__login-button" + (this.isValid()?" unlock-page__login-button-enabled":"")}>
+        <div 
+          onClick={event => this.handleSubmit(event)} className={"unlock-page__login-button" + (this.isValid()?" unlock-page__login-button-enabled":"")}
+        >
           <p>Log In</p>
         </div>
       </div>
@@ -130,9 +138,10 @@ class UnlockPage extends Component {
           <div className="unlock-page__footer-bar">          
             <div 
               className="unlock-page__import-account-link-text"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault()
                 this.props.markPasswordForgotten()
-                this.props.history.push(RESTORE_VAULT_ROUTE)
+                this.props.history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE)
 
                 if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
                   global.platform.openExtensionInBrowser()

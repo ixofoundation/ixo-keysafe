@@ -1,7 +1,9 @@
 const Component = require('react').Component
 const h = require('react-hyperscript')
 const inherits = require('util').inherits
-const WalletView = require('./components/wallet-view')
+const AccountPage = require('./components/pages/account-page')
+
+
 const Settings = require('./components/pages/settings')
 const UnlockScreen = require('./components/pages/unlock-page')
 const log = require('loglevel')
@@ -21,7 +23,7 @@ MainContainer.prototype.render = function () {
   //  - error checking in separate func
   //  - router in separate func
   let contents = {
-    component: WalletView,
+    component: AccountPage,
     key: 'account-detail',
     style: {},
   }
