@@ -40,6 +40,14 @@ class SignRequestPage extends Component {
     return assembledItems
   }
 
+  parseInput (value) {
+    try { 
+      return JSON.parse(value)
+    } catch (e) { 
+      return {value}
+    }
+  }
+
   renderDataToSign (itemsObject) {
     let assembledItems = []
     this.assembleIndentedItems(itemsObject, assembledItems, 0)
@@ -64,7 +72,7 @@ class SignRequestPage extends Component {
           </div>
 
           {            
-            this.renderDataToSign(JSON.parse(data))
+            this.renderDataToSign(this.parseInput(data))
           }
             
           <div className="sign-request-page__footer-bar">
