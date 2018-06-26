@@ -15,21 +15,21 @@ class IxoKeysafeInpageProvider {
       this.registerWindowListener()
   }
 
-  requestSigning = (data, cb) => {
+  requestSigning (data, cb) {
     const ixoKsId = uniqid()
     this.callbacks[ixoKsId] = cb
     const method = 'ixo-sign'
     this.postMessageToContentscript(method, ixoKsId, data)
   }
 
-  getInfo = (cb) => {
+  getInfo (cb) {
     const ixoKsId = uniqid()
     this.callbacks[ixoKsId] = cb
     const method = 'ixo-info'
     this.postMessageToContentscript(method, ixoKsId)    
   }
 
-  getDidDoc = (cb) => {
+  getDidDoc (cb) {
     const ixoKsId = uniqid()
     this.callbacks[ixoKsId] = cb
     const method = 'ixo-did-doc'
@@ -63,7 +63,7 @@ class IxoKeysafeInpageProvider {
     }, "*");
   }
 
-  handleKeysafeReply = (reply) => {
+  handleKeysafeReply (reply) {
     console.debug(`IxoInpageProvider handling received reply:  ${JSON.stringify(reply)}`)
     const callback = this.callbacks[reply.ixoKsId]
     if (callback) {

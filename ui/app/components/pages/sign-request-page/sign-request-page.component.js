@@ -6,9 +6,6 @@ import KeyValueItem from '../../key-value-item/key-value-item'
 
 
 class SignRequestPage extends Component {
-  static contextTypes = {
-    t: PropTypes.func,
-  }
   
   initialCapSentence(str) {
     const spacedString = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2')
@@ -93,6 +90,10 @@ class SignRequestPage extends Component {
       </div>
     )
   }
+}
+
+SignRequestPage.contextTypes = {
+  t: PropTypes.func,
 }
 
 SignRequestPage.propTypes = {
