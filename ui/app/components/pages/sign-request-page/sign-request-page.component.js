@@ -11,7 +11,7 @@ class SignRequestPage extends Component {
   }
   
   initialCapSentence(str) {
-    const spacedString = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
+    const spacedString = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2')
     return spacedString.charAt(0).toUpperCase() + spacedString.substr(1)
   }
 
