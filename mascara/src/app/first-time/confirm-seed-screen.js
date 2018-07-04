@@ -161,8 +161,7 @@ export default compose(
       address: selectedAddress,
     }),
     dispatch => ({
-      confirmSeedWords: () => dispatch(confirmSeedWords()),
-      openAccountDetailsModal: () => dispatch(showModal({ name: 'ACCOUNT_DETAILS'})),
+      confirmSeedWords: () => dispatch(confirmSeedWords())
     })
   )
 )(ConfirmSeedScreen)
