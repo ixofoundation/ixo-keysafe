@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CryptoJS from 'crypto-js'
 import PropTypes from 'prop-types'
 import Identicon from '../../identicon'
 import EditableLabel from '../../editable-label'
@@ -6,9 +7,13 @@ import TextField from '../../text-field'
 const h = require('react-hyperscript')
 const Tooltip = require('../../tooltip-v2.js')
 const copyToClipboard = require('copy-to-clipboard')
-const qrCode = require('qrcode-npm').qrcode
+import { QRCode } from 'react-qr-svg'
+import styled from 'styled-components'
 
-
+const Container = styled.div`
+  background-color: white;
+  padding: 10px;
+`
 
 class ExportMnemonicPage extends Component {
   static contextTypes = {
@@ -21,7 +26,8 @@ class ExportMnemonicPage extends Component {
       hasCopied: false,
       copyToClipboardPressed: false,
       mnemonic: null,
-      password: ''
+      password: '',
+      encryptedMnemonic: null
     }
   }
 
@@ -40,6 +46,16 @@ class ExportMnemonicPage extends Component {
     return this.state.password.length >= 8
   }
 
+  getEncryptedMnemonic (mnemonic, name) {
+    if (!this.state.encryptedMnemonic) {
+      const payloadString = JSON.stringify({mnemonic, name})      
+      const payloadHex = new Buffer(payloadString).toString('hex')
+      const payloadEncrypted = CryptoJS.AES.encrypt(payloadHex, this.state.password)
+      this.state.encryptedMnemonic = payloadEncrypted.toString()
+    }
+    return this.state.encryptedMnemonic
+  }
+
   renderPasswordConfirmation (address) {
     const { error } = this.state
     return (
@@ -53,7 +69,7 @@ class ExportMnemonicPage extends Component {
             onChange={event => this.handleInputChange(event)}
             onKeyPress={event => {
               if (event.key === 'Enter') {
-                this.handleSubmit(event)
+                this.exportAccountAndRevealSeedWords(this.state.password, address)
               }
             }}  
             error={error}
@@ -76,21 +92,17 @@ class ExportMnemonicPage extends Component {
 
   renderQRCode (mnemonic, name) {
     if (mnemonic) {
-      const qrImage = qrCode(7, 'M')
-      const qrData = JSON.stringify({mnemonic, name})
-      qrImage.addData(qrData)
-      qrImage.make()
-
-      return h('export-mnemonic-page__qr-code', {
-        style: 
-        {
-          'border': '1px solid #08202F',
-          'background-color': 'white'
-        },
-        dangerouslySetInnerHTML: {
-          __html: qrImage.createTableTag(4),
-        },
-      })
+      return (
+        <Container>
+          <QRCode
+              bgColor="#FFFFFF"
+              fgColor="#000000"
+              level="Q"
+              style={{ width: 200 }}
+              value={this.getEncryptedMnemonic(mnemonic, name)}
+          />
+        </Container>
+      )
     } else {
       return null
     }
