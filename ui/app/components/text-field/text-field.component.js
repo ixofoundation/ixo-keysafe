@@ -25,6 +25,9 @@ const styles = {
   },
   cssError: {},
   cssInput: {
+    '&:before': {
+      backgroundColor: '#61abce',
+    },
     '&:after': {
       backgroundColor: '#61abce',
     },
