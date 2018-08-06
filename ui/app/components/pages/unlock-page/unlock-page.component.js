@@ -56,7 +56,9 @@ class UnlockPage extends Component {
     this.setState({ error: null })
 
     tryUnlockMetamask(password)
-      .then(() => history.push(DEFAULT_ROUTE))
+      .then(() => {
+        history.push(DEFAULT_ROUTE)
+      })
       .catch(({ message }) => this.setState({ error: message }))
   }
 
@@ -140,7 +142,6 @@ class UnlockPage extends Component {
               className="unlock-page__import-account-link-text"
               onClick={(e) => {
                 e.preventDefault()
-                this.props.markPasswordForgotten()
                 this.props.history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE)
 
                 if (getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP) {
