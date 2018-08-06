@@ -726,10 +726,6 @@ button.backup-phrase__confirm-seed-option:hover {
   flex-flow: column nowrap;
 }
 
-.first-time-flow__input {
-  width: 350px;
-}
-
 .first-time-flow__button {
   height: 43px;
   width: 274px;
