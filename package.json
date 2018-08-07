@@ -1,6 +1,6 @@
 {
-  "name": "metamask-crx-ii",
-  "version": "0.0.0",
+  "name": "ixo-keysafe",
+  "version": "1.0.3",
   "public": false,
   "private": true,
   "scripts": {
