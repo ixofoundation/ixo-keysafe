@@ -24,12 +24,12 @@
     "message": "Số lượng + Gas"
   },
   "appDescription": {
-    "message": "IXO Browser Extension",
+    "message": "ixo Browser Extension",
     "description": "Tính năng Ethereum cho trình duyệt"
   },
   "appName": {
     "description": "Tên phần mềm",
-    "message": "IXO Keysafe"
+    "message": "ixo Keysafe"
   },
   "attemptingConnect": {
     "message": "Đang kết nối đến blockchain."

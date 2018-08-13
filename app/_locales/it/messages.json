@@ -30,11 +30,11 @@
     "message": "Importo + Gas"
   },
   "appDescription": {
-    "message": "IXO Browser Extension",
+    "message": "ixo Browser Extension",
     "description": "La descrizione dell'applicazione"
   },
   "appName": {
-    "message": "IXO Keysafe",
+    "message": "ixo Keysafe",
     "description": "Il nome dell'applicazione"
   },
   "attemptingConnect": {

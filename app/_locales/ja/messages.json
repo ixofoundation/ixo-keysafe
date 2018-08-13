@@ -30,11 +30,11 @@
     "message": "金額 + ガス"
   },
   "appDescription": {
-    "message": "IXO Browser Extension",
+    "message": "ixo Browser Extension",
     "description": "The description of the application"
   },
   "appName": {
-    "message": "IXO Keysafe",
+    "message": "ixo Keysafe",
     "description": "The name of the application"
   },
   "attemptingConnect": {
