@@ -30,11 +30,11 @@
     "message": "Bedrag + gas"
   },
   "appDescription": {
-    "message": "IXO Browser-extensie",
+    "message": "Uw veilige identiteitskluis",
     "description": "De beschrijving van de applicatie"
   },
   "appName": {
-    "message": "IXO Keysafe",
+    "message": "ixo Keysafe",
     "description": "De naam van de applicatie"
   },
   "attemptingConnect": {

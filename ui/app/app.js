@@ -14,9 +14,6 @@ const InitializeScreen = require('../../mascara/src/app/first-time').default
 const SendTransactionScreen2 = require('./components/send/send-v2-container')
 const ConfirmTxScreen = require('./conf-tx')
 
-// slideout menu
-// const WalletView = require('./components/wallet-view')
-
 // other views
 const Home = require('./components/pages/home')
 const Authenticated = require('./components/pages/authenticated')
@@ -25,6 +22,7 @@ const Settings = require('./components/pages/settings')
 const UnlockPage = require('./components/pages/unlock-page')
 const RestoreVaultPage = require('./components/pages/keychains/restore-vault')
 const RevealSeedConfirmation = require('./components/pages/keychains/reveal-seed')
+const ExportMnemonicPage = require('./components/pages/export-mnemonic-page')
 const AddTokenPage = require('./components/pages/add-token')
 const CreateAccountPage = require('./components/pages/create-account')
 const NoticeScreen = require('./components/pages/notice')
@@ -45,6 +43,7 @@ const {
   UNLOCK_ROUTE,
   SETTINGS_ROUTE,
   REVEAL_SEED_ROUTE,
+  EXPORT_MNEMONIC_ROUTE,
   RESTORE_VAULT_ROUTE,
   ADD_TOKEN_ROUTE,
   NEW_ACCOUNT_ROUTE,
@@ -72,6 +71,7 @@ class App extends Component {
         h(Initialized, { path: UNLOCK_ROUTE, exact, component: UnlockPage }),
         h(Initialized, { path: RESTORE_VAULT_ROUTE, exact, component: RestoreVaultPage }),
         h(Authenticated, { path: REVEAL_SEED_ROUTE, exact, component: RevealSeedConfirmation }),
+        h(Authenticated, { path: EXPORT_MNEMONIC_ROUTE, exact, component: ExportMnemonicPage }),
         h(Authenticated, { path: SETTINGS_ROUTE, component: Settings }),
         h(Authenticated, { path: NOTICE_ROUTE, exact, component: NoticeScreen }),
         h(Authenticated, { path: CONFIRM_TRANSACTION_ROUTE, component: ConfirmTxScreen }),
@@ -109,7 +109,7 @@ class App extends Component {
     log.debug('Main ui render function')
 
     return (
-      h('.flex-column.full-height', {
+      h('', {
         className: classnames({ 'mouse-user-styles': isMouseUser }),
         style: {
           overflowX: 'hidden',
@@ -153,51 +153,6 @@ class App extends Component {
       // h(BuyOptions, {}, []),
     ])
   }
-
-  // renderSidebar () {
-  //   return h('div', [
-  //     h('style', `
-  //       .sidebar-enter {
-  //         transition: transform 300ms ease-in-out;
-  //         transform: translateX(-100%);
-  //       }
-  //       .sidebar-enter.sidebar-enter-active {
-  //         transition: transform 300ms ease-in-out;
-  //         transform: translateX(0%);
-  //       }
-  //       .sidebar-leave {
-  //         transition: transform 200ms ease-out;
-  //         transform: translateX(0%);
-  //       }
-  //       .sidebar-leave.sidebar-leave-active {
-  //         transition: transform 200ms ease-out;
-  //         transform: translateX(-100%);
-  //       }
-  //     `),
-
-  //     h(ReactCSSTransitionGroup, {
-  //       transitionName: 'sidebar',
-  //       transitionEnterTimeout: 300,
-  //       transitionLeaveTimeout: 200,
-  //     }, [
-  //       // A second instance of Walletview is used for non-mobile viewports
-  //       this.props.sidebarOpen ? h(WalletView, {
-  //         responsiveDisplayClassname: '.sidebar',
-  //         style: {},
-  //       }) : undefined,
-
-  //     ]),
-
-  //     // overlay
-  //     // TODO: add onClick for overlay to close sidebar
-  //     this.props.sidebarOpen ? h('div.sidebar-overlay', {
-  //       style: {},
-  //       onClick: () => {
-  //         this.props.hideSidebar()
-  //       },
-  //     }, []) : undefined,
-  //   ])
-  // }
 
   toggleMetamaskActive () {
     if (!this.props.isUnlocked) {

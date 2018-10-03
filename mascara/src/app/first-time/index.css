@@ -8,11 +8,9 @@
 
 .first-time-flow {
   width: 100vw;
-  background-color: #fff;
+  height: 596px;
   overflow: auto;
-  display: flex;
   justify-content: center;
-  flex: 1 0 auto;
   font-weight: 400;
   font-family: Roboto;
 }
@@ -54,11 +52,9 @@
 }
 
 .first-view-main-wrapper {
-  display: flex;
   width: 100%;
   height: 100%;
   justify-content: center;
-  padding: 0 10px;
 }
 
 .first-view-main,
@@ -106,6 +102,34 @@
   position: relative;
 }
 
+.nav-bar {
+  height: 43px;
+  width: 100%;
+  background-color: #063F5A;
+  display: table;
+}
+
+.footer-bar {
+  height: 107px;
+  width: 100%;
+  background-color: #063F5A;
+  display: table;
+  bottom: 0;
+  position: absolute;
+}
+
+.back-nav-button {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-top: 13px;
+  margin-left: 13px;
+  background-image: url(images/back.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;  
+}
+
 .import-account {
   max-width: initial;
 }
@@ -146,10 +170,9 @@
 
   .first-view-main {
     height: 100%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    margin-top: 12px;
   }
 
   .mascara-info {
@@ -210,8 +233,8 @@
   .backup-phrase__confirm-secret,
   .import-account__secret-phrase {
     width: initial !important;
-    height: initial !important;
-    min-height: 190px;
+    height: 140px;
+    resize: none;
   }
 
   .backup-phrase__confirm-seed-options {
@@ -223,20 +246,26 @@
   max-width: 46rem;
 }
 
-.create-password__title,
 .unique-image__title,
 .tou__title,
 .backup-phrase__title,
-.import-account__title,
-.buy-ether__title {
-  color: #1B344D;
-  font-size: 40px;
-  line-height: 51px;
-  margin-bottom: 24px;
+.buy-ether__title,
+.first-time__title {
+  height: 50px;
+  color: #FFFFFF;
+  font-size: 22px;
+  line-height: 29px;
+  letter-spacing: 0.15px;
+  font-family: "Roboto Condensed";
+}
+
+.create-password__title {
+  margin-top: 50px;
 }
 
 .import-account__title {
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .tou__title,
@@ -248,23 +277,40 @@
   margin-top: 16px;
 }
 
+a:hover {
+  color: #61abce;
+  cursor: pointer;
+}
+
 .create-password__import-link {
-  margin-bottom: 54px;
+  position: absolute;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  background-color: #063f5a;  
+  display: table;
+}
+
+.first-time-flow__link-text {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .unique-image__title,
 .tou__title,
 .backup-phrase__title,
 .buy-ether__title {
-  margin-top: 24px;
+  margin-top: 5px;
 }
 
 .unique-image__body-text,
 .backup-phrase__body-text,
 .buy-ether__body-text {
-  color: #1B344D;
-  font-size: 16px;
-  line-height: 23px;
+  color: #FFFFFF;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+  line-height: 20px;
   font-family: Roboto;
 }
 
@@ -277,7 +323,7 @@
 }
 
 .unique-image__body-text {
-  width: 335px;
+  width: 100%;
 }
 
 .unique-image__body-text +
@@ -286,7 +332,7 @@
 .backup-phrase__body-text,
 .backup-phrase__tips-text +
 .backup-phrase__tips-text {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .tou__body {
@@ -322,6 +368,7 @@
 
 .backup-phrase__body-text {
   width: 450px;
+  margin-top: 10px;
 }
 
 .backup-phrase__tips {
@@ -359,20 +406,21 @@
   display: flex;
   justify-content: center;
   width: 349px;
-  border: 1px solid #CDCDCD;
-  border-radius: 6px;
-  background-color: #FFFFFF;
   padding: 20px 0;
-  margin-top: 36px;
+  margin-top: 10px;
 }
 
 .backup-phrase__secret-words {
   width: 310px;
-  color: #5B5D67;
+  height: 115px;
+  color: #FFFFFF;
+  background-color: #113247;
+  border: solid 1px #61ABCE;
   font-family: Roboto;
-  font-size: 20px;
-  line-height: 26px;
-  text-align: center;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: left;
+  padding: 10px;
 }
 
 .backup-phrase__secret-words--hidden {
@@ -385,7 +433,7 @@
   bottom: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0,0,0,0.6);
+  background-color: #193E58;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -393,28 +441,29 @@
 }
 
 .backup-phrase__reveal-button {
-  border: 1px solid #979797;
-  border-radius: 4px;
   background: none;
   box-shadow: none;
   color: #FFFFFF;
   font-family: Roboto;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 15px;
+  font-size: 15px;
+  line-height: 20px;
   text-align: center;
-  text-transform: uppercase;
-  margin-top: 10px;
+  letter-spacing: 0.1px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .backup-phrase__back-button,
 .import-account__back-button {
-  margin-bottom: 18px;
-  color: #22232c;
-  font-size: 16px;
-  line-height: 21px;
-  position: absolute;
-  top: -25px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-top: 13px;
+  margin-left: 13px;
+  background-image: url(images/back.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .backup-phrase__back-button {
@@ -425,19 +474,17 @@ button.backup-phrase__reveal-button:hover {
   transform: scale(1);
 }
 
-.backup-phrase__confirm-secret,
+.backup-phrase__confirm-secret, 
 .import-account__secret-phrase {
-  height: 190px;
-  width: 495px;
-  border: 1px solid #CDCDCD;
-  border-radius: 6px;
-  background-color: #FFFFFF;
-  margin: 25px 0 36px;
-  padding: 17px;
+  border: 1px solid #FFFFFF;
+  border-radius: 2px;
+  background-color: transparent;
+  margin: 4px 0px;
 }
 
 .import-account__secret-phrase {
-  font-size: 16px;
+  font-size: 15px;
+  color: #FFFFFF;
   margin: initial;
 }
 
@@ -451,19 +498,21 @@ button.backup-phrase__reveal-button:hover {
   flex-flow: row wrap;
   width: 465px;
   position: relative;
-  left: -7px;
 }
 
 .backup-phrase__confirm-seed-option {
-  color: #5B5D67;
+  color: #FFFFFF;
   font-family: Roboto;
-  font-size: 16px;
-  line-height: 21px;
-  background-color: #E7E7E7;
-  padding: 8px 19px;
+  font-size: 14px;
+  line-height: 12px;
+  background-color: transparent;
+  border: solid 1px #00D2FF;
+  border-radius: 2px;
+  padding: 5px 12px;
   box-shadow: none;
-  min-width: 65px;
-  margin: 7px;
+  min-width: 46px;
+  margin: 4px;
+  height: 24px;
 }
 
 .backup-phrase__confirm-seed-option--selected {
@@ -514,7 +563,6 @@ button.backup-phrase__confirm-seed-option:hover {
 .import-account__input-wrapper {
   display: flex;
   flex-flow: column nowrap;
-  margin-top: 30px;
 }
 
 .import-account__input-error-message {
@@ -678,24 +726,58 @@ button.backup-phrase__confirm-seed-option:hover {
   flex-flow: column nowrap;
 }
 
-.first-time-flow__input {
-  width: 350px;
-}
-
 .first-time-flow__button {
-  height: 54px;
-  width: 198px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.14);
+  height: 43px;
+  width: 274px;
+  border: 1.5px solid #00D2FF;
+  border-radius: 2px;
+  font-family: "Roboto Condensed";
+  font-size: 15px;
   color: #FFFFFF;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: Roboto;
-  line-height: 26px;
+  letter-spacing: 0.3px;
+  line-height: 20px;
   text-align: center;
   text-transform: uppercase;
-  margin: 35px 0 14px;
   transition: 200ms ease-in-out;
-  background-color: rgba(247, 134, 28, 0.9);
+  background-color: transparent;
+  position: relative;
+  margin: 20px auto;
+}
+
+.first-time-flow__unique-image-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.first-time-flow__unique-image-button p {
+  margin: 0;
+}
+
+.first-time-flow__context-color {
+  color: #00D2FF;
+}
+
+.first-time-flow__warning-color {
+  color: #f89d28;
+}
+
+.first-time-flow__unique-image-frieze {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -40px;
+}
+
+.first-time-flow__seedscreen-image-frieze {
+  margin-left: auto;
+  margin-top: -50px;
+}
+
+.first-time-flow__step-indication-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button.first-time-flow__button[disabled] {
@@ -704,7 +786,6 @@ button.first-time-flow__button[disabled] {
 
 button.first-time-flow__button:hover {
   transform: scale(1);
-  background-color: rgba(247, 134, 28, 0.9);
 }
 
 .first-time-flow__button--tertiary {
@@ -725,9 +806,10 @@ button.first-time-flow__button--tertiary:hover {
 }
 
 .first-time-flow__link {
-  color: #1B344D;
-  font-size: 18px;
-  line-height: 23px;
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: center;
 }
 
 .breadcrumbs {
@@ -738,12 +820,11 @@ button.first-time-flow__button--tertiary:hover {
 .breadcrumb {
   height: 10px;
   width: 10px;
-  border: 1px solid #979797;
   border-radius: 50%;
 }
 
 .breadcrumb + .breadcrumb {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .loading-screen {

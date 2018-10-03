@@ -93,11 +93,14 @@ class SovrinKeyring extends EventEmitter {
     return Promise.resolve(this.wallets.map((w) => {
       const did = SOV_DID_PREFIX + w.did
       const pubKey = w.verifyKey
+      const credentials = []
+
 
       const didDoc = {
         didDoc: {
           did,
-          pubKey
+          pubKey,
+          credentials
         }
       };
       return didDoc

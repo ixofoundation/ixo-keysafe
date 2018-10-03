@@ -1,12 +1,12 @@
 import EventEmitter from 'events'
 import h from 'react-hyperscript'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import {closeWelcomeScreen} from './actions'
-import Mascot from './components/mascot'
+import Logo from './components/logo'
 import { INITIALIZE_CREATE_PASSWORD_ROUTE } from './routes'
 
 class WelcomeScreen extends Component {
@@ -35,28 +35,16 @@ class WelcomeScreen extends Component {
   }
 
   render () {
-    return h('div.welcome-screen', [
-
-        h('div.welcome-screen__info', [
-
-          h(Mascot, {
-            animationEventEmitter: this.animationEventEmitter,
-            width: '225',
-            height: '225',
-          }),
-
-          h('div.welcome-screen__info__header', 'Welcome to the'),
-          h('div.welcome-screen__info__header', 'ixo Keysafe'),
-
-          h('div.welcome-screen__info__copy', 'The ixo Keysafe securely stores your digital identity in a vault for signing ixo network requests.'),
-
-          h('button.welcome-screen__button', {
-            onClick: this.initiateAccountCreation,
-          }, 'Continue'),
-
-        ]),
-
-    ])
+    return (
+      <div className="welcome-screen">
+        <div className="welcome-screen__ixo-logo"/>
+        <div className="welcome-screen__ixo-graphic"/>
+        <div className="welcome-screen__info">
+          <div className="welcome-screen__info__copy">A secure credential manager for managing your ixo projects.</div>
+          <button className="welcome-screen__button" onClick={this.initiateAccountCreation}>Continue</button>
+        </div>
+      </div>
+    )
   }
 }
 

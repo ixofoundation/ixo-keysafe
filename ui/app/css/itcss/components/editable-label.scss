@@ -16,6 +16,7 @@
     font-size: 14px;
     text-align: center;
     border: 1px solid $alto;
+    background-color: transparent;
 
     &--error {
       border: 1px solid $monzo;
@@ -23,7 +24,6 @@
   }
 
   &__icon-wrapper {
-    position: absolute;
     margin-left: 10px;
     left: 100%;
   }

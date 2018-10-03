@@ -126,15 +126,15 @@ class CreatePasswordScreen extends Component {
               height="225"
             />
             <div className="info">
-              MetaMask is a secure identity vault for Ethereum.
+              The Key safe is a secure identity vault for ixo.
             </div>
             <div className="info">
               It allows you to hold ether & tokens, and interact with decentralized applications.
             </div>
           </div>}
           <div className="create-password">
-            <div className="create-password__title">
-              Create Password
+            <div className="first-time__title create-password__title">
+              Let's set up your account
             </div>
             <TextField
               id="create-username"
@@ -179,30 +179,18 @@ class CreatePasswordScreen extends Component {
             >
               Create
             </button>
-            <a
-              href=""
-              className="first-time-flow__link create-password__import-link"
-              onClick={e => {
-                e.preventDefault()
-                history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE)
-              }}
-            >
-              Import with seed phrase
-            </a>
-            { /* }
-            <a
-              href=""
-              className="first-time-flow__link create-password__import-link"
-              onClick={e => {
-                e.preventDefault()
-                history.push(INITIALIZE_IMPORT_ACCOUNT_ROUTE)
-              }}
-            >
-              Import an account
-            </a>
-            { */ }
-            <Breadcrumbs total={3} currentIndex={0} />
+
           </div>
+
+          <a
+            className="first-time-flow__link create-password__import-link"
+            onClick={e => {
+              e.preventDefault()
+              history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE)
+            }}
+          >
+            <div className="first-time-flow__link-text">Import your existing key</div>
+          </a>
         </div>
       </div>
     )
