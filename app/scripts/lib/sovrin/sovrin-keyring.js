@@ -150,7 +150,7 @@ class SovrinKeyring extends EventEmitter {
   }
 
   hexEncodedFirst64Bytes(text) {
-    return new Buffer(text).slice(0, 64).toString("hex").toUpperCase()
+    return new Buffer(text).slice(0, 64).toString("base64")
   }
 
   // eth_signTypedData, signs data along with the schema

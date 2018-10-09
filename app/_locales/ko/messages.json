@@ -24,11 +24,11 @@
     "message": "금액 + 가스"
   },
   "appDescription": {
-    "message": "IXO 브라우저 확장 프로그램",
+    "message": "보안 신원 금고",
     "description": "어플리케이션 내용"
   },
   "appName": {
-    "message": "메타마스크",
+    "message": "퀴 오 키 세이프",
     "description": "어플리케이션 이름"
   },
   "attemptingConnect": {
