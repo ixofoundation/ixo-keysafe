@@ -15,11 +15,11 @@ class IxoKeysafeInpageProvider {
       this.registerWindowListener()
   }
 
-  requestSigning (data, cb) {
+  requestSigning (data, cb, enc='hex') {
     const ixoKsId = uniqid()
     this.callbacks[ixoKsId] = cb
     const method = 'ixo-sign'
-    this.postMessageToContentscript(method, ixoKsId, data)
+    this.postMessageToContentscript(method, ixoKsId, data, enc)
   }
 
   getInfo (cb) {
@@ -56,10 +56,10 @@ class IxoKeysafeInpageProvider {
     })
   }
 
-  postMessageToContentscript (method, ixoKsId, data = null) {
+  postMessageToContentscript (method, ixoKsId, data=null, enc='hex') {
     window.postMessage({
       origin: 'ixo-dapp',
-      message: {method, ixoKsId, data}
+      message: {method, ixoKsId, data, enc}
     }, "*");
   }
 

@@ -124,11 +124,11 @@ class SovrinKeyring extends EventEmitter {
   }
 
   //Signs a document using signKey from generated SDID and returns the signature
-  signIxoMessage_Call6(accountDid, msg) {
+  signIxoMessage_Call6(accountDid, msgParams) {
     const sdid = this._getWalletForAccount(accountDid)
-    var signature = sovrin.signMessage(msg, sdid.secret.signKey, sdid.verifyKey)
+    var signature = sovrin.signMessage(msgParams.data, sdid.secret.signKey, sdid.verifyKey)
     if (this.verifyDocumentSignature(signature, sdid.verifyKey)) {
-        return this.generateSignatureObject(accountDid, sdid.encryptionPublicKey, signature)
+        return this.generateSignatureObject(accountDid, sdid.encryptionPublicKey, signature, msgParams.enc)
     } else {
         throw new Error('fulfillment validation failed')
     }
@@ -138,19 +138,18 @@ class SovrinKeyring extends EventEmitter {
     return !(sovrin.verifySignedMessage(signature, publicKey) === false)
   }
 
-  generateSignatureObject(did, publicKey, signature) {
-    const signatureObject = {
+  generateSignatureObject(did, publicKey, signature, enc) {
+    return {
       type: cc.Ed25519Sha256.TYPE_NAME,
       created: dateFormat(new Date(), "isoUtcDateTime"),
       creator: did,
       publicKey: publicKey,
-      signatureValue: this.hexEncodedFirst64Bytes(signature)
-    };
-    return signatureObject
+      signatureValue: this.encodeFirst64Bytes(signature, enc),
+    }
   }
 
-  hexEncodedFirst64Bytes(text) {
-    return new Buffer(text).slice(0, 64).toString("hex").toUpperCase()
+  encodeFirst64Bytes(text, enc) {
+    return new Buffer(text).slice(0, 64).toString(enc)
   }
 
   // eth_signTypedData, signs data along with the schema

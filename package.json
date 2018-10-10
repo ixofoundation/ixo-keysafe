@@ -1,6 +1,6 @@
 {
   "name": "ixo-keysafe",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "public": false,
   "private": true,
   "scripts": {
