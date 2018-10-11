@@ -100,9 +100,9 @@ class SovrinKeyring extends EventEmitter {
         didDoc: {
           did,
           pubKey,
-          credentials
-        }
-      };
+          credentials,
+        },
+      }
       return didDoc
     }))
   }
