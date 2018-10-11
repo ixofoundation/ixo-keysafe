@@ -170,7 +170,7 @@ class SovrinKeyring extends EventEmitter {
   _initFromMnemonic (mnemonic) {
     console.log("_initFromMnemonic: '" + mnemonic + "'")
     this.mnemonic = mnemonic
-    const seed = crypto.createHash('sha256').update(mnemonic).digest("hex");
+    const seed = crypto.createHash('sha256').update(mnemonic).digest('hex')
 
     // Convert SHA256 hash to Uint8Array
     const didSeed = new Uint8Array(32);
