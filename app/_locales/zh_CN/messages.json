@@ -30,12 +30,12 @@
     "message": "数量 + Gas"
   },
   "appDescription": {
-    "message": "IXO Browser Extension",
-    "description": "The description of the application"
+    "message": "您的安全身份库",
+    "description": "应用程序的描述"
   },
   "appName": {
-    "message": "IXO Keysafe",
-    "description": "The name of the application"
+    "message": "ixo Keysafe",
+    "description": "应用程序的名称"
   },
   "approved": {
     "message": "批准"

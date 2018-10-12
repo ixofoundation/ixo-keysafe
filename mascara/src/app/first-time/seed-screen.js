@@ -106,7 +106,7 @@ class BackupPhraseScreen extends Component {
           </div>
           <div className="backup-phrase__body-text">
             <span className="first-time-flow__warning-color">WARNING: </span>
-            <span>Never disclose your backup phrase. Anyone with this phrase can take your Ether forever.</span>
+            <span>Never disclose your backup phrase and store it somewhere secure.</span>
           </div>
           {this.renderSecretWordsContainer()}
         </div>
