@@ -32,6 +32,9 @@ class SignRequestPage extends Component {
       } else if (typeof value === 'object') {
         assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} indentLevel={level}/>)
         this.assembleIndentedItems(value, assembledItems, level+1)
+      } else if (typeof value === 'boolean') {
+        var displayString = value?'true':'false'
+        assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} displayValue={displayString} indentLevel={level}/>)
       } else {
         assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} displayValue={value} indentLevel={level}/>)
       }      
