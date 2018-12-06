@@ -37,7 +37,7 @@ class SignRequestPage extends Component {
         assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} displayValue={displayString} indentLevel={level}/>)
       } else {
         assembledItems.push(<KeyValueItem key={this.initialCapSentence(key)+''+i+level} displayKey={this.initialCapSentence(key)} displayValue={value} indentLevel={level}/>)
-      }      
+      }
     }
 
     return assembledItems
