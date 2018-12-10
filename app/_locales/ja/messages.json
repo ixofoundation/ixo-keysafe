@@ -223,6 +223,9 @@
   "exchangeRate": {
     "message": "交換レート"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "秘密鍵のエクスポート"
   },

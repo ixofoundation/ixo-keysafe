@@ -277,6 +277,9 @@
   "exchangeRate": {
     "message": "Tipo de cambio"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "Exportar llave privada"
   },

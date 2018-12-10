@@ -202,6 +202,9 @@
   "exchangeRate": {
     "message": "환율"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "비밀키 내보내기"
   },

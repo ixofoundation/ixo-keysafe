@@ -250,6 +250,9 @@
   "exchangeRate": {
     "message": "विनिमय दरै"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "निजी कुंजी निर्यात करें"
   },

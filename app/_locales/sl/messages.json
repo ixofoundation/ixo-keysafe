@@ -250,6 +250,9 @@
   "exchangeRate": {
     "message": "Menjalni tečaj"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "Izvozi zasebni ključ"
   },

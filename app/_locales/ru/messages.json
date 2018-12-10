@@ -265,6 +265,9 @@
   "exchangeRate": {
     "message": "Обменный курс"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "Экспортировать закрытый ключ"
   },

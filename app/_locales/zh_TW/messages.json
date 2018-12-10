@@ -271,6 +271,9 @@
   "exchangeRate": {
     "message": "匯率"
   },
+  "viewPrivateKeyDetails": {
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "導出私鑰"
   },

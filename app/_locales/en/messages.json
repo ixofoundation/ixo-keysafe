@@ -280,6 +280,9 @@
   "exchangeRate": {
     "message": "Exchange Rate"
   },
+  "viewPrivateKeyDetails": {
+    "message": "View Details"
+  },
   "exportPrivateKey": {
     "message": "Export Private Key"
   },

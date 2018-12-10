@@ -250,6 +250,9 @@
   "exchangeRate": {
     "message": "อัตราแลกเปลี่ยน"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "ส่งออกคีย์ส่วนตัว"
   },

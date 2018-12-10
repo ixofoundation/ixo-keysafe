@@ -250,6 +250,9 @@
   "exchangeRate": {
     "message": "Tasso di cambio"
   },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "Esporta Chiave Privata"
   },
