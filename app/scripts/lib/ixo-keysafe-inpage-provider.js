@@ -36,6 +36,12 @@ class IxoKeysafeInpageProvider {
     this.postMessageToContentscript(method, ixoKsId)    
   }
 
+  popupKeysafe (cb) {
+    const ixoKsId = uniqid()
+    this.callbacks[ixoKsId] = cb
+    const method = 'ixo-show-keysafe'
+    this.postMessageToContentscript(method, ixoKsId)    
+  }
   // PRIVATE METHODS
   //
   // THESE METHODS ARE ONLY USED INTERNALLY TO THE KEYRING-CONTROLLER

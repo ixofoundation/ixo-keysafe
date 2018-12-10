@@ -148,7 +148,7 @@ class UnlockPage extends Component {
                   global.platform.openExtensionInBrowser()
                 }
               }}>
-              { this.context.t('restoreFromSeed') }              
+              { this.context.t('restoreFromSeed') }
             </div>
           </div>
         </div>

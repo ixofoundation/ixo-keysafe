@@ -277,6 +277,12 @@
   "exchangeRate": {
     "message": "Tipo de cambio"
   },
+  "scanOrExportPrivateKeyDetails": {     
+    "message": "Scan your QR code or export your private key"   
+  },   
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "Exportar llave privada"
   },

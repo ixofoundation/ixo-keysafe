@@ -107,13 +107,16 @@ class AccountPage extends Component {
           </Tooltip>
 
           <div className="account-page__footer-bar">
+            <div className="account-page__export-pk-link-text">
+              { this.context.t('scanOrExportPrivateKeyDetails') }
+            </div>
             <div
               className="account-page__export-pk-button"
               onClick={() => {
                 this.props.history.push(EXPORT_MNEMONIC_ROUTE)
               }}
             >
-              <p>Export Private Key</p>
+              { this.context.t('viewPrivateKeyDetails') }
             </div>
           </div>
         </div>

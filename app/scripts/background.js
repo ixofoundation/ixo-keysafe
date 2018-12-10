@@ -464,8 +464,7 @@ extension.runtime.onConnect.addListener(function(port) {
           })
           break
         default:
-          const error = 'Unsupported method'
-          port.postMessage({method, ixoKsId, error})
+          triggerUi()
           break
       }
     });
