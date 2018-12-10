@@ -265,6 +265,9 @@
   "exchangeRate": {
     "message": "Обменный курс"
   },
+  "scanOrExportPrivateKeyDetails": {
+    "message": "Scan your QR code or export your private key"
+  },
   "viewPrivateKeyDetails": {     
     "message": "View Details"   
   },   

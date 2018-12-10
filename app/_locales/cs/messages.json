@@ -271,6 +271,9 @@
   "exchangeRate": {
     "message": "Směnný kurz"
   },
+  "scanOrExportPrivateKeyDetails": {     
+    "message": "Scan your QR code or export your private key"   
+  },   
   "viewPrivateKeyDetails": {
     "message": "View Details"
   },
