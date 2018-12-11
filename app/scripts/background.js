@@ -467,6 +467,6 @@ extension.runtime.onConnect.addListener(function(port) {
           triggerUi()
           break
       }
-    });
+    })
   }
-});
+})
