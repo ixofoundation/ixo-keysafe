@@ -464,7 +464,7 @@ extension.runtime.onConnect.addListener(function(port) {
           })
           break
         default:
-          triggerUi()
+          notificationManager.showPopup()
           break
       }
     })
