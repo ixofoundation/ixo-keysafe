@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Identicon from '../../identicon'
 import EditableLabel from '../../editable-label'
+
+import extension from 'extensionizer'
 const Tooltip = require('../../tooltip-v2.js')
 const copyToClipboard = require('copy-to-clipboard')
 import { EXPORT_MNEMONIC_ROUTE } from '../../../../app/routes'
@@ -14,10 +16,13 @@ class AccountPage extends Component {
 
   constructor (props) {
     super(props)
+    const manifestData = extension.runtime.getManifest()
+
     this.state = {
       hasCopied: false,
       isMenuDisplaying: false,
       copyToClipboardPressed: false,
+      version: manifestData.version,
     }
   }
 
@@ -43,6 +48,7 @@ class AccountPage extends Component {
         />
         <div className={"account-page__menu-modal" + (isMenuDisplaying?" account-page__menu-modal-visible":"")}>
           <div className="account-page__menu-modal-item">
+            <div className="account-page__ixo-menu-version">v{this.state.version}</div>
             <div className="account-page__ixo-menu-close account-page__nav-image-item"
                 onClick={() => {
                   this.toggleIsMenuDisplaying()
@@ -101,13 +107,16 @@ class AccountPage extends Component {
           </Tooltip>
 
           <div className="account-page__footer-bar">
+            <div className="account-page__export-pk-link-text">
+              { this.context.t('scanOrExportPrivateKeyDetails') }
+            </div>
             <div
               className="account-page__export-pk-button"
               onClick={() => {
                 this.props.history.push(EXPORT_MNEMONIC_ROUTE)
               }}
             >
-              <p>Export Private Key</p>
+              { this.context.t('viewPrivateKeyDetails') }
             </div>
           </div>
         </div>

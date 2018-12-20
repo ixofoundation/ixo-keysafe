@@ -1,6 +1,6 @@
 {
   "name": "ixo-keysafe",
-  "version": "1.0.4",
+  "version": "1.0.9",
   "public": false,
   "private": true,
   "scripts": {
@@ -120,7 +120,7 @@
     "file-loader": "^1.1.11",
     "five-bells-condition": "^5.0.1",
     "fuse.js": "^3.2.0",
-    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp": "github:gulpjs/gulp#v4.0.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-debug": "^3.2.0",
     "gulp-eslint": "^4.0.0",

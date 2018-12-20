@@ -271,6 +271,12 @@
     "exchangeRate": {
       "message": "Döviz kuru"
     },
+    "scanOrExportPrivateKeyDetails": {
+      "message": "Scan your QR code or export your private key"
+    },
+    "viewPrivateKeyDetails": {     
+      "message": "View Details"
+    },   
     "exportPrivateKey": {
       "message": "Özel anahtarı ver"
     },

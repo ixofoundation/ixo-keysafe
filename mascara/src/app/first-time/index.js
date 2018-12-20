@@ -44,28 +44,9 @@ class FirstTimeFlow extends Component {
     noActiveNotices: false,
   };
 
-  renderAppBar () {
-    const { welcomeScreenSeen } = this.props
-
-    return (
-      <div className="alpha-warning__container">
-        <h2 className={classnames({
-            'alpha-warning': welcomeScreenSeen,
-            'alpha-warning-welcome-screen': !welcomeScreenSeen,
-          })}
-        >
-          Please be aware that this version is still under development
-        </h2>
-      </div>
-    )
-  }
-
   render () {
-    const { isPopup } = this.props
-
     return (
       <div>
-        { !isPopup && this.renderAppBar() }
         <div className="first-time-flow">
           <Switch>
             <Route exact path={INITIALIZE_IMPORT_ACCOUNT_ROUTE} component={ImportAccountScreen} />

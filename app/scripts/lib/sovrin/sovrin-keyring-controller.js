@@ -304,7 +304,7 @@ class SovrinKeyringController extends EventEmitter {
     const address = stripHexPrefixFromAddress(msgParams.from)
     return this.getKeyringForAccount(address)
     .then((keyring) => {
-      return keyring.signIxoMessage_Call6(address, msgParams.data)
+      return keyring.signIxoMessage_Call6(address, msgParams)
     })
   }
 

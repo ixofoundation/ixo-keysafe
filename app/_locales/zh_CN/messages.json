@@ -277,6 +277,12 @@
   "exchangeRate": {
     "message": "兑换比率"
   },
+  "scanOrExportPrivateKeyDetails": {
+    "message": "Scan your QR code or export your private key"
+  },   
+  "viewPrivateKeyDetails": {
+    "message": "View Details"
+  },
   "exportPrivateKey": {
     "message": "导出私钥"
   },

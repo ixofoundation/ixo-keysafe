@@ -271,6 +271,12 @@
   "exchangeRate": {
     "message": "மாற்று விகிதம்"
   },
+  "scanOrExportPrivateKeyDetails": {
+    "message": "Scan your QR code or export your private key"
+  },
+  "viewPrivateKeyDetails": {     
+    "message": "View Details"   
+  },   
   "exportPrivateKey": {
     "message": "தனியார் விசை ஐ ஏற்றுமதி செய்க"
   },
