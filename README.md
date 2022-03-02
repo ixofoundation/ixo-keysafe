@@ -3,7 +3,10 @@
 ## This is a fork of the Metamask Browser Extension
 (https://github.com/MetaMask/metamask-extension)
 
-The purpose of this project is for it to enable actors on the IXO blockchain to maintain their credentials and sign requests being ledgered onto the IXO blockchain
+The purpose of this project is for it to enable actors on the IXO blockchain to maintain their credentials and sign requests being ledgered onto the IXO blockchain.
+
+The Extension is available in a compiled form for Chrome based browsers [Here](https://chrome.google.com/webstore/detail/ixo-keysafe/eekohliaafcifhgjohefgibinbjfaabe?hl=en). 
+
 
 ## Table of Contents
 
