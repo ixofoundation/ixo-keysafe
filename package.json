@@ -112,7 +112,7 @@
     "ethjs-contract": "^0.2.0",
     "ethjs-ens": "^2.0.0",
     "ethjs-query": "^0.3.4",
-    "express": "^4.15.5",
+    "express": "^4.17.3",
     "extension-link-enabler": "^1.0.0",
     "extensionizer": "^1.0.0",
     "fast-json-patch": "^2.0.4",
